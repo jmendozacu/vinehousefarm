@@ -1,0 +1,12 @@
+0.1 - Beta release
+0.2 - tidied .xml files
+1.0 - Added support for selecting custom rates when no shipping can be found
+2.0 - extn moved to community folder
+2.1 - AS1-Added compatibility for AdminShipping and Freight Extensions
+2.2  - AS-3 Admin Based shipping now working with Custom Calendar
+2.2.2  - Rebuilt common
+2.2.2  - Rebuilt common
+2.2.2  - Rebuilt common
+2.2.3  - Rebuilt common
+2.2.5  - FREIGHT-168 - Fixed issues with Admin Shipping not working with Freight extension
+2.2.6  - Latest Common and Logger

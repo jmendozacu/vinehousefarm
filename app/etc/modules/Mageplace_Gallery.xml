@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * MagePlace Gallery Extension
+ *
+ * @category    Mageplace_Gallery
+ * @package     Mageplace_Gallery
+ * @copyright   Copyright (c) 2014 Mageplace. (http://www.mageplace.com)
+ * @license     http://www.mageplace.com/disclaimer.html
+ */
+-->
+<config>
+    <modules>
+		<Mageplace_Gallery>
+			<active>true</active>
+			<codePool>community</codePool>
+		</Mageplace_Gallery>
+    </modules>
+</config> 

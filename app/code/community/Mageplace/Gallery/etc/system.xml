@@ -1,0 +1,1427 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * MagePlace Gallery Extension
+ *
+ * @category    Mageplace_Gallery
+ * @package     Mageplace_Gallery
+ * @copyright   Copyright (c) 2014 Mageplace. (http://www.mageplace.com)
+ * @license     http://www.mageplace.com/disclaimer.html
+ */
+-->
+<config>
+	<tabs>
+		<mageplace>
+			<label>Mageplace</label>
+			<sort_order>300</sort_order>
+		</mageplace>
+	</tabs>
+
+	<sections>
+		<mpgallery translate="label" module="mpgallery">
+			<label>Gallery</label>
+			<tab>mageplace</tab>
+			<sort_order>10</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<groups>
+				<general translate="label">
+					<label>General Options</label>
+					<sort_order>10</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<!--<root_album translate="label">
+							<label>Root Album</label>
+							<frontend_type>select</frontend_type>
+							<source_model>mpgallery/source_albums</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</root_album>-->
+						<image_path translate="label">
+							<label>Image Path</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</image_path>
+						<!--<jquery_enable translate="label">
+							<label>Enable JQuery Effects</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</jquery_enable>-->
+						<jquery_add translate="label">
+							<label>Enable Extension jQuery</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<jquery_enable>1</jquery_enable>
+							</depends>
+						</jquery_add>
+						<lightbox_photos translate="label">
+							<label>Overlay Window Photos</label>
+							<frontend_type>select</frontend_type>
+							<source_model>mpgallery/source_lightboxphotos</source_model>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</lightbox_photos>
+						<slideshow_autostart translate="label">
+							<label>Slideshow Autostart</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>60</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</slideshow_autostart>
+						<slideshow_delay translate="label">
+							<label>Slideshow delay in milliseconds</label>
+							<frontend_type>text</frontend_type>
+							<validate>validate-number</validate>
+							<sort_order>70</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</slideshow_delay>
+						<review_enable translate="label">
+							<label>Enable Reviews and Rates</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>80</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</review_enable>
+					</fields>
+				</general>
+
+				<web translate="label">
+					<label>Web</label>
+					<sort_order>20</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<gallery_url_prefix translate="label">
+							<label>Gallery URL</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</gallery_url_prefix>
+						<gallery_url_suffix translate="label">
+							<label>Gallery URL Suffix</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</gallery_url_suffix>
+						<album_url_suffix translate="label">
+							<label>Album URL Suffix</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</album_url_suffix>
+						<photo_url_suffix translate="label">
+							<label>Photo URL Suffix</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_url_suffix>
+						<album_url_include_parent translate="label">
+							<label>Include Parent Albums Keys In Album URL</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</album_url_include_parent>
+						<photo_url_include_parent translate="label">
+							<label>Include Parent Albums Keys In Photo URL</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_url_include_parent>
+						<title_separator translate="label">
+							<label>Page Title Separator</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>60</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</title_separator>
+						<show_breadcrumbs translate="label">
+							<label>Show Breadcrumbs for Gallery Pages</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>70</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</show_breadcrumbs>
+						<show_breadcrumb_home_page>
+							<label>Show Site Home Page In Breadcrumbs</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>80</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<show_breadcrumbs>1</show_breadcrumbs>
+							</depends>
+						</show_breadcrumb_home_page>
+						<show_breadcrumb_gallery_title>
+							<label>Show Gallery Home Page In Breadcrumbs</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>90</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<show_breadcrumbs>1</show_breadcrumbs>
+							</depends>
+						</show_breadcrumb_gallery_title>
+					</fields>
+				</web>
+
+				<photo_upload>
+					<label>Photo Upload</label>
+					<sort_order>30</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<enabled translate="label">
+							<label>Enable photo upload</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</enabled>
+						<enable_product translate="label">
+							<label>Enable photo upload for products</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<enabled>1</enabled>
+							</depends>
+						</enable_product>
+						<only_registered translate="label">
+							<label>Only registered customers can upload</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<enabled>1</enabled>
+							</depends>
+						</only_registered>
+						<photos_view translate="label">
+							<label>Enable "My Photos" Customer Page</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<enabled>1</enabled>
+							</depends>
+						</photos_view>
+						<photos_edit translate="label">
+							<label>Registered customers can edit uploaded photos</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<enabled>1</enabled>
+								<photos_view>1</photos_view>
+							</depends>
+						</photos_edit>
+						<photos_delete translate="label">
+							<label>Registered customers can delete uploaded photos</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>60</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<enabled>1</enabled>
+								<photos_view>1</photos_view>
+							</depends>
+						</photos_delete>
+						<attach_current_album translate="label">
+							<label>Attach photo only to current album</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>70</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<enabled>1</enabled>
+							</depends>
+						</attach_current_album>
+					</fields>
+				</photo_upload>
+
+				<album_view_display translate="label">
+					<label>Album View Options</label>
+					<sort_order>40</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<album_view_display_image translate="label">
+							<label>Display Image</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</album_view_display_image>
+						<album_view_display_name translate="label">
+							<label>Display Name</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</album_view_display_name>
+						<album_view_display_update_date translate="label">
+							<label>Display Update Date</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</album_view_display_update_date>
+						<album_view_display_short_descr translate="label">
+							<label>Display Short Description</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</album_view_display_short_descr>
+						<album_view_display_descr translate="label">
+							<label>Display Description</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</album_view_display_descr>
+					</fields>
+				</album_view_display>
+
+				<album_display translate="label">
+					<label>Album Listing Options</label>
+					<sort_order>50</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<album_display_toolbar translate="label">
+							<label>Display Toolbar</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</album_display_toolbar>
+						<album_display_toolbar_top translate="label">
+							<label>Display Top Toolbar</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<album_display_toolbar>1</album_display_toolbar>
+							</depends>
+						</album_display_toolbar_top>
+						<album_display_toolbar_bottom translate="label">
+							<label>Display Bottom Toolbar</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<album_display_toolbar>1</album_display_toolbar>
+							</depends>
+						</album_display_toolbar_bottom>
+						<album_display_type translate="label">
+							<label>Display Type</label>
+							<frontend_type>select</frontend_type>
+							<source_model>mpgallery/source_displaytype</source_model>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</album_display_type>
+						<album_available_sort_by translate="label">
+							<label>Available Sort By</label>
+							<frontend_type>multiselect</frontend_type>
+							<source_model>mpgallery/source_sortavailableall</source_model>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</album_available_sort_by>
+						<album_default_sort_by translate="label">
+							<label>Default Sort By</label>
+							<frontend_type>select</frontend_type>
+							<source_model>mpgallery/source_sortavailable</source_model>
+							<sort_order>60</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</album_default_sort_by>
+						<album_default_sort_dir translate="label">
+							<label>Default Sort Direction</label>
+							<frontend_type>select</frontend_type>
+							<source_model>mpgallery/source_sortdir</source_model>
+							<sort_order>70</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</album_default_sort_dir>
+						<album_grid_column_count translate="label">
+							<label>Column Count On Grid</label>
+							<frontend_type>text</frontend_type>
+							<validate>validate-number</validate>
+							<sort_order>80</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</album_grid_column_count>
+						<album_simple_column_count translate="label">
+							<label>Column Count On Simple</label>
+							<frontend_type>text</frontend_type>
+							<validate>validate-number</validate>
+							<sort_order>90</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</album_simple_column_count>
+
+						<!-- Display Name -->
+						<album_display_name translate="label">
+							<label>Display Name</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>110</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</album_display_name>
+						<album_grid_display_name translate="label">
+							<label>Display Name On Grid</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>120</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<album_display_name>1</album_display_name>
+							</depends>
+						</album_grid_display_name>
+						<album_list_display_name translate="label">
+							<label>Display Name On List</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>130</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<album_display_name>1</album_display_name>
+							</depends>
+						</album_list_display_name>
+						<album_simple_display_name translate="label">
+							<label>Display Name On Simple</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>140</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<album_display_name>1</album_display_name>
+							</depends>
+						</album_simple_display_name>
+
+						<album_display_update_date translate="label">
+							<label>Display Update Date</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>200</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</album_display_update_date>
+						<album_grid_display_update_date translate="label">
+							<label>Display Update Date On Grid</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>210</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<album_display_update_date>1</album_display_update_date>
+							</depends>
+						</album_grid_display_update_date>
+						<album_list_display_update_date translate="label">
+							<label>Display Update Date On List</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>220</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<album_display_update_date>1</album_display_update_date>
+							</depends>
+						</album_list_display_update_date>
+						<album_simple_display_update_date translate="label">
+							<label>Display Update Date On Simple</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>230</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<album_display_update_date>1</album_display_update_date>
+							</depends>
+						</album_simple_display_update_date>
+
+						<album_display_short_descr translate="label">
+							<label>Display Short Description</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>300</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</album_display_short_descr>
+						<album_grid_display_short_descr translate="label">
+							<label>Display Short Description On Grid</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>310</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<album_display_short_descr>1</album_display_short_descr>
+							</depends>
+						</album_grid_display_short_descr>
+						<album_list_display_short_descr translate="label">
+							<label>Display Short Description On List</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>320</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<album_display_short_descr>1</album_display_short_descr>
+							</depends>
+						</album_list_display_short_descr>
+						<album_simple_display_short_descr translate="label">
+							<label>Display Short Description On Simple</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>330</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<album_display_short_descr>1</album_display_short_descr>
+							</depends>
+						</album_simple_display_short_descr>
+
+						<album_display_show_link translate="label">
+							<label>Display Show Link</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>400</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</album_display_show_link>
+						<album_grid_display_show_link translate="label">
+							<label>Display Show Link On Grid</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>410</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<album_display_show_link>1</album_display_show_link>
+							</depends>
+						</album_grid_display_show_link>
+						<album_list_display_show_link translate="label">
+							<label>Display Show Link On List</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>420</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<album_display_show_link>1</album_display_show_link>
+							</depends>
+						</album_list_display_show_link>
+						<album_simple_display_show_link translate="label">
+							<label>Display Show Link On Simple</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>430</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<album_display_show_link>1</album_display_show_link>
+							</depends>
+						</album_simple_display_show_link>
+					</fields>
+				</album_display>
+
+				<photo_view_display translate="label">
+					<label>Photo View Options</label>
+					<sort_order>60</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<photo_view_display_name translate="label">
+							<label>Display Name</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_view_display_name>
+						<photo_view_display_review translate="label">
+							<label>Display Review and Submit Review Form</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_view_display_review>
+						<photo_view_display_update_date translate="label">
+							<label>Display Update Date</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_view_display_update_date>
+						<photo_view_display_short_descr translate="label">
+							<label>Display Short Description</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_view_display_short_descr>
+						<photo_view_display_descr translate="label">
+							<label>Display Description</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_view_display_descr>
+						<photo_view_display_back_url translate="label">
+							<label>Display Back To Album Link</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>60</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_view_display_back_url>
+
+						<photo_view_display_mode translate="label">
+							<label>Display Mode</label>
+							<frontend_type>select</frontend_type>
+							<source_model>mpgallery/source_photodisplaymode</source_model>
+							<sort_order>100</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_view_display_mode>
+						<!--<photo_view_slide_photos translate="label">
+							<label>Slide Photos in Overlay Window</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>110</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_view_slide_photos>-->
+
+						<photo_view_list_sort_by translate="label">
+							<label>List Sort By</label>
+							<frontend_type>select</frontend_type>
+							<source_model>mpgallery/source_sortavailable</source_model>
+							<sort_order>210</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_view_list_sort_by>
+						<photo_view_list_sort_dir translate="label">
+							<label>List Sort Direction</label>
+							<frontend_type>select</frontend_type>
+							<source_model>mpgallery/source_sortdir</source_model>
+							<sort_order>220</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_view_list_sort_dir>
+						<photo_view_list_per_page translate="label">
+							<label>Photo Per Page On List</label>
+							<frontend_type>text</frontend_type>
+							<validate>validate-number</validate>
+							<sort_order>230</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_view_list_per_page>
+
+						<photo_carousel_display_name translate="label">
+							<label>Display Name On List</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>310</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_carousel_display_name>
+						<photo_carousel_display_rate translate="label">
+							<label>Display Rate On List</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>320</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_carousel_display_rate>
+						<photo_carousel_display_update_date translate="label">
+							<label>Display Update Date On List</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>330</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_carousel_display_update_date>
+						<photo_carousel_display_short_descr translate="label">
+							<label>Display Short Description On List</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>340</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_carousel_display_short_descr>
+						<photo_carousel_display_show_link translate="label">
+							<label>Display Show Link On List</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>350</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_carousel_display_show_link>
+					</fields>
+				</photo_view_display>
+
+				<photo_display translate="label">
+					<label>Photo Listing Options</label>
+					<sort_order>70</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<photo_display_toolbar translate="label">
+							<label>Display Toolbar</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_display_toolbar>
+						<photo_display_toolbar_top translate="label">
+							<label>Display Top Toolbar</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<photo_display_toolbar>1</photo_display_toolbar>
+							</depends>
+						</photo_display_toolbar_top>
+						<photo_display_toolbar_bottom translate="label">
+							<label>Display Bottom Toolbar</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<photo_display_toolbar>1</photo_display_toolbar>
+							</depends>
+						</photo_display_toolbar_bottom>
+						<photo_display_type translate="label">
+							<label>Display Type</label>
+							<frontend_type>select</frontend_type>
+							<source_model>mpgallery/source_displaytype</source_model>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_display_type>
+						<photo_available_sort_by translate="label">
+							<label>Available Sort By</label>
+							<frontend_type>multiselect</frontend_type>
+							<source_model>mpgallery/source_sortavailableall</source_model>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_available_sort_by>
+						<photo_default_sort_by translate="label">
+							<label>Default Sort By</label>
+							<frontend_type>select</frontend_type>
+							<source_model>mpgallery/source_sortavailable</source_model>
+							<sort_order>60</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_default_sort_by>
+						<photo_default_sort_dir translate="label">
+							<label>Default Sort Direction</label>
+							<frontend_type>select</frontend_type>
+							<source_model>mpgallery/source_sortdir</source_model>
+							<sort_order>70</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_default_sort_dir>
+
+						<photo_grid_column_count translate="label">
+							<label>Column Count On Grid</label>
+							<frontend_type>text</frontend_type>
+							<validate>validate-number</validate>
+							<sort_order>100</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_grid_column_count>
+						<photo_grid_per_page translate="label">
+							<label>Per Page On Grid</label>
+							<frontend_type>text</frontend_type>
+							<validate>validate-number</validate>
+							<sort_order>110</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_grid_per_page>
+						<photo_grid_pager_limit translate="label comment">
+							<label>Allowed Per Page On Grid</label>
+							<comment>For example: 9,15,30,All</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>120</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_grid_pager_limit>
+
+						<photo_list_per_page translate="label">
+							<label>Per Page On List</label>
+							<frontend_type>text</frontend_type>
+							<validate>validate-number</validate>
+							<sort_order>200</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_list_per_page>
+						<photo_list_pager_limit translate="label comment">
+							<label>Allowed Per Page On List</label>
+							<comment>For example: 9,15,30,All</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>210</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_list_pager_limit>
+
+						<photo_simple_column_count translate="label">
+							<label>Column Count On Simple</label>
+							<frontend_type>text</frontend_type>
+							<validate>validate-number</validate>
+							<sort_order>300</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_simple_column_count>
+						<photo_simple_per_page translate="label">
+							<label>Per Page On Simple</label>
+							<validate>validate-number</validate>
+							<frontend_type>text</frontend_type>
+							<sort_order>310</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_simple_per_page>
+						<photo_simple_pager_limit translate="label comment">
+							<label>Allowed Per Page On Simple</label>
+							<comment>For example: 9,15,30,All</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>320</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_simple_pager_limit>
+
+						<!-- Display Name -->
+						<photo_display_name translate="label">
+							<label>Display Name</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>500</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_display_name>
+						<photo_grid_display_name translate="label">
+							<label>Display Name On Grid</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>510</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<photo_display_name>1</photo_display_name>
+							</depends>
+						</photo_grid_display_name>
+						<photo_list_display_name translate="label">
+							<label>Display Name On List</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>520</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<photo_display_name>1</photo_display_name>
+							</depends>
+						</photo_list_display_name>
+						<photo_simple_display_name translate="label">
+							<label>Display Name On Simple</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>530</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<photo_display_name>1</photo_display_name>
+							</depends>
+						</photo_simple_display_name>
+
+						<!-- Display Rate -->
+						<photo_display_rate translate="label">
+							<label>Display Rate</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>600</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_display_rate>
+						<photo_grid_display_rate translate="label">
+							<label>Display Rate On Grid</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>610</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<photo_display_rate>1</photo_display_rate>
+							</depends>
+						</photo_grid_display_rate>
+						<photo_list_display_rate translate="label">
+							<label>Display Rate On List</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>620</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<photo_display_rate>1</photo_display_rate>
+							</depends>
+						</photo_list_display_rate>
+						<photo_simple_display_rate translate="label">
+							<label>Display Rate On Simple</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>630</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<photo_display_rate>1</photo_display_rate>
+							</depends>
+						</photo_simple_display_rate>
+
+						<!-- Display Update Date -->
+						<photo_display_update_date translate="label">
+							<label>Display Update Date</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>700</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_display_update_date>
+						<photo_grid_display_update_date translate="label">
+							<label>Display Update Date On Grid</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>710</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<photo_display_update_date>1</photo_display_update_date>
+							</depends>
+						</photo_grid_display_update_date>
+						<photo_list_display_update_date translate="label">
+							<label>Display Update Date On List</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>720</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<photo_display_update_date>1</photo_display_update_date>
+							</depends>
+						</photo_list_display_update_date>
+						<photo_simple_display_update_date translate="label">
+							<label>Display Update Date On Simple</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>730</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<photo_display_update_date>1</photo_display_update_date>
+							</depends>
+						</photo_simple_display_update_date>
+
+						<!-- Display Short Description -->
+						<photo_display_short_descr translate="label">
+							<label>Display Short Description</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>800</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_display_short_descr>
+						<photo_grid_display_short_descr translate="label">
+							<label>Display Short Description On Grid</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>810</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<photo_display_short_descr>1</photo_display_short_descr>
+							</depends>
+						</photo_grid_display_short_descr>
+						<photo_list_display_short_descr translate="label">
+							<label>Display Short Description On List</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>820</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<photo_display_short_descr>1</photo_display_short_descr>
+							</depends>
+						</photo_list_display_short_descr>
+						<photo_simple_display_short_descr translate="label">
+							<label>Display Short Description On Simple</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>830</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<photo_display_short_descr>1</photo_display_short_descr>
+							</depends>
+						</photo_simple_display_short_descr>
+
+						<!-- Display Show Link -->
+						<photo_display_show_link translate="label">
+							<label>Display Show Link</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>900</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_display_show_link>
+						<photo_grid_display_show_link translate="label">
+							<label>Display Show Link On Grid</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>910</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<photo_display_show_link>1</photo_display_show_link>
+							</depends>
+						</photo_grid_display_show_link>
+						<photo_list_display_show_link translate="label">
+							<label>Display Show Link On List</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>920</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<photo_display_show_link>1</photo_display_show_link>
+							</depends>
+						</photo_list_display_show_link>
+						<photo_simple_display_show_link translate="label">
+							<label>Display Show Link On Simple</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>930</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<photo_display_show_link>1</photo_display_show_link>
+							</depends>
+						</photo_simple_display_show_link>
+					</fields>
+				</photo_display>
+
+				<product_view_display translate="label">
+					<label>Product Photo Listing Options</label>
+					<sort_order>80</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<photo_product_enable translate="label">
+							<label>Display Photos On Product Page</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_product_enable>
+						<photo_product_sort_by translate="label">
+							<label>List Sort By</label>
+							<frontend_type>select</frontend_type>
+							<source_model>mpgallery/source_sortavailable</source_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<photo_product_enable>1</photo_product_enable>
+							</depends>
+						</photo_product_sort_by>
+						<photo_product_sort_dir translate="label">
+							<label>List Sort Direction</label>
+							<frontend_type>select</frontend_type>
+							<source_model>mpgallery/source_sortdir</source_model>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<photo_product_enable>1</photo_product_enable>
+							</depends>
+						</photo_product_sort_dir>
+						<photo_product_per_page translate="label">
+							<label>Photo Per Page On List</label>
+							<frontend_type>text</frontend_type>
+							<validate>validate-number</validate>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<photo_product_enable>1</photo_product_enable>
+							</depends>
+						</photo_product_per_page>
+
+						<photo_product_display_name translate="label">
+							<label>Display Name On List</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>110</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<photo_product_enable>1</photo_product_enable>
+							</depends>
+						</photo_product_display_name>
+						<photo_product_display_rate translate="label">
+							<label>Display Name On List</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>120</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<photo_product_enable>1</photo_product_enable>
+							</depends>
+						</photo_product_display_rate>
+						<photo_product_display_update_date translate="label">
+							<label>Display Update Date On List</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>130</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<photo_product_enable>1</photo_product_enable>
+							</depends>
+						</photo_product_display_update_date>
+						<photo_product_display_short_descr translate="label">
+							<label>Display Short Description On List</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>140</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<photo_product_enable>1</photo_product_enable>
+							</depends>
+						</photo_product_display_short_descr>
+						<photo_product_display_show_link translate="label">
+							<label>Display Show Link On List</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>150</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<depends>
+								<photo_product_enable>1</photo_product_enable>
+							</depends>
+						</photo_product_display_show_link>
+					</fields>
+				</product_view_display>
+
+				<sizes translate="label">
+					<label>Image Size</label>
+					<sort_order>90</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<admin_thumb_size translate="label">
+							<label>Admin Grid Thumbnail Size (WxH) px</label>
+							<frontend_model>mpgallery/adminhtml_system_config_size</frontend_model>
+							<backend_model>mpgallery/system_config_backend_size</backend_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</admin_thumb_size>
+						<album_size translate="label">
+							<label>Album Size On View Page (WxH) px</label>
+							<frontend_model>mpgallery/adminhtml_system_config_size</frontend_model>
+							<backend_model>mpgallery/system_config_backend_size</backend_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</album_size>
+						<album_grid_thumb_size translate="label">
+							<label>Album Thumbnail Size On Grid (WxH) px</label>
+							<frontend_model>mpgallery/adminhtml_system_config_size</frontend_model>
+							<backend_model>mpgallery/system_config_backend_size</backend_model>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</album_grid_thumb_size>
+						<album_list_thumb_size translate="label">
+							<label>Album Thumbnail Size On List (WxH) px</label>
+							<frontend_model>mpgallery/adminhtml_system_config_size</frontend_model>
+							<backend_model>mpgallery/system_config_backend_size</backend_model>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</album_list_thumb_size>
+						<album_simple_thumb_size translate="label">
+							<label>Album Thumbnail Size On Simple (WxH) px</label>
+							<frontend_model>mpgallery/adminhtml_system_config_size</frontend_model>
+							<backend_model>mpgallery/system_config_backend_size</backend_model>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</album_simple_thumb_size>
+						<photo_size translate="label">
+							<label>Photo Size On View Page (WxH) px</label>
+							<frontend_model>mpgallery/adminhtml_system_config_size</frontend_model>
+							<backend_model>mpgallery/system_config_backend_size</backend_model>
+							<sort_order>60</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_size>
+						<photo_grid_thumb_size translate="label">
+							<label>Photo Thumbnail Size On Grid (WxH) px</label>
+							<frontend_model>mpgallery/adminhtml_system_config_size</frontend_model>
+							<backend_model>mpgallery/system_config_backend_size</backend_model>
+							<sort_order>70</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_grid_thumb_size>
+						<photo_list_thumb_size translate="label">
+							<label>Photo Thumbnail Size On List (WxH) px</label>
+							<frontend_model>mpgallery/adminhtml_system_config_size</frontend_model>
+							<backend_model>mpgallery/system_config_backend_size</backend_model>
+							<sort_order>80</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_list_thumb_size>
+						<photo_simple_thumb_size translate="label">
+							<label>Photo Thumbnail Size On Simple (WxH) px</label>
+							<frontend_model>mpgallery/adminhtml_system_config_size</frontend_model>
+							<backend_model>mpgallery/system_config_backend_size</backend_model>
+							<sort_order>90</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_simple_thumb_size>
+						<photo_carousel_thumb_size translate="label">
+							<label>Photo Thumbnail Size On List of View Page (WxH) px</label>
+							<frontend_model>mpgallery/adminhtml_system_config_size</frontend_model>
+							<backend_model>mpgallery/system_config_backend_size</backend_model>
+							<sort_order>100</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_carousel_thumb_size>
+						<photo_product_thumb_size translate="label">
+							<label>Photo Thumbnail Size On List of Product Page (WxH) px</label>
+							<frontend_model>mpgallery/adminhtml_system_config_size</frontend_model>
+							<backend_model>mpgallery/system_config_backend_size</backend_model>
+							<sort_order>110</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_product_thumb_size>
+						<photo_customer_list_thumb_size translate="label">
+							<label>Photo Thumbnail Size On List of "My Photos" Customer Page (WxH) px</label>
+							<frontend_model>mpgallery/adminhtml_system_config_size</frontend_model>
+							<backend_model>mpgallery/system_config_backend_size</backend_model>
+							<sort_order>120</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</photo_customer_list_thumb_size>
+					</fields>
+				</sizes>
+
+			</groups>
+		</mpgallery>
+	</sections>
+</config>

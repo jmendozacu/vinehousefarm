@@ -1,0 +1,433 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * MagePlace Gallery Extension
+ *
+ * @category    Mageplace_Gallery
+ * @package     Mageplace_Gallery
+ * @copyright   Copyright (c) 2014 Mageplace. (http://www.mageplace.com)
+ * @license     http://www.mageplace.com/disclaimer.html
+ */
+-->
+<config>
+	<modules>
+		<Mageplace_Gallery>
+			<version>1.1.0</version>
+		</Mageplace_Gallery>
+	</modules>
+
+	<global>
+		<resources>
+			<mpgallery_setup>
+				<setup>
+					<module>Mageplace_Gallery</module>
+				</setup>
+				<connection>
+					<use>core_setup</use>
+				</connection>
+			</mpgallery_setup>
+			<mpgallery_write>
+				<connection>
+					<use>core_write</use>
+				</connection>
+			</mpgallery_write>
+			<mpgallery_read>
+				<connection>
+					<use>core_read</use>
+				</connection>
+			</mpgallery_read>
+		</resources>
+
+		<helpers>
+			<mpgallery>
+				<class>Mageplace_Gallery_Helper</class>
+			</mpgallery>
+		</helpers>
+
+		<models>
+			<mpgallery>
+				<class>Mageplace_Gallery_Model</class>
+				<resourceModel>mpgallery_mysql4</resourceModel>
+			</mpgallery>
+			<mpgallery_mysql4>
+				<class>Mageplace_Gallery_Model_Mysql4</class>
+				<entities>
+					<album>
+						<table>mpgallery_album</table>
+					</album>
+					<album_store>
+						<table>mpgallery_album_store</table>
+					</album_store>
+					<album_customer_group>
+						<table>mpgallery_album_customer_group</table>
+					</album_customer_group>
+					<album_photo>
+						<table>mpgallery_album_photo</table>
+					</album_photo>
+					<album_product>
+						<table>mpgallery_album_product</table>
+					</album_product>
+					<photo>
+						<table>mpgallery_photo</table>
+					</photo>
+					<photo_store>
+						<table>mpgallery_photo_store</table>
+					</photo_store>
+					<photo_customer_group>
+						<table>mpgallery_photo_customer_group</table>
+					</photo_customer_group>
+					<review>
+						<table>mpgallery_review</table>
+					</review>
+				</entities>
+			</mpgallery_mysql4>
+		</models>
+
+		<blocks>
+			<mpgallery>
+				<class>Mageplace_Gallery_Block</class>
+			</mpgallery>
+		</blocks>
+	</global>
+
+	<admin>
+		<routers>
+			<adminhtml>
+				<args>
+					<modules>
+						<Mageplace_Gallery before="Mage_Adminhtml">Mageplace_Gallery_Adminhtml</Mageplace_Gallery>
+					</modules>
+				</args>
+			</adminhtml>
+		</routers>
+	</admin>
+
+	<adminhtml>
+		<translate>
+			<modules>
+				<Mageplace_Gallery>
+					<files>
+						<default>Mageplace_Gallery.csv</default>
+					</files>
+				</Mageplace_Gallery>
+			</modules>
+		</translate>
+
+		<layout>
+			<updates>
+				<mpgallery>
+					<file>mpgallery.xml</file>
+				</mpgallery>
+			</updates>
+		</layout>
+
+		<events>
+			<catalog_product_save_after>
+				<observers>
+					<mpgallery_product_save_after>
+						<type>singleton</type>
+						<class>mpgallery/observer</class>
+						<method>saveProductAlbums</method>
+					</mpgallery_product_save_after>
+				</observers>
+			</catalog_product_save_after>
+		</events>
+
+		<menu>
+			<mpgallery translate="title" module="mpgallery">
+				<title>Gallery</title>
+				<sort_order>71</sort_order>
+				<children>
+					<albums translate="title">
+						<title>Manage Albums</title>
+						<action>adminhtml/gallery/albums</action>
+						<sort_order>10</sort_order>
+					</albums>
+					<photos translate="title">
+						<title>Manage Photos</title>
+						<action>adminhtml/gallery/photos</action>
+						<sort_order>20</sort_order>
+					</photos>
+					<multiupload translate="title">
+						<title>Photos Multiupload</title>
+						<action>adminhtml/gallery/multiupload</action>
+						<sort_order>30</sort_order>
+					</multiupload>
+					<reviews translate="title">
+						<title>Manage Reviews</title>
+						<action>adminhtml/gallery/reviews</action>
+						<sort_order>40</sort_order>
+					</reviews>
+					<config translate="title">
+						<title>Configuration</title>
+						<action>adminhtml/system_config/edit/section/mpgallery</action>
+						<sort_order>1000</sort_order>
+					</config>
+				</children>
+			</mpgallery>
+		</menu>
+
+		<acl>
+			<resources>
+				<admin>
+					<children>
+						<mpgallery>
+							<title>Gallery</title>
+							<sort_order>10</sort_order>
+							<children>
+								<albums translate="title" module="mpgallery">
+									<title>Manage Albums</title>
+									<sort_order>10</sort_order>
+								</albums>
+								<photos translate="title" module="mpgallery">
+									<title>Manage Photos</title>
+									<sort_order>20</sort_order>
+								</photos>
+								<multiupload translate="title" module="mpgallery">
+									<title>Photos Multiupload</title>
+									<sort_order>30</sort_order>
+								</multiupload>
+								<reviews translate="title" module="mpgallery">
+									<title>Manage Reviews</title>
+									<sort_order>40</sort_order>
+								</reviews>
+								<config translate="title" module="mpgallery">
+									<title>Configuration</title>
+									<sort_order>50</sort_order>
+								</config>
+								<product translate="title" module="mpgallery">
+									<title>Assign Albums to Products</title>
+									<sort_order>60</sort_order>
+								</product>
+							</children>
+						</mpgallery>
+
+						<system>
+							<children>
+								<config>
+									<children>
+										<mpgallery translate="title" module="mpgallery">
+											<title>Gallery</title>
+											<sort_order>100</sort_order>
+										</mpgallery>
+									</children>
+								</config>
+							</children>
+						</system>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+	</adminhtml>
+
+	<frontend>
+		<routers>
+			<mpgallery>
+				<use>standard</use>
+				<args>
+					<module>Mageplace_Gallery</module>
+					<frontName>mpgallery</frontName>
+				</args>
+			</mpgallery>
+		</routers>
+
+		<translate>
+			<modules>
+				<Mageplace_Gallery>
+					<files>
+						<default>Mageplace_Gallery.csv</default>
+					</files>
+				</Mageplace_Gallery>
+			</modules>
+		</translate>
+
+		<layout>
+			<updates>
+				<mpgallery>
+					<file>mpgallery.xml</file>
+				</mpgallery>
+			</updates>
+		</layout>
+	</frontend>
+
+	<default>
+		<web>
+			<routers>
+				<mpgallery>
+					<area>frontend</area>
+					<class>Mageplace_Gallery_Controller_Varien_Router_Standard</class>
+				</mpgallery>
+			</routers>
+		</web>
+
+		<mpgallery>
+			<general>
+				<root_album>1</root_album>
+				<image_path>gallery</image_path>
+				<jquery_enable>1</jquery_enable>
+				<jquery_add>1</jquery_add>
+				<slideshow_photos>0</slideshow_photos>
+				<slideshow_autostart>0</slideshow_autostart>
+				<slideshow_delay>2000</slideshow_delay>
+				<review_enable>1</review_enable>
+			</general>
+
+			<web>
+				<gallery_url_prefix>gallery</gallery_url_prefix>
+				<gallery_url_suffix></gallery_url_suffix>
+				<album_url_suffix>.html</album_url_suffix>
+				<photo_url_suffix>.html</photo_url_suffix>
+				<album_url_include_parent>1</album_url_include_parent>
+				<photo_url_include_parent>1</photo_url_include_parent>
+				<title_separator>-</title_separator>
+				<show_breadcrumbs>1</show_breadcrumbs>
+				<show_breadcrumb_gallery_title>1</show_breadcrumb_gallery_title>
+				<show_breadcrumb_home_page>1</show_breadcrumb_home_page>
+			</web>
+
+			<photo_upload>
+				<enabled>0</enabled>
+				<enable_product>0</enable_product>
+				<only_registered>0</only_registered>
+				<photos_view>0</photos_view>
+				<photos_edit>0</photos_edit>
+				<photos_delete>0</photos_delete>
+				<attach_current_album>0</attach_current_album>
+			</photo_upload>
+
+			<album_view_display>
+				<album_view_display_image>0</album_view_display_image>
+				<album_view_display_name>1</album_view_display_name>
+				<album_view_display_update_date>0</album_view_display_update_date>
+				<album_view_display_short_descr>0</album_view_display_short_descr>
+				<album_view_display_descr>1</album_view_display_descr>
+			</album_view_display>
+
+			<album_display>
+				<album_display_toolbar>1</album_display_toolbar>
+				<album_display_toolbar_top>1</album_display_toolbar_top>
+				<album_display_toolbar_bottom>0</album_display_toolbar_bottom>
+				<album_display_toolbar>1</album_display_toolbar>
+				<album_display_type>0</album_display_type>
+				<album_available_sort_by>0</album_available_sort_by>
+				<album_default_sort_by>position</album_default_sort_by>
+				<album_default_sort_dir>ASC</album_default_sort_dir>
+				<album_grid_column_count>5</album_grid_column_count>
+				<album_simple_column_count>5</album_simple_column_count>
+
+				<album_display_name>1</album_display_name>
+				<album_grid_display_name>1</album_grid_display_name>
+				<album_list_display_name>1</album_list_display_name>
+				<album_simple_display_name>0</album_simple_display_name>
+
+				<album_display_short_descr>1</album_display_short_descr>
+				<album_grid_display_short_descr>0</album_grid_display_short_descr>
+				<album_list_display_short_descr>1</album_list_display_short_descr>
+				<album_simple_display_short_descr>0</album_simple_display_short_descr>
+
+				<album_display_update_date>1</album_display_update_date>
+				<album_grid_display_update_date>1</album_grid_display_update_date>
+				<album_list_display_update_date>1</album_list_display_update_date>
+				<album_simple_display_update_date>0</album_simple_display_update_date>
+
+				<album_display_show_link>1</album_display_show_link>
+				<album_grid_display_show_link>1</album_grid_display_show_link>
+				<album_list_display_show_link>1</album_list_display_show_link>
+				<album_simple_display_show_link>1</album_simple_display_show_link>
+			</album_display>
+
+			<photo_view_display>
+				<photo_view_display_mode>0</photo_view_display_mode>
+				<photo_view_slide_photos>0</photo_view_slide_photos>
+				<photo_view_list_sort_by>position</photo_view_list_sort_by>
+				<photo_view_list_sort_dir>ASC</photo_view_list_sort_dir>
+				<photo_view_list_per_page>5</photo_view_list_per_page>
+				<photo_view_display_name>1</photo_view_display_name>
+				<photo_view_display_review>1</photo_view_display_review>
+				<photo_view_display_update_date>1</photo_view_display_update_date>
+				<photo_view_display_short_descr>0</photo_view_display_short_descr>
+				<photo_view_display_descr>1</photo_view_display_descr>
+				<photo_view_display_back_url>1</photo_view_display_back_url>
+				<photo_carousel_display_name>1</photo_carousel_display_name>
+				<photo_carousel_display_rate>0</photo_carousel_display_rate>
+				<photo_carousel_display_update_date>0</photo_carousel_display_update_date>
+				<photo_carousel_display_short_descr>0</photo_carousel_display_short_descr>
+				<photo_carousel_display_show_link>0</photo_carousel_display_show_link>
+			</photo_view_display>
+
+			<photo_display>
+				<photo_display_toolbar>1</photo_display_toolbar>
+				<photo_display_toolbar_top>1</photo_display_toolbar_top>
+				<photo_display_toolbar_bottom>1</photo_display_toolbar_bottom>
+				<photo_display_type>0</photo_display_type>
+				<photo_available_sort_by>0</photo_available_sort_by>
+				<photo_default_sort_by>position</photo_default_sort_by>
+				<photo_default_sort_dir>ASC</photo_default_sort_dir>
+
+				<photo_grid_column_count>5</photo_grid_column_count>
+				<photo_grid_per_page>15</photo_grid_per_page>
+				<photo_grid_pager_limit>15,30,45</photo_grid_pager_limit>
+
+				<photo_list_per_page>10</photo_list_per_page>
+				<photo_list_pager_limit>10,20,50</photo_list_pager_limit>
+
+				<photo_simple_column_count>5</photo_simple_column_count>
+				<photo_simple_per_page>20</photo_simple_per_page>
+				<photo_simple_pager_limit>20,40,60</photo_simple_pager_limit>
+
+				<photo_display_name>1</photo_display_name>
+				<photo_grid_display_name>1</photo_grid_display_name>
+				<photo_list_display_name>1</photo_list_display_name>
+				<photo_simple_display_name>0</photo_simple_display_name>
+
+				<photo_display_rate>1</photo_display_rate>
+				<photo_grid_display_rate>1</photo_grid_display_rate>
+				<photo_list_display_rate>1</photo_list_display_rate>
+				<photo_simple_display_rate>0</photo_simple_display_rate>
+
+				<photo_display_update_date>1</photo_display_update_date>
+				<photo_grid_display_update_date>1</photo_grid_display_update_date>
+				<photo_list_display_update_date>1</photo_list_display_update_date>
+				<photo_simple_display_update_date>0</photo_simple_display_update_date>
+
+				<photo_display_short_descr>1</photo_display_short_descr>
+				<photo_grid_display_short_descr>0</photo_grid_display_short_descr>
+				<photo_list_display_short_descr>1</photo_list_display_short_descr>
+				<photo_simple_display_short_descr>0</photo_simple_display_short_descr>
+
+				<photo_display_show_link>1</photo_display_show_link>
+				<photo_grid_display_show_link>1</photo_grid_display_show_link>
+				<photo_list_display_show_link>1</photo_list_display_show_link>
+				<photo_simple_display_show_link>0</photo_simple_display_show_link>
+			</photo_display>
+
+			<product_view_display>
+				<photo_product_enable>1</photo_product_enable>
+				<photo_product_sort_by>name</photo_product_sort_by>
+				<photo_product_sort_dir>ASC</photo_product_sort_dir>
+				<photo_product_per_page>4</photo_product_per_page>
+				<photo_view_display_back_url>1</photo_view_display_back_url>
+				<photo_product_display_name>1</photo_product_display_name>
+				<photo_product_display_rate>1</photo_product_display_rate>
+				<photo_product_display_update_date>1</photo_product_display_update_date>
+				<photo_product_display_short_descr>1</photo_product_display_short_descr>
+				<photo_product_display_show_link>1</photo_product_display_show_link>
+			</product_view_display>
+
+			<sizes>
+				<admin_thumb_size>50x50</admin_thumb_size>
+				<album_size>640x480</album_size>
+				<album_grid_thumb_size>135x135</album_grid_thumb_size>
+				<album_list_thumb_size>135x135</album_list_thumb_size>
+				<album_simple_thumb_size>135x135</album_simple_thumb_size>
+				<photo_size>640x480</photo_size>
+				<photo_grid_thumb_size>135x135</photo_grid_thumb_size>
+				<photo_list_thumb_size>135x135</photo_list_thumb_size>
+				<photo_simple_thumb_size>135x135</photo_simple_thumb_size>
+				<photo_carousel_thumb_size>135x135</photo_carousel_thumb_size>
+				<photo_product_thumb_size>125x125</photo_product_thumb_size>
+				<photo_customer_list_thumb_size>50x50</photo_customer_list_thumb_size>
+			</sizes>
+		</mpgallery>
+	</default>
+</config>
