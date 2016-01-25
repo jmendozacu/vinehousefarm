@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <MDN_HealthyERP>
+            <active>true</active>
+            <codePool>community</codePool>
+            <depends>
+            	<MDN_AdvancedStock />
+            	<AW_All />
+         	</depends>
+        </MDN_HealthyERP>
+    </modules>
+</config>
