@@ -1,0 +1,7 @@
+1.0 - Based on premium 5.9
+1.1 - Updated to support getAllowedMethods
+1.2 - Removed class for tax calculation as tax logic reworked to no longer require
+1.3 - PZ-2 - Resolved issue around calculation of rates for $0.00 items
+2.0 - COMMON-4 Moved to community2.0.3  - PZ-4 Fixed issue with the instock algorithm displaying the instock and outofstock rates.
+2.0.3  - PZ-4 Fixed issue with the instock algorithm displaying the instock and outofstock rates.
+2.1  - PZ-5 Added in stock algorithm
