@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config>
+	<global>
+		<cms>
+			<layouts>
+				<custom_static_page_one>
+					<label>CMS layout</label>
+					<template>page/cms-layout.phtml</template>
+				</custom_static_page_one>
+				<custom_subcategories>
+					<label>Subcategories with left sidebar</label>
+					<template>page/subcategories-2columns-left.phtml</template>
+				</custom_subcategories>
+				<custom_page>
+					<label>Page with left sidebar</label>
+					<template>page/page-2columns-left.phtml</template>
+				</custom_page>
+				<custom_blogpost>
+					<label>Blog post with left sidebar</label>
+					<template>page/blogpost-2columns-left.phtml</template>
+				</custom_blogpost>
+			</layouts>
+		</cms>
+	</global>
+</config>

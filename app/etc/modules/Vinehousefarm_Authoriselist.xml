@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Vinehousefarm_Authoriselist>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <Vinehousefarm_Common/>
+                <Aitoc_Aitloyalty/>
+                <PostcodeAnywhere_CapturePlus/>
+            </depends>
+        </Vinehousefarm_Authoriselist>
+    </modules>
+</config>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Vinehousefarm_Common>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Vinehousefarm_Common>
+    </modules>
+</config>

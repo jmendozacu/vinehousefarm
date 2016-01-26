@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <system translate="title" module="adminhtml">
+            <title>System</title>
+            <sort_order>90</sort_order>
+            <!-- action>adminhtml/system</action -->
+            <children>
+                <deliverydate module="vinehousefarm_deliverydate">
+                    <title>Deliverydate</title>
+                    <sort_order>71</sort_order>
+                    <children>
+                        <items module="vinehousefarm_deliverydate">
+                            <title>Manage Items</title>
+                            <sort_order>0</sort_order>
+                            <action>adminhtml/deliverydate</action>
+                        </items>
+                    </children>
+                </deliverydate>
+            </children>
+        </system>
+        <sales>
+            <children>
+                <future_dispatch_date>
+                    <title>Future Dispatch Date</title>
+                    <sort_order>100</sort_order>
+                    <action>adminhtml/futureorder</action>
+                </future_dispatch_date>
+            </children>
+        </sales>
+    </menu>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <sales>
+                        <children>
+                            <future_dispatch_date>
+                                <title>Future Dispatch Date</title>
+                            </future_dispatch_date>
+                        </children>
+                    </sales>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <vinehousefarm_deliverydate>
+                                        <title>Vine House Farm - Delivery Date</title>
+                                    </vinehousefarm_deliverydate>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>
