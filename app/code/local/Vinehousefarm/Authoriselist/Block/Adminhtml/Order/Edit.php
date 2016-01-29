@@ -19,7 +19,7 @@ class Vinehousefarm_Authoriselist_Block_Adminhtml_Order_Edit extends Mage_Adminh
         $this->removeButton('save');
         $this->removeButton('back');
         $this->removeButton('reset');
-        $this->_mode            = 'edit';
+        $this->_mode = 'edit';
     }
 
     public function getOrder()

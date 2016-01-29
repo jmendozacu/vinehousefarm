@@ -18,7 +18,7 @@ class Vinehousefarm_Processing_Helper_Orderpreparation_Dispatcher extends MDN_Or
 
         //status check is  Mage_Sales_Model_Order::STATE_CANCELED
         $orderState = $order->getstatus();
-        if (($orderState == Vinehousefarm_Authoriselist_Helper_Data::STATUS_ORDER_AUTHORISE))
+        if ((in_array($orderState, array(Vinehousefarm_Authoriselist_Helper_Data::STATUS_ORDER_AUTHORISE, Vinehousefarm_Deliverydate_Helper_Data::STATUS_ORDER_DELIVERY_DATE))))
         {
             $debug .= ', state '.$orderState.' is not supported in order preparation';
             return $debug;

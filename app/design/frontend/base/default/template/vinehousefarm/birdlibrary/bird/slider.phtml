@@ -1,0 +1,17 @@
+<?php
+/**
+ * @package Vine-House-Farm.
+ * @author: A.A.Treitjak <a.treitjak@gmail.com>
+ * @copyright: 2012 - 2015 BelVG.com
+ */
+?>
+<div class="whf-bird-gallery">
+    <ul class="bxslider">
+        <?php foreach ($this->getBirdGallery() as $image): ?>
+            <li><img src="<?php echo $this->escapeUrl($this->helper('birdlibrary/image')->resize($image, 540)); ?>" alt="<?php echo $this->escapeHtml($this->getBird()->getBirdName()); ?> title="<?php echo $this->escapeHtml($this->getBird()->getBirdName()); ?>" /></li>
+        <?php endforeach; ?>
+    </ul>
+
+    <a class="jcarousel-prev-horizontal2" href="#"></a>
+    <a class="jcarousel-next-horizontal2" href="#"></a>
+</div>

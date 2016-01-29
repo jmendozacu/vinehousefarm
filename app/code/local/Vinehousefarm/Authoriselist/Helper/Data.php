@@ -75,18 +75,7 @@ class Vinehousefarm_Authoriselist_Helper_Data extends Mage_Core_Helper_Abstract
          * @var $item Mage_Sales_Model_Order_Item
          */
         foreach ($this->getItems() as $item) {
-            //TODO need refactoring
-            /**
-             * @var $product Mage_Catalog_Model_Product
-             */
-            $product = Mage::getModel('catalog/product')->load($item->getProductId());
-
-            $dropship = (string)$product->getResource()
-                ->getAttribute('dropship')
-                ->getFrontend()
-                ->getValue($product);
-
-            if ($dropship == 'Yes') {
+            if ($this->isDropShipItem($item)) {
                 $dropshipItems[$item->getId()] = $item->getQtyOrdered();
             }
         }
@@ -191,7 +180,12 @@ class Vinehousefarm_Authoriselist_Helper_Data extends Mage_Core_Helper_Abstract
         $mailer = Mage::getModel('core/email_template_mailer');
         /** @var $emailInfo Mage_Core_Model_Email_Info */
         $emailInfo = Mage::getModel('core/email_info');
-        $emailInfo->addTo($helper->getDropshipEmail(), $helper->getDropshipName());
+
+        if (Mage::helper('vinehousefarm_common')->isDeveloperMode()) {
+            $emailInfo->addTo(Mage::helper('vinehousefarm_common')->getDeveloperEmail(), Mage::helper('vinehousefarm_common')->getDeveloperName());
+        } else {
+            $emailInfo->addTo($helper->getDropshipEmail(), $helper->getDropshipName());
+        }
 
         $dropships[] = array(
             'email' => $helper->getDropshipEmail(),
@@ -276,7 +270,12 @@ class Vinehousefarm_Authoriselist_Helper_Data extends Mage_Core_Helper_Abstract
         $mailer = Mage::getModel('core/email_template_mailer');
         /** @var $emailInfo Mage_Core_Model_Email_Info */
         $emailInfo = Mage::getModel('core/email_info');
-        $emailInfo->addTo($supplier->getSupMail(), $supplier->getSupName());
+
+        if (Mage::helper('vinehousefarm_common')->isDeveloperMode()) {
+            $emailInfo->addTo(Mage::helper('vinehousefarm_common')->getDeveloperEmail(), Mage::helper('vinehousefarm_common')->getDeveloperName());
+        } else {
+            $emailInfo->addTo($supplier->getSupMail(), $supplier->getSupName());
+        }
 
         $suppliers[] = array(
             'name' => $supplier->getSupName(),
@@ -349,14 +348,9 @@ class Vinehousefarm_Authoriselist_Helper_Data extends Mage_Core_Helper_Abstract
              */
             $product = Mage::getModel('catalog/product')->load($item->getProductId());
 
-            $dropship = (string)$product->getResource()
-                ->getAttribute('dropship')
-                ->getFrontend()
-                ->getValue($product);
-
             $shippingType = array();
 
-            if ($dropship !== 'Yes') {
+            if (!$this->isDropShipItem($item)) {
                 if (!$item->getShippingMethod()) {
                     $value = (int)$product->getResource()->getAttributeRawValue($product->getId(), 'ships_method', $this->getOrder()->getStoreId());
 
@@ -656,7 +650,7 @@ class Vinehousefarm_Authoriselist_Helper_Data extends Mage_Core_Helper_Abstract
              */
             $product = $item->getProduct();
 
-            $value = (int)$product->getResource()->getAttributeRawValue($product->getId(), 'number_labels', $this->getOrder()->getStoreId());
+            $value = (int)$product->getResource()->getAttributeRawValue($product->getId(), 'number_labels', $this->getOrder()->getStoreId()) * $item->getQtyOrdered();
 
             $labels += $value;
         }
@@ -757,11 +751,9 @@ class Vinehousefarm_Authoriselist_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isDropShipItem($item)
     {
-        //TODO need refactoring
-        /**
-         * @var $product Mage_Catalog_Model_Product
-         */
-        $product = Mage::getModel('catalog/product')->load($item->getProductId());
+        return $this->isSupplierItem($item);
+
+        $product = $this->getProduct($item);
 
         $dropship = (string)$product->getResource()
             ->getAttribute('dropship')
@@ -777,11 +769,11 @@ class Vinehousefarm_Authoriselist_Helper_Data extends Mage_Core_Helper_Abstract
 
     public function isSupplierItem($item)
     {
-        //TODO need refactoring
-        /**
-         * @var $product Mage_Catalog_Model_Product
-         */
-        $product = Mage::getModel('catalog/product')->load($item->getProductId());
+        if ($item->hasData('is_dropship')) {
+            return $item->getIsDropship();
+        }
+
+        $product = $this->getProduct($item);
 
         $supplier = (int)$product->getSupplier();
 
@@ -790,5 +782,22 @@ class Vinehousefarm_Authoriselist_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         return false;
+    }
+
+    /**
+     * @param $item
+     * @return Mage_Catalog_Model_Product
+     */
+    protected function getProduct($item)
+    {
+        //TODO need refactoring
+        /**
+         * @var $product Mage_Catalog_Model_Product
+         */
+        if (Mage::registry('current_product')) {
+            return Mage::registry('current_product');
+        } else {
+            return Mage::getModel('catalog/product')->load($item->getProductId());
+        }
     }
 }

@@ -45,7 +45,15 @@ class Vinehousefarm_Authoriselist_Helper_Orderpreparation_PickingList extends MD
             //merged mode, all products are displayed in the same document (mass picking)
             $obj = Mage::getModel('vinehousefarm_common/orderpreparation_pdf_adviceList');
             $products = $this->GetProductsSummary();
-            $pdf = $obj->getPdf(array('comments' => '', 'products' => $products, 'orders' => $orders, 'title' => $this->__('Advice Slips')));
+            $pdf = $obj->getPdf(
+                array(
+                    'comments' => '',
+                    'products' => $products,
+                    'orders' => $orders,
+                    'type' => $type,
+                    'title' => $this->__('Advice Slips')
+                )
+            );
         }
 
         return $pdf;

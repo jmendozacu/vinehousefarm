@@ -1,0 +1,21 @@
+<?php
+/**
+ * @package Vine-House-Farm.
+ * @author: A.A.Treitjak <a.treitjak@gmail.com>
+ * @copyright: 2012 - 2015 BelVG.com
+ */
+?>
+<div class="bird-library">
+    <ul id="list-bird">
+        <?php foreach ($this->getBirdCollection() as $bird): ?>
+            <li>
+                <a class="bird-box" href="<?php echo $this->escapeUrl($this->helper('birdlibrary')->getBirdUrl($bird)); ?>">
+                    <div class="bird-box-thumb">
+                        <img src="<?php echo $this->escapeUrl($this->helper('birdlibrary/image')->resize($bird, 270, 160)); ?>" alt="<?php echo $this->escapeHtml($bird->getBirdName()); ?>" title="<?php echo $this->escapeHtml($bird->getBirdName()); ?>">
+                    </div>
+                    <div class="bird-box-name"><?php echo $this->escapeHtml($bird->getBirdName()); ?></div>
+                </a>
+            </li>
+        <?php endforeach?>
+    </ul>
+</div>

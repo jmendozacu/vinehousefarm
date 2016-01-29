@@ -28,6 +28,7 @@ class Vinehousefarm_Authoriselist_Block_Adminhtml_Sales_Order_View_Items_Rendere
                 'name' => 'item_' . $this->getItem()->getId() . '_shippng_method',
                 'class' => 'input-text required-entry',
                 'values' => $this->getShippingMethodValues(),
+                'onchange' => "updateLabels(this);",
                 'value' => $this->getShippingMethodValue()
             )
         );
@@ -36,6 +37,20 @@ class Vinehousefarm_Authoriselist_Block_Adminhtml_Sales_Order_View_Items_Rendere
         $element->setId('item_' . $this->getItem()->getId() . '_shippng_method');
 
         return $element->getElementHtml();
+    }
+
+    /**
+     * @return int
+     */
+    public function getLabels()
+    {
+        if ($this->getItem()->getProduct()) {
+            if ($this->getItem()->getProduct()->hasNumberLabels()) {
+                return (int) $this->getItem()->getProduct()->getNumberLabels() * $this->getItem()->getQtyOrdered();
+            }
+        }
+
+        return 0;
     }
 
     public function getStockSummary() {

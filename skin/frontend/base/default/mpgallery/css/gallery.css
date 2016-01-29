@@ -1,0 +1,284 @@
+/**
+ * MagePlace Gallery Extension
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2014 Mageplace. (http://www.mageplace.com)
+ * @license     http://www.mageplace.com/disclaimer.html
+ */
+.albums-grid,
+.albums-simple,
+.photos-grid,
+.photos-simple,
+.photos-carousel {
+    border-bottom: 1px solid #d9ddd3;
+    background: url(../images/bkg_grid.gif) 0 0 repeat;
+    position: relative;
+}
+
+.photos-carousel {
+    background: none;
+}
+
+.albums-grid.last,
+.albums-simple.last,
+.photos-grid.last,
+.photos-simple.last,
+.photos-carousel.last {
+    border-bottom: 0;
+}
+
+.albums-grid li.item,
+.albums-simple li.item,
+.photos-grid li.item,
+.photos-simple li.item,
+.photos-carousel li.item {
+    float: left;
+    width: 138px;
+    padding: 12px 10px 80px;
+}
+
+.albums-grid .album-image,
+.albums-simple .album-image,
+.photos-grid .photo-image,
+.photos-simple .photo-image,
+.photos-carousel .photo-image {
+    display: block;
+    width: 135px;
+    height: 135px;
+    margin: 0 0 10px;
+}
+
+.albums-grid .album-name,
+.albums-simple .album-name,
+.photos-grid .photo-name,
+.photos-simple .photo-name,
+.photos-carousel .photo-name {
+    margin: 0 0 5px;
+    font-weight: bold;
+    font-size: 13px;
+    color: #203548;
+}
+
+.albums-grid .album-name a,
+.albums-simple .album-name a,
+.photos-grid .photo-name a,
+.photos-simple .photo-name a,
+.photos-carousel .photo-name a {
+    color: #203548;
+}
+
+.albums-grid .actions,
+.albums-simple .actions,
+.photos-grid .actions,
+.photos-simple .actions,
+.photos-carousel .actions {
+    /*position: absolute;
+    bottom: 12px;*/
+}
+
+.albums-list li.item,
+.photos-list li.item {
+    border-bottom: 1px solid #d9ddd3;
+    padding: 12px 10px;
+}
+
+.albums-list li.item.last,
+.photos-list li.item.last {
+    border-bottom: 0;
+}
+
+.albums-list .album-image,
+.photos-list .photo-image {
+    float: left;
+    width: 135px;
+    height: 135px;
+    margin: 0 0 10px;
+}
+
+.albums-list .album-info,
+.photos-list .photo-info {
+    margin-left: 150px;
+}
+
+.albums-list .album-name,
+.photos-list .photo-name {
+    margin: 0 0 5px;
+    font-weight: bold;
+    font-size: 13px;
+    color: #203548;
+}
+
+.albums-list .album-name a,
+.photos-list .photo-name a {
+    color: #203548;
+}
+
+.albums-list .desc,
+.photos-list .desc {
+    clear: both;
+    padding: 6px 0 0;
+    margin: 0 0 15px;
+    line-height: 1.35;
+}
+
+.albums-list .desc .link-learn,
+.photos-list .desc .link-learn,
+.gallery-photo-view .link-show-more{
+    font-size: 11px;
+}
+
+.col2-left-layout .albums-grid,
+.col2-right-layout .albums-grid,
+.col2-left-layout .albums-simple,
+.col2-right-layout .albums-simple,
+.col2-left-layout .photos-grid,
+.col2-right-layout .photos-grid,
+.col2-left-layout .photos-simple,
+.col2-right-layout .photos-simple,
+.col2-left-layout .photos-carousel,
+.col2-right-layout .photos-carousel {
+    width: 632px;
+    margin: 0 auto;
+}
+
+.col1-layout .albums-grid,
+.col1-layout .albums-simple,
+.col1-layout .photos-grid,
+.col1-layout .photos-simple,
+.col1-layout .photos-carousel {
+    width: 790px;
+    margin: 0 auto;
+}
+
+.toolbar-bottom .sorter {
+    border-top: 1px solid #e2e2e2;
+}
+
+.albums-grid:after,
+.albums-simple:after,
+.albums-list li.item:after,
+.photos-grid:after,
+.photos-simple:after,
+.photos-list li.item:after,
+.photos-carousel:after {
+    display: block;
+    content: ".";
+    clear: both;
+    font-size: 0;
+    line-height: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+.gallery-photo-view .photo-image {
+    text-align: center;
+}
+
+.album-block-delimiter {
+}
+
+button.disabled span {
+    cursor: default;
+}
+
+.product-view .box-gallery-photos {
+    margin-top: 25px;
+}
+
+.product-view .box-gallery-photos h2 {
+    border-bottom: 0;
+    padding: 0;
+    margin: 0 0 8px;
+}
+
+.product-view .box-gallery-photos .photos-grid {
+    width: 100%;
+    border: 1px solid #e5dcc3;
+}
+
+.product-view .box-gallery-photos .photos-grid td {
+    width: 156px;
+    background: #f6f2e7;
+    border-right: 1px solid #e5dcc3;
+    border-bottom: 1px solid #e5dcc3;
+    padding: 15px 10px 12px;
+    line-height: 1.6em;
+}
+
+.product-view .box-gallery-photos .photos-grid tr.last td {
+    border-bottom: 0;
+}
+
+.product-view .box-gallery-photos .photos-grid td.last {
+    border-right: 0;
+}
+
+.product-view .box-gallery-photos .photos-grid td img {
+    border: 1px solid #e5dcc3;
+}
+
+.product-view .box-gallery-photos .photos-grid .photo-image {
+    text-align: center;
+}
+
+.product-view .box-gallery-photos .photos-grid td.empty {
+    border-right: 0;
+    background: #f1ecdb;
+}
+
+.product-view .box-gallery-photos .photos-grid .ratings .rating-box {
+    float: none;
+    display: block;
+    margin: 0 0 3px;
+}
+
+.product-view .box-gallery-photos .buttons {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.photos-grid .photo-name {
+    margin: 0 0 5px;
+    font-weight: bold;
+    font-size: 13px;
+    color: #203548;
+}
+
+.photos-grid .photo-name a {
+    color: #203548;
+}
+
+#reviews,
+.review {
+    margin-top: 20px;
+}
+
+.reviews-list .review-item span {
+    font-weight: bold;
+}
+
+.reviews-list .review-item small {
+    font-style: italic;
+}
+
+.reviews-list dd.review-item {
+    margin: 0 0 15px;
+}
+
+.form-list td {
+	padding: 5px 10px;
+}
+
+.product-view .box-gallery-photos .nav-buttons {
+	float: left;
+}
+
+.product-view .box-gallery-photos .action-buttons {
+	float: right;
+}
+
+.product-view .box-gallery-photos .action-buttons span {
+	border-color: #406a83;
+	background: #618499;
+}

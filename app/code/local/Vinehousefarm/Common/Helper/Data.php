@@ -11,6 +11,9 @@ class Vinehousefarm_Common_Helper_Data extends Mage_Core_Helper_Abstract
     const CONFIG_PATH_HIDE_FRONTEND_DEFAULT_SHIPPING_METHOD = 'vinehousefarm/vinehousefarm_general/default_shipping';
     const CONFIG_PATH_DROPSHIP_NAME = 'vinehousefarm/vinehousefarm_general/dropship_name';
     const CONFIG_PATH_DROPSHIP_EMAIL = 'vinehousefarm/vinehousefarm_general/dropship_email';
+    const CONFIG_PATH_DROPSHIP_DEVELOPER = 'vinehousefarm_develop/developer/enabled';
+    const CONFIG_PATH_DROPSHIP_DEVELOPER_NAME = 'vinehousefarm_develop/developer/dropship_name';
+    const CONFIG_PATH_DROPSHIP_DEVELOPER_EMAIL = 'vinehousefarm_develop/developer/dropship_email';
 
     const WAREHOUSE_CODE = 'warehouse';
 
@@ -66,6 +69,30 @@ class Vinehousefarm_Common_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         return '';
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDeveloperMode()
+    {
+        return (bool) Mage::getStoreConfig(self::CONFIG_PATH_DROPSHIP_DEVELOPER);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeveloperName()
+    {
+        return Mage::getStoreConfig(self::CONFIG_PATH_DROPSHIP_DEVELOPER_NAME);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeveloperEmail()
+    {
+        return Mage::getStoreConfig(self::CONFIG_PATH_DROPSHIP_DEVELOPER_EMAIL);
     }
 
     /**

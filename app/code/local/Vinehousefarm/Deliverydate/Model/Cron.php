@@ -18,24 +18,10 @@ class Vinehousefarm_Deliverydate_Model_Cron
                 $currentTimestamp = Mage::getModel('core/date')->timestamp(time());
                 $orderTimestamp = strtotime($order->getShippingArrivalDate());
 
-                if (abs($currentTimestamp - $orderTimestamp) < 86400) {
-                    $this->getHelper()->setOrder($order);
-
-//                    $this->getHelper()->checkAddress();
-//                    $this->getHelper()->checkTradeCustomer();
-//                    $this->getHelper()->checkShippingMethods();
-//                    $this->getHelper()->checkWeightThreshold();
-//                    $this->getHelper()->checkBeforeShipping();
-//                    $this->getHelper()->checkLabels();
-//
-//                    $this->getHelper()->dropshipItem();
-//                    $this->getHelper()->supplierItem();
-
-                    if (!$this->getHelper()->isChangeStatus()) {
-                        $order->addStatusHistoryComment('Move to Awaiting Authorisation.');
-                        $order->setStatus(self::STATUS_ORDER_AUTHORISE);
-                        $order->save();
-                    }
+                if (($orderTimestamp - $currentTimestamp) < 86400) {
+                    $order->addStatusHistoryComment('Move to Awaiting Authorisation.');
+                    $order->setStatus(Vinehousefarm_Authoriselist_Helper_Data::STATUS_ORDER_AUTHORISE);
+                    $order->save();
                 }
             }
         }

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <oldorders_order_list translate="label">
+        <label>Customer My Account Old Orders List</label>
+        <update handle="customer_account"/>
+        <reference name="my.account.wrapper">
+            <block type="oldorders/order_list" name="oldorders.list"/>
+            <block type="customer/account_dashboard" name="customer.account.link.back" template="customer/account/link/back.phtml"/>
+        </reference>
+    </oldorders_order_list>
+</layout>

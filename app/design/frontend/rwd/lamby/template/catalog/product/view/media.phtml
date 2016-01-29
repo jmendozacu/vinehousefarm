@@ -1,0 +1,91 @@
+<?php
+    $_product = $this->getProduct();
+    $_videoCollection = Mage::helper('productvideo')->getVideoCollection($this->getProduct());
+    $_helper = $this->helper('catalog/output');
+?>
+
+<img class="whf-big-photo" src="<?php echo $this->helper('catalog/image')->init($_product, 'image')->resize(450,450); ?>" alt="<?php echo $this->htmlEscape($this->getImageLabel()) ?>" title="<?php echo $this->htmlEscape($this->getImageLabel()) ?>"/>
+
+<div class="whf-big-photo-player" style="display: none;">
+    <iframe src="jH0425VzERs" frameborder="0" allowfullscreen></iframe>
+</div>
+
+<?php  if ((count($this->getGalleryImages()) > 0) || ($_videoCollection->getSize() > 0)): ?>
+<ul class="bxslider whf-big-photos">
+        <?php foreach ($this->getGalleryImages() as $_image): ?>
+            <li data-big-src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'image', $_image->getFile()); ?>"><img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(450,450); ?>" alt="<?php echo $_product->getName();?>" titile="<?php echo $_product->getName();?>"/></li>
+        <?php endforeach; ?>
+        <?php foreach ($_videoCollection as $_video): ?>
+            <li data-yt-id="<?php echo $_video->getVideoCode(); ?>">
+                <img src="<?php echo $this->getSkinUrl('images/vinehousefarm/product_image_placeholder.png'); ?>" alt="<?php echo $_video->getVideoName();?>" title="<?php echo $_video->getVideoName();?>" />
+            </li>
+        <?php endforeach; ?>
+</ul>
+
+<?php if ( ( count($this->getGalleryImages()) + $_videoCollection->getSize() ) > 3 ): ?>
+<div class="whf-big-photos-nav">
+    <a class="whf-big-photos-nav-prev" id="whfBigPhotosSlider-prev"></a>
+    <a class="whf-big-photos-nav-next" id="whfBigPhotosSlider-next"></a>
+</div>
+<?php endif; ?>
+
+<?php endif; ?>
+
+<script type="text/javascript">
+    jQuery(function() {
+        jQuery('.whf-big-photos li').css("margin-left", "0");
+
+        if (jQuery('.bxslider.whf-big-photos li').length > 3) {
+            var whfBigPhotosSlider = jQuery('.bxslider.whf-big-photos').bxSlider({
+                minSlides: 3,
+                maxSlides: 3,
+                slideMargin: 16,
+                slideWidth: 450 / 3,
+                pager: false,
+                controls: false,
+                nextSelector: '#whfBigPhotosSlider-next',
+                prevSelector: '#whfBigPhotosSlider-prev',
+            });
+
+            jQuery('#whfBigPhotosSlider-next').on('click', function(e) {
+                e.preventDefault();
+
+                whfBigPhotosSlider.goToNextSlide();
+            });
+
+            jQuery('#whfBigPhotosSlider-prev').on('click', function(e) {
+                e.preventDefault();
+
+                whfBigPhotosSlider.goToPrevSlide();
+            });
+        }
+
+        jQuery('.whf-big-photos').on('click', 'li', function(e) {
+            var image = jQuery(this).attr('data-big-src');
+            var yt = jQuery(this).attr('data-yt-id');
+
+            if (yt) {
+                if (jQuery('.whf-big-photo-player iframe').attr('src') != 'https://www.youtube.com/embed/' + yt + '') {
+                    jQuery('.whf-big-photo-player iframe').attr('src', 'https://www.youtube.com/embed/' + yt + '');
+                }
+                jQuery(this).closest('.product-img-box').find('.whf-big-photo').hide();
+                jQuery(this).closest('.product-img-box').find('.whf-big-photo-player').show();
+            }
+
+            if (image) {
+                jQuery(this).closest('.product-img-box').find('.whf-big-photo-player').hide();
+                jQuery(this).closest('.product-img-box').find('.whf-big-photo').attr('src', image).show();
+            }
+        });
+    });
+</script>
+
+<script type="text/javascript">
+jQuery(document).ready(function() {
+    jQuery('#more').jcarousel({
+        
+                scroll:1,
+itemFallbackDimension: 300
+    });
+});
+</script>

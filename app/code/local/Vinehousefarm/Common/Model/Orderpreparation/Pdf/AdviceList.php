@@ -143,6 +143,20 @@ class Vinehousefarm_Common_Model_Orderpreparation_Pdf_AdviceList extends MDN_Ord
         if ($this->pdf == null)
             $this->pdf = new Zend_Pdf();
 
+        $needPrint = false;
+
+        foreach ($orders as $order) {
+            foreach ($order->getAllItems() as $item) {
+                if ($this->needItemPrint($item, $type)) {
+                    $needPrint = true;
+                }
+            }
+        }
+
+        if (!$needPrint) {
+            return $this;
+        }
+
 
         //create new page
         if (isset($data['title'])) {
@@ -297,13 +311,13 @@ class Vinehousefarm_Common_Model_Orderpreparation_Pdf_AdviceList extends MDN_Ord
 //                }
 
                 $page->drawText($item->getSku(), 20, $this->y, 'UTF-8');
-                $page->drawText($item->getName(), 110, $this->y, 'UTF-8');
+                $page->drawText($item->getName(), 100, $this->y, 'UTF-8');
 
-                $page->drawText((int) $item->getQtyOrdered(), 305, $this->y, 'UTF-8');
-                $page->drawText(Mage::helper('core')->formatPrice($item->getPrice(), false), 345, $this->y, 'UTF-8');
-                $page->drawText(Mage::helper('core')->formatPrice($item->getRowTotal(), false), 415, $this->y, 'UTF-8');
+                $page->drawText((int) $item->getQtyOrdered(), 300, $this->y, 'UTF-8');
+                $page->drawText(Mage::helper('core')->formatPrice($item->getPrice(), false), 340, $this->y, 'UTF-8');
+                $page->drawText(Mage::helper('core')->formatPrice($item->getRowTotal(), false), 410, $this->y, 'UTF-8');
                 $subtotal = $subtotal + $item->getRowTotal();
-                $page->drawText(Mage::helper('core')->formatPrice($item->getTaxAmount(), false), 485, $this->y, 'UTF-8');
+                $page->drawText(Mage::helper('core')->formatPrice($item->getTaxAmount(), false), 490, $this->y, 'UTF-8');
                 $subtax = $subtax + $item->getTaxAmount();
                 $page->drawText(Mage::helper('core')->formatPrice($item->getRowTotalInclTax(), false), 545, $this->y, 'UTF-8');
                 $subtaxincl = $subtaxincl + $item->getRowTotalInclTax();
@@ -345,8 +359,8 @@ class Vinehousefarm_Common_Model_Orderpreparation_Pdf_AdviceList extends MDN_Ord
 
             $page->drawRectangle(20, $this->y, $this->_PAGE_WIDTH - 25, $this->y, Zend_Pdf_Page::SHAPE_DRAW_STROKE);
 
-            $this->defineFont($page,self::DEFAULT_FONT_SIZE, self::FONT_MODE_ITALIC);
-            $page->drawText(Mage::helper('authoriselist')->__('Tip:'), 20, $this->y + 35, 'UTF-8');
+            //$this->defineFont($page,self::DEFAULT_FONT_SIZE, self::FONT_MODE_ITALIC);
+            //$page->drawText(Mage::helper('authoriselist')->__('Tip:'), 20, $this->y + 35, 'UTF-8');
 
             $this->y = $this->_PAGE_HEIGHT/2 - 210;
 
@@ -395,10 +409,10 @@ class Vinehousefarm_Common_Model_Orderpreparation_Pdf_AdviceList extends MDN_Ord
                 $page->drawRectangle(90 + ($i*15), $this->y, 105 + ($i*15), $this->y + 15, Zend_Pdf_Page::SHAPE_DRAW_STROKE);
             }
 
-            $page->drawText(Mage::helper('authoriselist')->__('Expiry Date'), 150, $this->y + 5, 'UTF-8');
+            $page->drawText(Mage::helper('authoriselist')->__('Expiry Date'), 170, $this->y + 5, 'UTF-8');
 
             for ($i=0; $i<3; $i++) {
-                $page->drawRectangle(210 + ($i*15), $this->y, 225 + ($i*15), $this->y + 15, Zend_Pdf_Page::SHAPE_DRAW_STROKE);
+                $page->drawRectangle(220 + ($i*15), $this->y, 235 + ($i*15), $this->y + 15, Zend_Pdf_Page::SHAPE_DRAW_STROKE);
             }
 
             $this->y -= 20;
@@ -535,7 +549,7 @@ class Vinehousefarm_Common_Model_Orderpreparation_Pdf_AdviceList extends MDN_Ord
 
         $this->_afterGetPdf();
 
-        return $this->pdf;
+        return $this;
     }
 
     /**
@@ -578,6 +592,22 @@ class Vinehousefarm_Common_Model_Orderpreparation_Pdf_AdviceList extends MDN_Ord
 //                $this->drawTextInBlock($page, $pagination, 0, 25, $this->_PAGE_WIDTH - 20, 40, 'r');
 //            }
 //        }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEntityPdf()
+    {
+        return $this->pdf;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPdfPageLast()
+    {
+        return end($this->pdf->pages);
     }
 
     /**
@@ -636,6 +666,24 @@ class Vinehousefarm_Common_Model_Orderpreparation_Pdf_AdviceList extends MDN_Ord
             return false;
         }
 
-        return true;
+        if ($item->hasWarehouseCode()) {
+            if ($item->getWarehouseCode() === $type) {
+                return true;
+            }
+        } else {
+            //TODO need refactoring
+            $product = Mage::getModel('catalog/product')->load($item->getProductId());
+
+            $pickedFrom = (string)$product->getResource()
+                ->getAttribute('default_picked_from')
+                ->getFrontend()
+                ->getValue($product);
+
+            if (strtolower(trim($pickedFrom)) === strtolower(trim($type))) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

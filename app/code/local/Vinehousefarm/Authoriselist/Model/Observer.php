@@ -228,15 +228,35 @@ class Vinehousefarm_Authoriselist_Model_Observer
      */
     public function coreBlockAbstractPrepareLayoutAfter(Varien_Event_Observer $observer)
     {
+        $block = $observer->getBlock();
+
         if (Mage::app()->getFrontController()->getAction()->getFullActionName() === 'adminhtml_dashboard_index')
         {
-            $block = $observer->getBlock();
             if ($block->getNameInLayout() === 'dashboard')
             {
                 $orders = (int) $this->getHelper()->getCountNext();
                 $block->getChild('sales')->addTotal($this->getHelper()->__('Orders Requiring Validation'), $orders, true);
             }
         }
+
+        if ($block instanceof Mage_Adminhtml_Block_Catalog_Product_Edit_Tabs) {
+
+            /**
+             * @var $product Mage_Catalog_Model_Product
+             */
+            if (Mage::registry('current_product')) {
+                $product = Mage::registry('current_product');
+
+                $item = new Varien_Object();
+                $item->setProductId($product->getId());
+
+                if (Mage::helper('authoriselist')->isSupplierItem($item) || Mage::helper('authoriselist')->isDropShipItem($item)) {
+                    $block->removeTab('group_137');
+                }
+            }
+        }
+
+        return $this;
     }
 
     public function addColumnToSalesOrderGrid($observer) {
@@ -247,7 +267,8 @@ class Vinehousefarm_Authoriselist_Model_Observer
             'Vinehousefarm_Authoriselist_Block_Adminhtml_Processing_Grid',
             'Vinehousefarm_Authoriselist_Block_Adminhtml_Pickingpacking_Grid',
             'Vinehousefarm_Authoriselist_Block_Adminhtml_Completed_Grid',
-            'Vinehousefarm_Authoriselist_Block_Adminhtml_Ordersearch_Grid'
+            'Vinehousefarm_Authoriselist_Block_Adminhtml_Ordersearch_Grid',
+            'Vinehousefarm_Deliverydate_Block_Adminhtml_Futureorder_Grid',
         ))) { //Thanks Paul Ketelle for your feedback on this
 
             $block->addColumnAfter('sagepay_transaction_state', array(
@@ -259,6 +280,17 @@ class Vinehousefarm_Authoriselist_Model_Observer
                     'sortable' => false,
                 )
                 , 'real_order_id');
+
+            $block->addColumnAfter('shipping_date', array(
+                    'header' => Mage::helper('sales')->__('Delivery Date'),
+                    'renderer' => 'Vinehousefarm_Deliverydate_Block_Adminhtml_Futureorder_Renderer_Deliverydate',
+                    'index' => 'shipping_arrival_date',
+                    'align' => 'center',
+                    'filter' => false,
+                    'renderer' => 'Vinehousefarm_Deliverydate_Block_Adminhtml_Futureorder_Renderer_Deliverydate',
+                    'sortable' => false,
+                )
+                , 'shipping_name');
         }
 
         return $observer;

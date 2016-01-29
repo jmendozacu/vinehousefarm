@@ -1,0 +1,61 @@
+<div class="whf-package-pricing" id="multi-items">
+        <ul>
+            <?php foreach ($this->getSimpleProducts() as $product): ?>
+            <li>
+                <input type="hidden" id="product-id" name="" value="<?php echo $product->getId() ?>"/>
+                <input type="hidden" id="super-id" name="" value="<?php echo $product->getSuperAttributeId() ?>"/>
+                <input type="hidden" id="super-value" name="" value="<?php echo $product->getSupperAttributeValueId() ?>"/>
+                <div class="whf-package-pricing-product">
+                    <?php if ($this->getIsSaleable($product)): ?>
+                    <div class="whf-package-pricing-product-input">
+                        <input type="checkbox" class="whf-checkbox" name="product-checkbox[]" />
+                        <div class="whf-checkbox-box"></div>
+                    </div>
+                    <?php endif; ?>
+                    <div class="whf-package-pricing-product-title"><?php echo $this->escapeHtml($product->getOptionTitle()) ?></div>
+                </div>
+                <div class="whf-package-pricing-quantity">
+                    <div class="whf-package-pricing-quantity-title"><?php echo $this->__('Quantity'); ?></div>
+                    <select class="whf-package-pricing-quantity-select" id="product-qty" name="">
+                        <option selected="selected">1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+                <div class="whf-package-pricing-price"><?php echo Mage::helper('core')->currency($product->getPrice(), true, false); ?></div>
+                <div class="whf-package-pricing-instock"><?php echo ($this->getIsSaleable($product)) ? $this->__('In stock') : $this->__('Out of stock') ;  ?></div>
+            </li>
+            <?php endforeach; ?>
+        </ul>
+
+        <div class="whf-package-pricing-actions">
+            <button class="whf-button whf-add" onclick="productAddToCartForm.submitMulti('<?php echo $this->getUrl('checkout/cart/multi'); ?>');">add to cart</button>
+            <!--<a class="whf-button whf-wishlist" href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>">wishlist</a>-->
+        </div>
+</div>
+
+<script type="text/javascript">
+    jQuery(function() {
+        jQuery('.whf-package-pricing-product-input .whf-checkbox-box').on('click', function() {
+            var checkbox = jQuery(this).closest('.whf-package-pricing-product-input').find('.whf-checkbox');
+            checkbox.prop("checked", !checkbox.prop("checked"));
+            debugger;
+            if (checkbox.prop("checked")) {
+                jQuery(this).closest('.whf-package-pricing-product-input').parent().parent().find('#product-id').prop('name','product-id[]');
+                jQuery(this).closest('.whf-package-pricing-product-input').parent().parent().find('#product-qty').prop('name','product-qty[]');
+                jQuery(this).closest('.whf-package-pricing-product-input').parent().parent().find('#super-id').prop('name','super-id[]');
+                jQuery(this).closest('.whf-package-pricing-product-input').parent().parent().find('#super-value').prop('name','super-value[]');
+            } else {
+                jQuery(this).closest('.whf-package-pricing-product-input').parent().parent().find('#product-id').prop('name','');
+                jQuery(this).closest('.whf-package-pricing-product-input').parent().parent().find('#product-qty').prop('name','');
+                jQuery(this).closest('.whf-package-pricing-product-input').parent().parent().find('#super-id').prop('name','');
+                jQuery(this).closest('.whf-package-pricing-product-input').parent().parent().find('#super-value').prop('name','');
+            }
+            jQuery(this).closest('li').toggleClass('checked');
+        });
+
+
+    });
+</script>

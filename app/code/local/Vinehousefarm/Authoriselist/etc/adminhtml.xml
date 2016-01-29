@@ -45,7 +45,7 @@
             <admin>
                 <children>
                     <sales>
-                            <children>
+                        <children>
                             <authoriselist module="authoriselist">
                                 <title>Sales Management</title>
                                 <children>

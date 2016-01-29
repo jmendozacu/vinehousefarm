@@ -92,6 +92,8 @@
                 <extended_cover>0</extended_cover>
                 <signature_optional>0</signature_optional>
                 <long_length>0</long_length>
+                <label_width>6</label_width>
+                <label_height>4</label_height>
             </ukmail>
         </carriers>
     </default>

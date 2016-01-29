@@ -14,6 +14,9 @@
                                     <vinehousefarm>
                                         <title>Vine House Farm - All</title>
                                     </vinehousefarm>
+                                    <vinehousefarm_develop>
+                                        <title>Vine House Farm - Developer Mode</title>
+                                    </vinehousefarm_develop>
                                 </children>
                             </config>
                         </children>

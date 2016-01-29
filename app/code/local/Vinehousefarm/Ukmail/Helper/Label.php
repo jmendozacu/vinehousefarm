@@ -7,6 +7,8 @@
 
 class Vinehousefarm_Ukmail_Helper_Label extends Mage_Core_Helper_Abstract
 {
+    const LAMBDA = 72;
+
     /**
      * Return the base media directory for labels
      *
@@ -92,9 +94,9 @@ class Vinehousefarm_Ukmail_Helper_Label extends Mage_Core_Helper_Abstract
 
             foreach ($allLabels as $labelFiles) {
                 foreach ($labelFiles as $labelFile) {
-                    $page = new Zend_Pdf_Page('432:288:');
+                    $page = new Zend_Pdf_Page($this->getPageSize());
                     $image = Zend_Pdf_Image::imageWithPath($labelFile);
-                    $page->drawImage($image, 0, 0, 432, 288);
+                    $page->drawImage($image, 0, 0, $this->getWidth(), $this->getHeight());
                     $pdf->pages[] = $page;
                 }
             }
@@ -103,5 +105,29 @@ class Vinehousefarm_Ukmail_Helper_Label extends Mage_Core_Helper_Abstract
         }
 
         return null;
+    }
+
+    /**
+     * @return int
+     */
+    public function getWidth()
+    {
+        return (int) Mage::helper('ukmail')->getConfigValue('label_width') * self::LAMBDA;
+    }
+
+    /**
+     * @return int
+     */
+    public function getHeight()
+    {
+        return (int) Mage::helper('ukmail')->getConfigValue('label_height') * self::LAMBDA;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPageSize()
+    {
+        return (string) $this->getWidth() . ':' . $this->getHeight() . ':';
     }
 }

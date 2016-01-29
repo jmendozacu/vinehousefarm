@@ -121,6 +121,19 @@ class Vinehousefarm_Common_Model_Orderpreparation_Pdf_PickingList extends MDN_Or
         if ($this->pdf == null)
             $this->pdf = new Zend_Pdf();
 
+        $needPrint = false;
+
+        foreach ($orders as $order) {
+            foreach ($order->getAllItems() as $item) {
+                if ($this->needItemPrint($item, $type)) {
+                    $needPrint = true;
+                }
+            }
+        }
+
+        if (!$needPrint) {
+            return $this;
+        }
 
         //create new page
         if (isset($data['title'])) {
@@ -311,7 +324,43 @@ class Vinehousefarm_Common_Model_Orderpreparation_Pdf_PickingList extends MDN_Or
 
         $this->_afterGetPdf();
 
+        return $this;
+    }
+
+    /**
+     * Rajoute la pagination
+     *
+     */
+    public function AddPagination($pdf) {
+        //pour chaque page
+//        $page_count = count($pdf->pages);
+//        for ($i = 0; $i < $page_count; $i++) {
+//            if ($i >= $this->firstPageIndex) {
+//                //recup la page
+//                $page = $pdf->pages[$i];
+//                //dessine la pagination
+//                $pagination = 'Page ' . ($i + 1 - $this->firstPageIndex) . ' / ' . ($page_count - $this->firstPageIndex);
+//                $page->setFillColor(new Zend_Pdf_Color_GrayScale(0.3));
+//                $this->defineFont($page,10);
+//                $this->drawTextInBlock($page, $pagination, 0, 25, $this->_PAGE_WIDTH - 20, 40, 'r');
+//            }
+//        }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEntityPdf()
+    {
         return $this->pdf;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPdfPageLast()
+    {
+        return end($this->pdf->pages);
     }
 
     /**

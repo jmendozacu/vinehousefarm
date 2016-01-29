@@ -31,7 +31,7 @@ class Vinehousefarm_Authoriselist_Block_Adminhtml_Processing_Grid extends Mage_A
     {
         $collection = Mage::getResourceModel($this->_getCollectionClass())
             ->addFieldToFilter('entity_id', array('in', $this->getOrderIds()))
-            ->addAttributeToFilter('status', array('nin' => array(Vinehousefarm_Authoriselist_Helper_Data::STATUS_ORDER_PICKING, Vinehousefarm_Deliverydate_Helper_Data::STATUS_ORDER_DELIVERY_DATE)));
+            ->addAttributeToFilter('status', array('nin' => array(Vinehousefarm_Authoriselist_Helper_Data::STATUS_ORDER_PICKING, Vinehousefarm_Deliverydate_Helper_Data::STATUS_ORDER_DELIVERY_DATE, Vinehousefarm_Authoriselist_Helper_Data::STATUS_ORDER_AUTHORISE)));
 
         $this->setCollection($collection);
         return parent::_prepareCollection();
@@ -92,14 +92,14 @@ class Vinehousefarm_Authoriselist_Block_Adminhtml_Processing_Grid extends Mage_A
             'currency' => 'order_currency_code',
         ));
 
-        $this->addColumn('dropship_sent', array(
-            'header' => Mage::helper('sales')->__('Drop Ship'),
-            'index' => 'dropship_sent',
-            'align' => 'center',
-            'filter' => false,
-            'sortable' => false,
-            'renderer' => 'Vinehousefarm_Authoriselist_Block_Adminhtml_Processing_Renderer_Dropship',
-        ));
+//        $this->addColumn('dropship_sent', array(
+//            'header' => Mage::helper('sales')->__('Drop Ship'),
+//            'index' => 'dropship_sent',
+//            'align' => 'center',
+//            'filter' => false,
+//            'sortable' => false,
+//            'renderer' => 'Vinehousefarm_Authoriselist_Block_Adminhtml_Processing_Renderer_Dropship',
+//        ));
 
         if (Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/view')) {
             $this->addColumn('action',
@@ -134,25 +134,30 @@ class Vinehousefarm_Authoriselist_Block_Adminhtml_Processing_Grid extends Mage_A
         $this->getMassactionBlock()->setFormFieldName('order_ids');
         $this->getMassactionBlock()->setUseSelectAll(false);
 
+        $this->getMassactionBlock()->addItem('authorization_order', array(
+            'label'=> Mage::helper('authoriselist')->__('Move back to Authorization screen'),
+            'url'  => $this->getUrl('*/*/authorizationmove'),
+        ));
+
         $this->getMassactionBlock()->addItem('picking_order', array(
             'label'=> Mage::helper('authoriselist')->__('Picking/Packing'),
             'url'  => $this->getUrl('*/*/picking'),
         ));
 
         $this->getMassactionBlock()->addItem('pdfshipments_order_warehouse', array(
-            'label'=> Mage::helper('authoriselist')->__('Produce Picklist for Warehouse'),
+            'label'=> Mage::helper('authoriselist')->__('Warehouse Picklist + Advice slip'),
             'url'  => $this->getUrl('*/*/pdfshipments', array('type' => 'warehouse')),
         ));
 
         $this->getMassactionBlock()->addItem('pdfshipments_order_office', array(
-            'label'=> Mage::helper('authoriselist')->__('Produce Picklist for Office'),
+            'label'=> Mage::helper('authoriselist')->__('Office Picklist + Advice slip'),
             'url'  => $this->getUrl('*/*/pdfshipments', array('type' => 'office')),
         ));
 
-        $this->getMassactionBlock()->addItem('pdfshipments1_order', array(
-            'label'=> Mage::helper('authoriselist')->__('Print Advice slips'),
-            'url'  => $this->getUrl('*/*/pdfadviceslips'),
-        ));
+//        $this->getMassactionBlock()->addItem('pdfshipments1_order', array(
+//            'label'=> Mage::helper('authoriselist')->__('Print Advice slips'),
+//            'url'  => $this->getUrl('*/*/pdfadviceslips'),
+//        ));
 
         $this->getMassactionBlock()->addItem('print_shipping_label', array(
             'label'=> Mage::helper('authoriselist')->__('Print Shipping Labels'),

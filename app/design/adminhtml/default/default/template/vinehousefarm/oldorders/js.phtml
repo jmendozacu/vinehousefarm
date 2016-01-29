@@ -1,0 +1,40 @@
+<script type="text/javascript">
+	//<![CDATA[
+	var OldOrders = Class.create({
+		initialize: function () {
+		},
+
+		bindEvents: function () {
+			$this = this;
+			$$('.oldorders_details').each(function (el) {
+				el.observe('click', $this.getDetails.bind(el))
+			});
+		},
+
+		getDetails: function () {
+			if($('unique'))
+				$('unique').remove();
+
+			var order_id = this.dataset.id;
+
+			<?php $url = $this->getUrl('*/oldorder/products'); ?>
+			<?php $key = Mage::getSingleton('core/session')->getFormKey(); ?>
+
+			this.up('tr').insert({after: '<tr><td colspan="16" id="unique"><center><img src="<?=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN)?>/frontend/rwd/default/images/opc-ajax-loader.gif" /></center></td></tr>'});
+			new Ajax.Updater(
+				'unique',
+				'<?=$url?>',
+				{
+					method: 'post',
+					parameters: {id:order_id, form_key:'<?=$key?>'},
+				}
+			);
+		}
+	});
+
+	document.observe("dom:loaded", function () {
+		var oldOrders = new OldOrders;
+		oldOrders.bindEvents();
+	});
+	//]]>
+</script>

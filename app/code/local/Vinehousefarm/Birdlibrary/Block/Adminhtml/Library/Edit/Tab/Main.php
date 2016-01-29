@@ -28,6 +28,13 @@ class Vinehousefarm_Birdlibrary_Block_Adminhtml_Library_Edit_Tab_Main
     {
         $model  = $this->_getModel();
 
+        $model->setInProducts(implode(',', $model->getInProducts()));
+        $model->setInLinks(implode(',', $model->getInLinks()));
+
+        //$model->setDistributionMap(array('value' => $model->getDistributionMap()));
+        //$model->setEggNest(array('value' => $model->getEggNest()));
+        //$model->setAudioFile(array('value' => $model->getAudioFile()));
+
         $form = new Varien_Data_Form();
 
         $form->setHtmlIdPrefix('bird_main_');

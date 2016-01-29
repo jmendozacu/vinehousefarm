@@ -145,6 +145,24 @@
                             <show_in_website>0</show_in_website>
                             <show_in_store>0</show_in_store>
                         </long_length>
+                        <label_width>
+                            <label>Label Width (Inch).</label>
+                            <frontend_type>text</frontend_type>
+                            <validate>required-entry validate-digits validate-not-negative-number</validate>
+                            <sort_order>44</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </label_width>
+                        <label_height>
+                            <label>Label Height (Inch).</label>
+                            <frontend_type>text</frontend_type>
+                            <validate>required-entry validate-digits validate-not-negative-number</validate>
+                            <sort_order>45</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </label_height>
                     </fields>
                 </ukmail>
             </groups>

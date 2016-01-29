@@ -23,6 +23,39 @@ class Vinehousefarm_Deliverydate_Adminhtml_DeliverydateController extends Mage_A
             ->renderLayout();
     }
 
+    public function deliverychangeAction()
+    {
+        $deliverydate = $this->getRequest()->getParam('deliverydate', '');
+        $deliveryorder = $this->getRequest()->getParam('dateorder', 0);
+
+        if ($deliverydate && $deliveryorder) {
+            $order = Mage::getModel('sales/order')->load($deliveryorder);
+
+            if ($order->getId()) {
+                $arrivalDate = Mage::helper('vinehousefarm_deliverydate')->getFormatedDeliveryDateToSave(str_replace('/','-',$deliverydate));
+                $order->setShippingArrivalDate($arrivalDate);
+
+                $planning = mage::getModel('SalesOrderPlanning/Planning')->getCollection()
+                    ->addFieldToFilter('psop_order_id', $order->getId())
+                    ->getFirstItem();
+
+                $planning->setShippingInformation($order);
+                $planning->setDeliveryInformation($order);
+
+                $planning->save();
+
+                try {
+                    Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('vinehousefarm_deliverydate')->__('Delivery date changed.'));
+                    $order->save();
+                } catch (Exception $e) {
+                    Mage::getSingleton('adminhtml/session')->addError(Mage::helper('vinehousefarm_deliverydate')->__('Item does not exist'));
+                }
+            }
+        }
+
+        $this->_redirect('adminhtml/sales_order/view', array('order_id' => $deliveryorder));
+    }
+
     public function editAction()
     {
         $id = $this->getRequest()->getParam('id');

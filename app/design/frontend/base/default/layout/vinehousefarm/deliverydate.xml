@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <deliverydate_index_index>
+        <reference name="content">
+            <block type="vinehousefarm_deliverydate/deliverydate" name="deliverydate" template="vinehousefarm/deliverydate/deliverydate.phtml" />
+        </reference>
+    </deliverydate_index_index>
+
+    <checkout_onepage_index>
+        <reference name="head">    
+            <action method="addItem"><type>js_css</type><name>calendar/calendar-win2k-1.css</name><params/><!--<if/><condition>can_load_calendar_js</condition>--></action>
+            <action method="addItem"><type>js</type><name>calendar/calendar.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
+            <action method="addItem"><type>js</type><name>calendar/calendar-setup.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>    
+        </reference>
+    </checkout_onepage_index>
+
+
+    <checkout_onepage_shippingmethod>
+        <reference name="root">
+            <block type="core/html_calendar" name="head.calendar" as="calendar" output="toHtml" template="vinehousefarm/deliverydate/js/calendar.phtml"/>
+            <action method="setTemplate" ifconfig="vinehousefarm_deliverydate/deliverydate_general/enabled">
+                <template>vinehousefarm/deliverydate/shipping_method/available.phtml</template>
+            </action>
+        </reference>
+    </checkout_onepage_shippingmethod>
+
+    <deliverydate_email_information>
+        <block type="vinehousefarm_deliverydate/email_info" name="deliverydate_email_info" template="vinehousefarm/deliverydate/email/info.phtml"/>
+    </deliverydate_email_information>
+</layout> 

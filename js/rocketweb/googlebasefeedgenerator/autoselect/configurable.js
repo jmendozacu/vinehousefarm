@@ -80,17 +80,18 @@ GSF_Configurable.prototype = {
             if (selected_option != null) {
 
                 // Select the appropriate swatch
-                $$('.configurable-swatch-list').each(function(elem) {
-                    var obj = elem.select('[id="option'+selected_option.id+'"]');
-                    if (obj.size() > 0) {
-                        obj[0].addClassName('selected');
-                    }
-                });
-
-                // Fix labels not displaying on selected swatches
-                if (typeof selected_option.attr.code != 'undefined' && typeof selected_option.label != 'undefined') {
-                    $('select_label_'+ selected_option.attr.code).innerHTML = selected_option.label;
-                }
+                //TODO disable for current site.
+                //$$('.configurable-swatch-list').each(function(elem) {
+                //    var obj = elem.select('[id="option'+selected_option.id+'"]');
+                //    if (obj.size() > 0) {
+                //        obj[0].addClassName('selected');
+                //    }
+                //});
+                //
+                //// Fix labels not displaying on selected swatches
+                //if (typeof selected_option.attr.code != 'undefined' && typeof selected_option.label != 'undefined') {
+                //    $('select_label_'+ selected_option.attr.code).innerHTML = selected_option.label;
+                //}
 
                 // Determine the corresponded product id, from the selected options
                 var counts = [];

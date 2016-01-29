@@ -37,6 +37,41 @@ class Vinehousefarm_Authoriselist_Adminhtml_ProcessingController extends Mage_Ad
         );
     }
 
+    public function authorizationmoveAction()
+    {
+        try {
+            $orderIds = $this->getRequest()->getParam('order_ids');
+
+            //TODO
+            $orders = Mage::getModel('sales/order')->getCollection()
+                ->addFieldToFilter('entity_id', $orderIds);
+
+            foreach ($orders as $order) {
+                $order->setState(Mage_Sales_Model_Order::STATE_NEW);
+                $order->setStatus(Vinehousefarm_Authoriselist_Helper_Data::STATUS_ORDER_AUTHORISE, true);
+                $history = $order->addStatusHistoryComment('Order move back to Authorization screen.', false);
+                $history->setIsCustomerNotified(false);
+
+                if ($order->save()) {
+                    $order_in_grid = Mage::getResourceModel('sales/order_grid_collection')->addFieldToFilter('increment_id', $order->getIncrementId());
+                    $order_in_grid->getFirstItem()
+                        ->setStatus(Vinehousefarm_Authoriselist_Helper_Data::STATUS_ORDER_AUTHORISE)
+                        ->save();
+                }
+
+
+            }
+
+            $orders->walk('save');
+
+            $this->_redirect('*/*/index');
+
+        } catch (Exception $ex) {
+            Mage::getSingleton('adminhtml/session')->addError($this->__('An error occured : %s', $ex->getMessage()));
+            $this->_redirect('*/*/index');
+        }
+    }
+
     public function pickingAction()
     {
         try {
@@ -85,12 +120,25 @@ class Vinehousefarm_Authoriselist_Adminhtml_ProcessingController extends Mage_Ad
             $orderIds = $this->getRequest()->getParam('order_ids');
             $type = $this->getRequest()->getParam('type', 'office');
 
-            $orders = Mage::getModel('sales/order')->getCollection()
-                ->addFieldToFilter('entity_id', $orderIds);
+            $pdfAll = new Zend_Pdf();
 
-            $pdf = Mage::helper('authoriselist/orderpreparation_pickingList')->getPickListPdf($orders, $type);
+            foreach ($orderIds as $orderId) {
 
-            $this->_prepareDownloadResponse('picking_list.pdf', $pdf->render(), 'application/pdf');
+                $orders = Mage::getModel('sales/order')->getCollection()
+                    ->addFieldToFilter('entity_id', $orderId);
+
+                $pdfPickList = Mage::helper('authoriselist/orderpreparation_pickingList')->getPickListPdf($orders, $type);
+                $pdfAdviceSlips = Mage::helper('authoriselist/orderpreparation_pickingList')->getAdviceSlipsPdf($orders ,$type);
+
+                if ($pdfPickList->getPdfPageLast()) {
+                    $pdfAll->pages[] = $pdfPickList->getPdfPageLast();
+                    if ($pdfAdviceSlips->getPdfPageLast()) {
+                        $pdfAll->pages[] = $pdfAdviceSlips->getPdfPageLast();
+                    }
+                }
+            }
+
+            $this->_prepareDownloadResponse(ucwords($type) . '-Picklist-Advice-slip.pdf', $pdfAll->render(), 'application/pdf');
         } catch (Exception $ex) {
             Mage::getSingleton('adminhtml/session')->addError($this->__('An error occured : %s', $ex->getMessage()));
             $this->_redirect('*/*/index');
@@ -138,8 +186,9 @@ class Vinehousefarm_Authoriselist_Adminhtml_ProcessingController extends Mage_Ad
      */
     public function dropshipsentAction()
     {
+        $orderId = $this->getRequest()->getParam('order_id');
+
         try {
-            $orderId = $this->getRequest()->getParam('order_id');
 
             if ($orderId) {
                 $order = Mage::getModel('sales/order')->load($orderId);
@@ -159,11 +208,11 @@ class Vinehousefarm_Authoriselist_Adminhtml_ProcessingController extends Mage_Ad
                 }
             }
 
-            $this->_redirect('*/*/index');
+            $this->_redirect('adminhtml/sales_order/view', array('order_id' => $orderId));
 
         } catch (Exception $ex) {
             Mage::getSingleton('adminhtml/session')->addError($this->__('An error occured : %s', $ex->getMessage()));
-            $this->_redirect('*/*/index');
+            $this->_redirect('adminhtml/sales_order/view', array('order_id' => $orderId));
         }
     }
 
@@ -172,8 +221,9 @@ class Vinehousefarm_Authoriselist_Adminhtml_ProcessingController extends Mage_Ad
      */
     public function suppliersentAction()
     {
+        $orderId = $this->getRequest()->getParam('order_id');
+
         try {
-            $orderId = $this->getRequest()->getParam('order_id');
 
             if ($orderId) {
                 $order = Mage::getModel('sales/order')->load($orderId);
@@ -213,11 +263,11 @@ class Vinehousefarm_Authoriselist_Adminhtml_ProcessingController extends Mage_Ad
                 }
             }
 
-            $this->_redirect('*/*/index');
+            $this->_redirect('adminhtml/sales_order/view', array('order_id' => $orderId));
 
         } catch (Exception $ex) {
             Mage::getSingleton('adminhtml/session')->addError($this->__('An error occured : %s', $ex->getMessage()));
-            $this->_redirect('*/*/index');
+            $this->_redirect('adminhtml/sales_order/view', array('order_id' => $orderId));
         }
     }
 
@@ -228,7 +278,7 @@ class Vinehousefarm_Authoriselist_Adminhtml_ProcessingController extends Mage_Ad
      * @param unknown_type $content
      * @param unknown_type $contentType
      */
-    protected function _prepareDownloadResponse($fileName, $content, $contentType = 'application/octet-stream', $contentLength = null)
+    protected function _prepareDownloadResponse($fileName, $content, $contentType = 'application/pdf', $contentLength = null)
     {
         $this->getResponse()
             ->setHttpResponseCode(200)

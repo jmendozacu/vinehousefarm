@@ -34,6 +34,11 @@
                     <order_info>Vinehousefarm_Deliverydate_Block_Order_Info</order_info>
                 </rewrite>
             </sales>
+            <adminhtml>
+                <rewrite>
+                    <sales_order_view_tab_info>Vinehousefarm_Deliverydate_Block_Adminhtml_Sales_Order_View_Tab_Info</sales_order_view_tab_info>
+                </rewrite>
+            </adminhtml>
         </blocks>
         <helpers>
             <vinehousefarm_deliverydate>
@@ -91,7 +96,6 @@
             </sales_order_save_after>
         </events>
     </frontend>
-    >
     <default>
         <vinehousefarm_deliverydate>
             <vinehousefarm_deliverydate_general>

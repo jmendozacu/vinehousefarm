@@ -1,0 +1,43 @@
+<?php $old_orders	= $this->getOldOrders(); ?>
+<?php $number		= 0; ?>
+<div id="customer_info_tabs_prescription_content">            
+	<div id="customer_prescription_grid">
+		<div class="grid">
+		    <div class="hor-scroll">
+			    <table cellspacing="0" class="data" id="customer_prescription_grid_table">
+	                <colgroup>
+		                <col width="100">
+		                <col>
+	                </colgroup>
+
+	    			<thead>
+	                        <tr class="headings">
+                                <th><span class="nobr"><span class="sort-title">#</span></span></th>
+                                <th><span class="nobr"><span class="sort-title">Order</span></span></th>
+                            </tr>
+	                </thead>
+			    
+			        <tbody>
+			        <?php if (empty($old_orders)): ?>
+			            <tr class="even">
+			                <td class="empty-text a-center" colspan="5">No records found.</td>
+			            </tr>
+		            <?php else: ?>
+		            	<?php foreach ($old_orders as $order): ?>
+		            	<?php $number++; ?>
+		            	<tr class="<?php if ($number % 2 == 0) echo 'even '; ?>pointer">
+							<td><?php echo $order->getEntityId(); ?></td>
+		            	    <td class="last">
+                                Date: <?php echo $order->getOrderDate(); ?> <br>
+                                Customer Name: <?php echo $order->getDeliveryName(); ?><br>
+                                Amount: <?php echo $order->getTotalFinal(); ?> <br>
+		            	    </td>
+			            </tr>
+			        	<?php endforeach; ?>
+			        <?php endif; ?>
+			        </tbody>
+			    </table>
+		    </div>
+		</div>
+	</div>
+</div>

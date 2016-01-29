@@ -67,6 +67,13 @@
         </resources>
     </global>
     <adminhtml>
+        <layout>
+            <updates>
+                <vinehousefarm_common>
+                    <file>vinehousefarm/common.xml</file>
+                </vinehousefarm_common>
+            </updates>
+        </layout>
         <events>
             <customer_group_save_before>
                 <observers>
@@ -126,5 +133,12 @@
                 <dropship_email>dropshi@test.com</dropship_email>
             </vinehousefarm_general>
         </vinehousefarm>
+        <vinehousefarm_develop>
+            <developer>
+                <enabled>0</enabled>
+                <dropship_name>Test</dropship_name>
+                <dropship_email>test@test.com</dropship_email>
+            </developer>
+        </vinehousefarm_develop>
     </default>
 </config>

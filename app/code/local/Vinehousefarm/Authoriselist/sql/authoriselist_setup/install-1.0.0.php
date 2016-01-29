@@ -1,10 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: treitjak
- * Date: 09.09.15
- * Time: 14:57
- */ 
+ * @package Vine-House-Farm.
+ * @author: A.A.Treitjak <a.treitjak@gmail.com>
+ * @copyright: 2012 - 2015 BelVG.com
+ */
 /* @var $installer Mage_Core_Model_Resource_Setup */
 $installer = $this;
 

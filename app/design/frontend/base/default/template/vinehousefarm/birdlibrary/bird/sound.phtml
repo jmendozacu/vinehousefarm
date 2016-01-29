@@ -1,0 +1,77 @@
+<?php
+/**
+ * @package Vine-House-Farm.
+ * @author: A.A.Treitjak <a.treitjak@gmail.com>
+ * @copyright: 2012 - 2015 BelVG.com
+ */
+?>
+
+    <h2><?php echo $this->helper('birdlibrary')->__('Sound'); ?></h2>
+
+<div class="whf-audio-player">
+    <a class="whf-audio-player-play" href="#"></a>
+    <a class="whf-audio-player-mute" href="#"></a>
+    <div class="whf-audio-player-bar">
+        <span class="whf-audio-player-time-current">00:00</span> / <span class="whf-audio-player-time">00:00</span>
+        <div class="whf-audio-player-range">
+            <div class="whf-audio-player-range-mark"></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+
+
+    jQuery(function() {
+        var audio = new Audio('<?php echo $this->getSound(); ?>');
+
+
+        jQuery('.whf-audio-player-play').live('click', function(e) {
+            e.preventDefault();
+
+            var audioduration = new Date();
+
+
+            jQuery('.whf-audio-player-time').text(audioduration.clearTime().addSeconds(audio.duration).toString('mm:ss'));
+
+            if (jQuery(this).hasClass('is-playing')) {
+                audio.pause();
+            } else {
+                audio.play();
+            }
+
+            jQuery(this).toggleClass('is-playing');
+        });
+
+        jQuery('.whf-audio-player-mute').live('click', function(e) {
+            e.preventDefault();
+
+            if (jQuery(this).hasClass('is-muted')) {
+                audio.volume = 1;
+            } else {
+                audio.volume = 0;
+            }
+
+            jQuery(this).toggleClass('is-muted');
+        });
+
+        audio.addEventListener('timeupdate', function () {
+            curtime = parseInt(audio.currentTime, 10);
+
+            var d = new Date();
+            var timestring = d.clearTime().addSeconds(curtime).toString('mm:ss');
+
+            jQuery('.whf-audio-player-time-current').text(timestring);
+
+            var markwidth = '' + audio.currentTime / audio.duration * 100 + '%';
+            jQuery('.whf-audio-player-range-mark').css('width', markwidth);
+        });
+
+        audio.addEventListener('ended', function () {
+            curtime = parseInt(audio.currentTime, 10);
+            jQuery('.whf-audio-player-play').removeClass('is-playing');
+        });
+    });
+</script>
+

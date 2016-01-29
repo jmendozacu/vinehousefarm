@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_videolibrary_index>
+        <reference name="content">
+            <block type="productvideo/adminhtml_library" name="video.grid"/>
+        </reference>
+    </adminhtml_videolibrary_index>
+
+    <adminhtml_videolibrary_edit>
+        <reference name="content">
+            <block type="productvideo/adminhtml_library_edit" name="video.edit"/>
+        </reference>
+        <reference name="left">
+            <block type="productvideo/adminhtml_library_edit_tabs" name="library.tabs">
+                <block type="productvideo/adminhtml_library_edit_tab_main" name="library.tabs.main">
+                    <block type="productvideo/adminhtml_library_edit_tab_product" name="form_after_products"
+                           template="vinehousefarm/productvideo/products.phtml" output="toHtml"/>
+                </block>
+                <block type="productvideo/adminhtml_library_edit_tab_product" name="library.tabs.products"/>
+                <action method="addTab">
+                    <name>main_section</name>
+                    <block>library.tabs.main</block>
+                </action>
+                <action method="addTab">
+                    <name>product_section</name>
+                    <block>library.tabs.products</block>
+                </action>
+            </block>
+        </reference>
+    </adminhtml_videolibrary_edit>
+
+    <adminhtml_catalog_product_edit>
+        <reference name="product_tabs">
+            <action method="addTab">
+                <name>productvideo_product_grid</name>
+                <block>productvideo/adminhtml_catalog_product_edit_library</block>
+            </action>
+        </reference>
+    </adminhtml_catalog_product_edit>
+
+    <adminhtml_product_videosgrid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="productvideo/adminhtml_catalog_product_edit_library" name="catalog.product.edit.tab.videos" />
+            <block type="adminhtml/widget_grid_serializer" name="videos_grid_serializer">
+                <reference name="videos_grid_serializer">
+                    <action method="initSerializerBlock">
+                        <grid_block_name>catalog.product.edit.tab.videos</grid_block_name>
+                        <data_callback>getSelectedVideos</data_callback>
+                        <hidden_input_name>links[videos]</hidden_input_name>
+                        <reload_param_name>product_videos</reload_param_name>
+                    </action>
+                    <action method="addColumnInputName">
+                        <input_name>position</input_name>
+                    </action>
+                </reference>
+            </block>
+        </block>
+    </adminhtml_product_videosgrid>
+</layout>

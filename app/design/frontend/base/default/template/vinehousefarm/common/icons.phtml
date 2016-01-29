@@ -1,0 +1,39 @@
+<?php
+    $icons = $this->getProductIcons();
+?>
+<?php if ($icons): ?>
+<div class="whf-birdinfos">
+    <ul class="whf-birdinfos-icons">
+        <?php foreach ($icons as $key => $icon): ?>
+            <li<?php if ($key == 0) { echo ' class="whf-active"'; } ?>>
+                <a href="#">
+                    <img src="<?php echo $this->getIconUrl($icon['code']); ?>" alt="<?php echo $icon['label']; ?>"/>
+                </a>
+            </li>
+        <?php endforeach ?>
+    </ul>
+
+    <ul class="whf-birdinfos-texts">
+        <?php foreach ($icons as $key => $icon): ?>
+            <li<?php  echo ($key == 0)? ' class="whf-open"' : ''?>>
+                <p class="whf-birdinfos-title"><?php echo $icon['label']; ?></p>
+                <p class="whf-birdinfos-info"><?php echo $this->getContentTab($icon['code']); ?></p>
+            </li>
+        <?php endforeach ?>
+    </ul>
+
+    <script type="text/javascript">
+        jQuery(function() {
+            jQuery('.whf-birdinfos-icons').on('mouseenter', 'li', function() {
+                var index = jQuery(this).index();
+
+                jQuery(this).closest('.whf-birdinfos').find('.whf-birdinfos-icons li').removeClass('whf-active');
+                jQuery(this).addClass('whf-active');
+
+                jQuery(this).closest('.whf-birdinfos').find('.whf-birdinfos-texts li').removeClass('whf-open');
+                jQuery(this).closest('.whf-birdinfos').find('.whf-birdinfos-texts li').eq(index).addClass('whf-open');
+            });
+        });
+    </script>
+</div>
+<?php endif ?>

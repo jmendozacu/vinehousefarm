@@ -1,0 +1,43 @@
+<?php
+/**
+ * @package Vine-House-Farm.
+ * @author: A.A.Treitjak <a.treitjak@gmail.com>
+ * @copyright: 2012 - 2015 BelVG.com
+ */
+
+/**
+ * @var $this Vinehousefarm_Birdlibrary_Block_Bird
+ * @var $bird Vinehousefarm_Birdlibrary_Model_Bird
+ */
+$bird = $this->getBird();
+
+?>
+
+<div class="std">
+    <?php echo $this->getChildHtml('library.bird.view.slider') ?>
+    <div class="whf-page-excerpt">
+        <p><?php echo $this->escapeHtml($bird->getOverview()); ?></p>
+    </div>
+
+        <h2><?php echo $this->helper('birdlibrary')->__('Breeding'); ?></h2>
+        <p><?php echo $this->escapeHtml($bird->getBreeding()); ?></p>
+
+
+        <h2><?php echo $this->helper('birdlibrary')->__('Food/Diet'); ?></h2>
+        <p><?php echo $this->escapeHtml($bird->getFoodDiet()); ?></p>
+
+
+        <h2><?php echo $this->helper('birdlibrary')->__('Trends'); ?></h2>
+        <p><?php echo $this->escapeHtml($bird->getTrends()); ?></p>
+
+
+        <h2><?php echo $this->helper('birdlibrary')->__('Behaviour'); ?></h2>
+        <p><?php echo $this->escapeHtml($bird->getBehaviour()); ?></p>
+
+        <?php echo $this->getChildHtml('library.bird.view.sound') ?>
+
+        <?php echo $this->getChildHtml('library.bird.view.video') ?>
+
+
+    <?php echo $this->getChildHtml('library.bird.view.product') ?>
+</div>
