@@ -118,7 +118,15 @@ class Vinehousefarm_Birdlibrary_Helper_Image extends Vinehousefarm_Birdlibrary_H
         }
 
         try {
-            $image = new Varien_Image($this->getBaseDir() . DS . $imageFile);
+            $io = new Varien_Io_File();
+            $io->open(array('path' => $this->getBaseDir()));
+
+            if (!$io->fileExists($this->getBaseDir() . DS . $imageFile)) {
+                $image = new Varien_Image(Mage::getSingleton('catalog/product_media_config')->getBaseMediaPath(). '/placeholder/' .Mage::getStoreConfig("catalog/placeholder/small_image_placeholder"));
+            } else {
+                $image = new Varien_Image($this->getBaseDir() . DS . $imageFile);
+            }
+
             $image->resize($width, $height);
             $image->save($cacheDir . DS . $imageFile);
 

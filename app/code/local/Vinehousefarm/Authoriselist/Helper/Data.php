@@ -751,7 +751,7 @@ class Vinehousefarm_Authoriselist_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isDropShipItem($item)
     {
-        return $this->isSupplierItem($item);
+        //return $this->isSupplierItem($item);
 
         $product = $this->getProduct($item);
 

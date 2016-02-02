@@ -15,7 +15,6 @@ class Vinehousefarm_Common_Block_Catalog_Product_View_Simples extends Mage_Core_
     public function getSimpleProducts()
     {
         //reset the products array to ensure it loops correctly
-        $this->setProducts();
         if (!$this->getProducts()) {
             if ($this->getProduct()->isConfigurable()) {
                 $collection = $this->getProduct()->getTypeInstance()->getUsedProductCollection()->addAttributeToSelect('*')->addFilterByRequiredOptions();

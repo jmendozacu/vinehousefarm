@@ -28,8 +28,13 @@ class Vinehousefarm_Birdlibrary_Block_Adminhtml_Library_Edit_Tab_Main
     {
         $model  = $this->_getModel();
 
-        $model->setInProducts(implode(',', $model->getInProducts()));
-        $model->setInLinks(implode(',', $model->getInLinks()));
+        if ($model->getInProducts()) {
+            $model->setInProducts(implode(',', $model->getInProducts()));
+        }
+
+        if ($model->getInLinks()) {
+            $model->setInLinks(implode(',', $model->getInLinks()));
+        }
 
         //$model->setDistributionMap(array('value' => $model->getDistributionMap()));
         //$model->setEggNest(array('value' => $model->getEggNest()));

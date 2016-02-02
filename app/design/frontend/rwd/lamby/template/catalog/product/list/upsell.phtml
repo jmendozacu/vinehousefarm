@@ -14,6 +14,7 @@
    <ul id="featured_products_slider" class="products-grid jcarousel-list jcarousel-list-horizontal" style="overflow: hidden; position: relative; top: 0px; margin: 0px; padding: 0px; left: 0px; width: 2460px;">
 
     <?php // $this->setColumnCount(5); // uncomment this line if you want to have another number of columns. also can be changed in layout ?>
+    <?php $_columnCount = $this->getColumnCount() ?>
     <?php $this->resetItemsIterator() ?>
     <?php for($_i=0;$_i<$this->getRowCount();$_i++): ?>
         <?php for($_j=0;$_j<$this->getColumnCount();$_j++): ?>
