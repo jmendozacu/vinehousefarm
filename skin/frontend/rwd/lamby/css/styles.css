@@ -4917,12 +4917,12 @@ p {
 	color: transparent;
 	border-radius: 2px;
 }
-.whf-filters .box-category > ul > li ol > li > a.filter-active,
-.whf-filters .box-category > ul > li ol > li:nth-child(odd) > a { /* vinehousefarm */
+.whf-filters .box-category > ul > li ol > li > a.filter-active {
+/*.whf-filters .box-category > ul > li ol > li:nth-child(odd) > a { !* vinehousefarm *!*/
 	color: #5d893c;
 }
-.whf-filters .box-category > ul > li ol > li > a.filter-active:before,
-.whf-filters .box-category > ul > li ol > li:nth-child(odd) > a:before { /* vinehousefarm */
+.whf-filters .box-category > ul > li ol > li > a.filter-active:before {
+/*.whf-filters .box-category > ul > li ol > li:nth-child(odd) > a:before { !* vinehousefarm *!*/
 	color: #fff;
 	border-color: #5d893c;
 	background: #5d893c;

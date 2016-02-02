@@ -19,6 +19,7 @@
                 <remove name="paypal.partner.right.logo"/>
                 <remove name="return_link"/>
                 <remove name="wishlist_link"/>
+                <remove name="left_first"/>
                <!-- <remove name="catalog.leftnav"/>-->
 
 
