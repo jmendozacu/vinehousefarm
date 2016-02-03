@@ -33,7 +33,7 @@ class Vinehousefarm_Authoriselist_Model_Observer
             }
 
             $shipping_arrival_date = Mage::app()->getRequest()->getPost('shipping_arrival_date');
-            $desiredArrivalDate = Mage::helper('vinehousefarm_deliverydate')->getFormatedDeliveryDateToSave(str_replace('/','-',$shipping_arrival_date));
+            $desiredArrivalDate = Mage::helper('vinehousefarm_deliverydate')->getFormatedDeliveryDateToSave(str_replace('/', '-', $shipping_arrival_date));
 
             if ($desiredArrivalDate) {
                 $model->setShippingArrivalDate($desiredArrivalDate);
@@ -124,6 +124,46 @@ class Vinehousefarm_Authoriselist_Model_Observer
         return $this;
     }
 
+    public function catalogProductSaveBefore(Varien_Event_Observer $observer)
+    {
+        $product = $observer->getEvent()->getProduct();
+
+        if ($product) {
+            if ($product->getSupplier()) {
+                $product->setIsDropship('1');
+            } else {
+                $product->setIsDropship('0');
+            }
+        }
+
+        return $this;
+    }
+
+    public function adminhtmlCatalogProductEditPrepareForm(Varien_Event_Observer $observer)
+    {
+        /**
+         * @var Varien_Data_Form
+         */
+        $form = $observer->getEvent()->getForm();
+
+        if ($form) {
+            if ($formset = $form->getElements()) {
+                foreach ($formset->getIterator() as $item) {
+                    if ($item instanceof Varien_Data_Form_Element_Fieldset) {
+                        if ($dropship = $item->getElements()->searchById('dropship')) {
+                            $dropship->setReadonly(true, true);
+                        }
+                    }
+                }
+            }
+        }
+
+        return $this;
+    }
+
+    /*
+     *
+     */
     public function catalogProductSaveAfter(Varien_Event_Observer $observer)
     {
         $product = $observer->getEvent()->getProduct();
@@ -184,7 +224,6 @@ class Vinehousefarm_Authoriselist_Model_Observer
         $product = $observer->getEvent()->getProduct();
 
 
-
         return $this;
     }
 
@@ -212,7 +251,7 @@ class Vinehousefarm_Authoriselist_Model_Observer
     {
         $request = Mage::app()->getFrontController()->getRequest();
 
-        if (! $request->getParam('filter')) {
+        if (!$request->getParam('filter')) {
             $filter = $this->_getDefaultEncodedFilterString();
 
             Mage::app()->getFrontController()
@@ -230,11 +269,9 @@ class Vinehousefarm_Authoriselist_Model_Observer
     {
         $block = $observer->getBlock();
 
-        if (Mage::app()->getFrontController()->getAction()->getFullActionName() === 'adminhtml_dashboard_index')
-        {
-            if ($block->getNameInLayout() === 'dashboard')
-            {
-                $orders = (int) $this->getHelper()->getCountNext();
+        if (Mage::app()->getFrontController()->getAction()->getFullActionName() === 'adminhtml_dashboard_index') {
+            if ($block->getNameInLayout() === 'dashboard') {
+                $orders = (int)$this->getHelper()->getCountNext();
                 $block->getChild('sales')->addTotal($this->getHelper()->__('Orders Requiring Validation'), $orders, true);
             }
         }
@@ -259,11 +296,12 @@ class Vinehousefarm_Authoriselist_Model_Observer
         return $this;
     }
 
-    public function addColumnToSalesOrderGrid($observer) {
+    public function addColumnToSalesOrderGrid($observer)
+    {
 
         $block = $observer->getEvent()->getBlock();
         //if (get_class($block) == 'Mage_Adminhtml_Block_Sales_Order_Grid') {
-        if(in_array(get_class($block), array(
+        if (in_array(get_class($block), array(
             'Vinehousefarm_Authoriselist_Block_Adminhtml_Processing_Grid',
             'Vinehousefarm_Authoriselist_Block_Adminhtml_Pickingpacking_Grid',
             'Vinehousefarm_Authoriselist_Block_Adminhtml_Completed_Grid',
@@ -305,11 +343,11 @@ class Vinehousefarm_Authoriselist_Model_Observer
         $yesterdaysDate = $helper->getYesterdaysDate();
         $todayDate = $helper->getTodayDate();
 
-        $data = array (
-            'created_at'  =>
+        $data = array(
+            'created_at' =>
                 array(
-                    'from'   => $yesterdaysDate,
-                    'to'       => $todayDate,
+                    'from' => $yesterdaysDate,
+                    'to' => $todayDate,
                     'locale' => $this->_getLocalCode()
                 )
         );

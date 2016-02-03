@@ -106,6 +106,24 @@
                     </authoriselist>
                 </observers>
             </catalog_product_save_after>
+            <catalog_product_save_before>
+                <observers>
+                    <authoriselist>
+                        <type>singleton</type>
+                        <class>Vinehousefarm_Authoriselist_Model_Observer</class>
+                        <method>catalogProductSaveBefore</method>
+                    </authoriselist>
+                </observers>
+            </catalog_product_save_before>
+            <adminhtml_catalog_product_edit_prepare_form>
+                <observers>
+                    <authoriselist>
+                        <type>singleton</type>
+                        <class>Vinehousefarm_Authoriselist_Model_Observer</class>
+                        <method>adminhtmlCatalogProductEditPrepareForm</method>
+                    </authoriselist>
+                </observers>
+            </adminhtml_catalog_product_edit_prepare_form>
             <Orderpreparation>
                 <rewrite>
                     <Dispatcher>Vinehousefarm_Authoriselist_Helper_Orderpreparation_Dispatcher</Dispatcher>
