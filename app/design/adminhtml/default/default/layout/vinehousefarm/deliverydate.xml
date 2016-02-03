@@ -24,7 +24,7 @@
     </adminhtml_sales_order_view>
     <adminhtml_futureorder_index>
         <reference name="content">
-            <block type="vinehousefarm_deliverydate/adminhtml_futureorder_grid" name="futureorder_grid"/>
+            <block type="vinehousefarm_deliverydate/adminhtml_futureorder" name="futureorder_grid"/>
         </reference>
     </adminhtml_futureorder_index>
 </layout>
