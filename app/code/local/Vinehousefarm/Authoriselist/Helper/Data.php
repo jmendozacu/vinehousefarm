@@ -698,22 +698,20 @@ class Vinehousefarm_Authoriselist_Helper_Data extends Mage_Core_Helper_Abstract
             }
 
             //associate new warehouse (if required)
-            $associateWarehouseData = $this->_getRequest()->getPost('affect_to_warehouse');
-            if ($associateWarehouseData) {
-                if ($associateWarehouseData['warehouse_id']) {
-                    $warehouseId = $associateWarehouseData['warehouse_id'];
-                    $preferedStockLevel = $associateWarehouseData['prefered_stock_level'];
-                    $idealStockLevel = $associateWarehouseData['ideal_stock_level'];
-                    $isFavorite = $associateWarehouseData['is_favorite'];
+            if (array_key_exists('affect_to_warehouse', $stockData)) {
+                $associateWarehouseData = $stockData['affect_to_warehouse'];
+                if ($associateWarehouseData) {
+                    if ($associateWarehouseData['warehouse_id']) {
+                        $warehouseId = $associateWarehouseData['warehouse_id'];
+                        $isFavorite = $associateWarehouseData['is_favorite'];
 
-                    $newStockItem = mage::getModel('cataloginventory/stock_item')->createStock($productId, $warehouseId);
-                    if ($isFavorite)
-                        $newStockItem->setis_favorite_warehouse($isFavorite);
-                    if ($preferedStockLevel)
-                        $newStockItem->setuse_config_notify_stock_qty(0)->setnotify_stock_qty($preferedStockLevel);
-                    if ($idealStockLevel)
-                        $newStockItem->setuse_config_ideal_stock_level(0)->setideal_stock_level($idealStockLevel);
-                    $newStockItem->save();
+                            $newStockItem = mage::getModel('cataloginventory/stock_item')->getOrCreateStock($productId, $warehouseId);
+                            if ($isFavorite)
+                                $newStockItem->setIsFavoriteWarehouse($isFavorite);
+
+                            $newStockItem->save();
+
+                    }
                 }
             }
 

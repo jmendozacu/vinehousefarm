@@ -176,12 +176,42 @@ class Vinehousefarm_Authoriselist_Model_Observer
                     'manage_stock' => 1,
                 );
 
+//                $warehouse = Mage::getModel('AdvancedStock/Warehouse')->getCollection()
+//                    ->addFieldToFilter('stock_code', 'dropship')
+//                    ->getFirstItem();
+//
+//                if ($warehouse->getStockId() !== $product->getStockItem()->getStockId()) {
+//                    $stockData['affect_to_warehouse'] = array(
+//                        'warehouse_id' => $warehouse->getStockId(),
+//                        'is_favorite' => '0',
+//                    );
+//                }
+
                 $this->getHelper()->stockProduct($product, $stockData);
             } else {
                 $stockData = array(
                     'use_config_manage_stock' => 1,
                     'manage_stock' => 0,
                 );
+
+//                $favorite = trim(strtolower($product->getAttributeText('default_picked_from')));
+//
+//                $warehouse = Mage::getModel('AdvancedStock/Warehouse')->getCollection()
+//                    ->addFieldToFilter('stock_code', $favorite)
+//                    ->getFirstItem();
+//
+//                if (!$warehouse) {
+//                    $warehouseId = Mage::getStoreConfig('advancedstock/router/default_warehouse', $product->getStoreId());
+//                } else {
+//                    $warehouseId = $warehouse->getStockId();
+//                }
+//
+//                if ($warehouseId !== $product->getStockItem()->getStockId()) {
+//                    $stockData['affect_to_warehouse'] = array(
+//                        'warehouse_id' => $warehouseId,
+//                        'is_favorite' => '0',
+//                    );
+//                }
 
                 $this->getHelper()->stockProduct($product, $stockData);
             }
