@@ -133,6 +133,21 @@ class Vinehousefarm_Common_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * @param Mage_Sales_Model_Order $order
+     * @return bool
+     */
+    public function useWarehouse(Mage_Sales_Model_Order $order)
+    {
+        foreach ($order->getAllItems() as $item) {
+            if ($this->isWarehouse($item)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * @param $_product
      * @return mixed
      */

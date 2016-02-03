@@ -101,11 +101,12 @@ class Vinehousefarm_Authoriselist_Adminhtml_ProcessingController extends Mage_Ad
     {
         try {
             $orderIds = $this->getRequest()->getParam('order_ids');
+            $type = $this->getRequest()->getParam('type', 'office');
 
             $orders = Mage::getModel('sales/order')->getCollection()
                 ->addFieldToFilter('entity_id', $orderIds);
 
-            $pdf = Mage::helper('authoriselist/orderpreparation_pickingList')->getAdviceSlipsPdf($orders ,$type);
+            $pdf = Mage::helper('authoriselist/orderpreparation_pickingList')->getAdviceSlipsPdf($orders,$type);
 
             $this->_prepareDownloadResponse('advice_slips.pdf', $pdf->render(), 'application/pdf');
         } catch (Exception $ex) {
@@ -171,9 +172,9 @@ class Vinehousefarm_Authoriselist_Adminhtml_ProcessingController extends Mage_Ad
 
             if (!is_null($pdf)) {
                 $this->_prepareDownloadResponse('labels-' . uniqid() . '.pdf', $pdf->render(), 'application/pdf');
+            } else {
+                $this->_redirect('*/*/index');
             }
-
-            //$this->_redirect('*/*/index');
 
         } catch (Exception $ex) {
             Mage::getSingleton('adminhtml/session')->addError($this->__('An error occured : %s', $ex->getMessage()));
@@ -308,6 +309,11 @@ class Vinehousefarm_Authoriselist_Adminhtml_ProcessingController extends Mage_Ad
 
                 if (!$order->getShippingLabels()) {
                     Mage::getSingleton('adminhtml/session')->addError($this->__('It does not indicate the number of labels by order : %s', $order->getIncrementId()));
+                    continue;
+                }
+
+                if (!Mage::helper('vinehousefarm_common')->useWarehouse($order)) {
+                    Mage::getSingleton('adminhtml/session')->addError($this->__('Not used warehous by order : %s', $order->getIncrementId()));
                     continue;
                 }
 
