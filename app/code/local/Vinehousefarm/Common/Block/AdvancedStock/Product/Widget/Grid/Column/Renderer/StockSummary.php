@@ -17,7 +17,7 @@ class Vinehousefarm_Common_Block_AdvancedStock_Product_Widget_Grid_Column_Render
         }
 
         if (Mage::helper('authoriselist')->isSupplierItem($row)) {
-            return '<font color="#8b0000">' . $this->__('Supplier Item') . '</font>';
+            return '<font color="#8b0000">' . $this->__('Drop Ship Item') . '</font>';
         }
 
         //Display stock quantity for a product : Available/Total

@@ -13,7 +13,7 @@ class Vinehousefarm_Authoriselist_Block_Adminhtml_Sales_Order_Create_Items_Grid 
         }
 
         if (Mage::helper('authoriselist')->isSupplierItem($_item)) {
-            return $this->__('Supplier Item');
+            return $this->__('Drop Ship Item');
         }
 
         $form = new Varien_Data_Form(array(
@@ -70,7 +70,7 @@ class Vinehousefarm_Authoriselist_Block_Adminhtml_Sales_Order_Create_Items_Grid 
         }
 
         if (Mage::helper('authoriselist')->isSupplierItem($_item)) {
-            return $this->__('Supplier Item');
+            return $this->__('Drop Ship Item');
         }
 
         $warehouse = Mage::helper('authoriselist')->getWarehouses();
