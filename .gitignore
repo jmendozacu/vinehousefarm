@@ -94,7 +94,7 @@ media/import/
 media/xmlconnect/
 media/catalog/product/cache/
 media/catalog/product/placeholder/default/
-media/catalog/bird/cache/*
+media/catalog/bird/cache/
 /api.php
 nbproject/
 pear
