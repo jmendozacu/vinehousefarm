@@ -175,6 +175,8 @@ class Vinehousefarm_Authoriselist_Model_Observer
 
             if ($product->getSupplier()) {
 
+                $product->addAttributeUpdate('dropship', 1, $product->getStoreId());
+
                 if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_SIMPLE) {
 
                     $stockData = array(
@@ -196,6 +198,7 @@ class Vinehousefarm_Authoriselist_Model_Observer
                 }
 
                 if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE) {
+
                     $stockData = array(
                         'use_config_manage_stock' => 0,
                         'manage_stock' => 1,
@@ -210,6 +213,7 @@ class Vinehousefarm_Authoriselist_Model_Observer
                      */
                     foreach ($childProducts as $child) {
                         $child->addAttributeUpdate('dropship', 1, $child->getStoreId());
+                        $child->addAttributeUpdate('supplier', $product->getSupplier(), $child->getStoreId());
 
                         $stockData = array(
                             'use_config_manage_stock' => 0,
@@ -228,11 +232,54 @@ class Vinehousefarm_Authoriselist_Model_Observer
 
                         $this->getHelper()->stockProduct($child, $stockData);
 
+                        $association = Mage::getModel('Purchase/ProductSupplier')->loadForProductSupplier($child->getId(), $product->getSupplier());
+
+                        //create association if does not exist
+                        if(!($association->getId()>0)){
+                            Mage::getModel('Purchase/ProductSupplier')
+                                ->setpps_product_id($child->getId())
+                                ->setpps_supplier_num($product->getSupplier())
+                                ->save();
+                        }
                     }
                 }
 
+                $association = Mage::getModel('Purchase/ProductSupplier')->loadForProductSupplier($product->getId(), $product->getSupplier());
+
+                //create association if does not exist
+                if(!($association->getId()>0)){
+                    Mage::getModel('Purchase/ProductSupplier')
+                        ->setpps_product_id($product->getId())
+                        ->setpps_supplier_num($product->getSupplier())
+                        ->save();
+                }
 
             } else {
+
+                $product->addAttributeUpdate('dropship', 0, $product->getStoreId());
+
+                if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_SIMPLE) {
+
+                    $favorite = trim(strtolower($product->getAttributeText('default_picked_from')));
+
+                    $warehouse = Mage::getModel('AdvancedStock/Warehouse')->getCollection()
+                        ->addFieldToFilter('stock_code', $favorite)
+                        ->getFirstItem();
+
+                    if (!$warehouse) {
+                        $warehouseId = Mage::getStoreConfig('advancedstock/router/default_warehouse', $product->getStoreId());
+                    } else {
+                        $warehouseId = $warehouse->getStockId();
+                    }
+
+                    $stockData['affect_to_warehouse'] = array(
+                        'warehouse_id' => $warehouseId,
+                        'is_favorite' => '1',
+                    );
+
+                    $this->getHelper()->stockProduct($product, $stockData);
+                }
+
                 if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE) {
                     $stockData = array(
                         'use_config_manage_stock' => 0,
@@ -248,6 +295,7 @@ class Vinehousefarm_Authoriselist_Model_Observer
                      */
                     foreach ($childProducts as $child) {
                         $child->addAttributeUpdate('dropship', 0, $child->getStoreId());
+                        $child->addAttributeUpdate('supplier', $product->getSupplier(), $child->getStoreId());
 
                         $favorite = trim(strtolower($child->getAttributeText('default_picked_from')));
 
@@ -261,7 +309,6 @@ class Vinehousefarm_Authoriselist_Model_Observer
                             $warehouseId = $warehouse->getStockId();
                         }
 
-
                         $stockData['affect_to_warehouse'] = array(
                             'warehouse_id' => $warehouseId,
                             'is_favorite' => '1',
@@ -269,6 +316,22 @@ class Vinehousefarm_Authoriselist_Model_Observer
 
                         $this->getHelper()->stockProduct($child, $stockData);
 
+                        if ($product->dataHasChangedFor('supplier')) {
+                            $item = Mage::getModel('Purchase/ProductSupplier')->getProductForSupplier($child->getId(), $product->getOrigData('supplier'));
+
+                            if ($item) {
+                                $item->delete();
+                            }
+                        }
+
+                    }
+                }
+
+                if ($product->dataHasChangedFor('supplier')) {
+                    $item = Mage::getModel('Purchase/ProductSupplier')->getProductForSupplier($product->getId(), $product->getOrigData('supplier'));
+
+                    if ($item) {
+                        $item->delete();
                     }
                 }
             }
