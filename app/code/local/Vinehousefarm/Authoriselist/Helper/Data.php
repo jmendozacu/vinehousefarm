@@ -705,11 +705,19 @@ class Vinehousefarm_Authoriselist_Helper_Data extends Mage_Core_Helper_Abstract
                         $warehouseId = $associateWarehouseData['warehouse_id'];
                         $isFavorite = $associateWarehouseData['is_favorite'];
 
-                            $newStockItem = mage::getModel('cataloginventory/stock_item')->getOrCreateStock($productId, $warehouseId);
-                            if ($isFavorite)
-                                $newStockItem->setIsFavoriteWarehouse($isFavorite);
+                        $warehouses = Mage::helper('AdvancedStock/Product_Base')->getStocksToDisplay($productId);
 
-                            $newStockItem->save();
+                        foreach ($warehouses as $witem) {
+                            $witem->setIsFavoriteWarehouse(0);
+                        }
+
+                        $warehouses->walk('save');
+
+                        $newStockItem = mage::getModel('cataloginventory/stock_item')->getOrCreateStock($productId, $warehouseId);
+                        if ($isFavorite)
+                            $newStockItem->setIsFavoriteWarehouse($isFavorite);
+
+                        $newStockItem->save();
 
                     }
                 }

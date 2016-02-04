@@ -166,54 +166,111 @@ class Vinehousefarm_Authoriselist_Model_Observer
      */
     public function catalogProductSaveAfter(Varien_Event_Observer $observer)
     {
+        /**
+         * @var $product Mage_Catalog_Model_Product
+         */
         $product = $observer->getEvent()->getProduct();
 
         if ($product) {
 
             if ($product->getSupplier()) {
-                $stockData = array(
-                    'use_config_manage_stock' => 0,
-                    'manage_stock' => 1,
-                );
 
-//                $warehouse = Mage::getModel('AdvancedStock/Warehouse')->getCollection()
-//                    ->addFieldToFilter('stock_code', 'dropship')
-//                    ->getFirstItem();
-//
-//                if ($warehouse->getStockId() !== $product->getStockItem()->getStockId()) {
-//                    $stockData['affect_to_warehouse'] = array(
-//                        'warehouse_id' => $warehouse->getStockId(),
-//                        'is_favorite' => '0',
-//                    );
-//                }
+                if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_SIMPLE) {
 
-                $this->getHelper()->stockProduct($product, $stockData);
+                    $stockData = array(
+                        'use_config_manage_stock' => 0,
+                        'manage_stock' => 1,
+                    );
+
+                    $warehouse = Mage::getModel('AdvancedStock/Warehouse')->getCollection()
+                        ->addFieldToFilter('stock_code', 'dropship')
+                        ->getFirstItem();
+
+
+                    $stockData['affect_to_warehouse'] = array(
+                        'warehouse_id' => $warehouse->getStockId(),
+                        'is_favorite' => '1',
+                    );
+
+                    $this->getHelper()->stockProduct($product, $stockData);
+                }
+
+                if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE) {
+                    $stockData = array(
+                        'use_config_manage_stock' => 0,
+                        'manage_stock' => 1,
+                    );
+
+                    $this->getHelper()->stockProduct($product, $stockData);
+
+                    $childProducts = Mage::getModel('catalog/product_type_configurable')->getUsedProducts(null,$product);
+
+                    /**
+                     * @var $child Mage_Catalog_Model_Product
+                     */
+                    foreach ($childProducts as $child) {
+                        $child->addAttributeUpdate('dropship', 1, $child->getStoreId());
+
+                        $stockData = array(
+                            'use_config_manage_stock' => 0,
+                            'manage_stock' => 1,
+                        );
+
+                        $warehouse = Mage::getModel('AdvancedStock/Warehouse')->getCollection()
+                            ->addFieldToFilter('stock_code', 'dropship')
+                            ->getFirstItem();
+
+
+                        $stockData['affect_to_warehouse'] = array(
+                            'warehouse_id' => $warehouse->getStockId(),
+                            'is_favorite' => '1',
+                        );
+
+                        $this->getHelper()->stockProduct($child, $stockData);
+
+                    }
+                }
+
+
             } else {
-                $stockData = array(
-                    'use_config_manage_stock' => 1,
-                    'manage_stock' => 0,
-                );
+                if ($product->getTypeId() == Mage_Catalog_Model_Product_Type::TYPE_CONFIGURABLE) {
+                    $stockData = array(
+                        'use_config_manage_stock' => 0,
+                        'manage_stock' => 1,
+                    );
 
-//                $favorite = trim(strtolower($product->getAttributeText('default_picked_from')));
-//
-//                $warehouse = Mage::getModel('AdvancedStock/Warehouse')->getCollection()
-//                    ->addFieldToFilter('stock_code', $favorite)
-//                    ->getFirstItem();
-//
-//                if (!$warehouse) {
-//                    $warehouseId = Mage::getStoreConfig('advancedstock/router/default_warehouse', $product->getStoreId());
-//                } else {
-//                    $warehouseId = $warehouse->getStockId();
-//                }
-//
-//                if ($warehouseId !== $product->getStockItem()->getStockId()) {
-//                    $stockData['affect_to_warehouse'] = array(
-//                        'warehouse_id' => $warehouseId,
-//                        'is_favorite' => '0',
-//                    );
-//                }
+                    $this->getHelper()->stockProduct($product, $stockData);
 
-                $this->getHelper()->stockProduct($product, $stockData);
+                    $childProducts = Mage::getModel('catalog/product_type_configurable')->getUsedProducts(null,$product);
+
+                    /**
+                     * @var $child Mage_Catalog_Model_Product
+                     */
+                    foreach ($childProducts as $child) {
+                        $child->addAttributeUpdate('dropship', 0, $child->getStoreId());
+
+                        $favorite = trim(strtolower($child->getAttributeText('default_picked_from')));
+
+                        $warehouse = Mage::getModel('AdvancedStock/Warehouse')->getCollection()
+                            ->addFieldToFilter('stock_code', $favorite)
+                            ->getFirstItem();
+
+                        if (!$warehouse) {
+                            $warehouseId = Mage::getStoreConfig('advancedstock/router/default_warehouse', $child->getStoreId());
+                        } else {
+                            $warehouseId = $warehouse->getStockId();
+                        }
+
+
+                        $stockData['affect_to_warehouse'] = array(
+                            'warehouse_id' => $warehouseId,
+                            'is_favorite' => '1',
+                        );
+
+                        $this->getHelper()->stockProduct($child, $stockData);
+
+                    }
+                }
             }
         }
 
