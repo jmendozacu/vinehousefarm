@@ -260,6 +260,8 @@ class Vinehousefarm_Authoriselist_Adminhtml_ProcessingController extends Mage_Ad
 
                     $message = implode(',', $messageSuppliers);
 
+                    $order->setDropshipSent(1)->save();
+
                     Mage::getSingleton('adminhtml/session')->addSuccess($this->__('Emails were sent to %s', $message));
                 }
             }

@@ -9,11 +9,17 @@ class Vinehousefarm_Common_Block_Adminhtml_Sales_Order_View_Items_Column_Dropshi
 {
     public function getButtonAction()
     {
+        $label = 'Supplier Sent';
+
+        if (!$this->getItem()->getOrder()->getDropshipSent()) {
+            $label = 'Need to send';
+        }
+
         if ($this->getItem()->getItemDropship() || $this->getItem()->getItemSupplier()) {
             return $this->getLayout()
                 ->createBlock('adminhtml/widget_button')
                 ->setType('button')
-                ->setLabel('Supplier Sent')
+                ->setLabel($label)
                 ->setOnClick("window.location='" . $this->getUrl('adminhtml/processing/suppliersent', array('order_id' => $this->getItem()->getOrder()->getId())) . "';")
                 ->_toHtml();
         }
