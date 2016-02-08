@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Vinehousefarm_Royalmail>
+            <version>1.0.0</version>
+        </Vinehousefarm_Royalmail>
+    </modules>
+    <global>
+        <models>
+            <royalmail>
+                <class>Vinehousefarm_Royalmail_Model</class>
+                <resourceModel>royalmail_resource</resourceModel>
+            </royalmail>
+            <royalmail_resource>
+                <class>Vinehousefarm_Royalmail_Model_Resource</class>
+            </royalmail_resource>
+        </models>
+        <helpers>
+            <royalmail>
+                <class>Vinehousefarm_Royalmail_Helper</class>
+            </royalmail>
+        </helpers>
+    </global>
+    <default>
+        <carriers>
+            <royalmail>
+                <active>1</active>
+                <sallowspecific>1</sallowspecific>
+                <model>royalmail/carrier</model>
+                <name>Royal Mail</name>
+                <price>0.00</price>
+                <title>Royal Mail</title>
+            </royalmail>
+        </carriers>
+    </default>
+</config>

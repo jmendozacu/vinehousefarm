@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <sales>
+            <children>
+                <authoriselist module="authoriselist">
+                    <title>Sales Management</title>
+                    <sort_order>1</sort_order>
+                    <children>
+                        <ordersearch>
+                            <title>Order Search</title>
+                            <sort_order>1</sort_order>
+                            <action>adminhtml/ordersearch</action>
+                        </ordersearch>
+                        <authorisation>
+                            <title>Awaiting Authorisation</title>
+                            <sort_order>2</sort_order>
+                            <action>adminhtml/authoriselist</action>
+                        </authorisation>
+                        <processing>
+                            <title>Processing</title>
+                            <sort_order>3</sort_order>
+                            <action>adminhtml/processing</action>
+                        </processing>
+                        <pickingpacking>
+                            <title>Picking / Packing</title>
+                            <sort_order>4</sort_order>
+                            <action>adminhtml/pickingpacking</action>
+                        </pickingpacking>
+                        <completed>
+                            <title>Completed</title>
+                            <sort_order>5</sort_order>
+                            <action>adminhtml/completed</action>
+                        </completed>
+                    </children>
+                </authoriselist>
+            </children>
+        </sales>
+    </menu>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <sales>
+                        <children>
+                            <authoriselist module="authoriselist">
+                                <title>Sales Management</title>
+                                <children>
+                                    <ordersearch>
+                                        <title>Order Search</title>
+                                    </ordersearch>
+                                    <authorisation>
+                                        <title>Awaiting Authorisation</title>
+                                        <children>
+                                            <moto>
+                                                <title>MOTO</title>
+                                            </moto>
+                                        </children>
+                                    </authorisation>
+                                    <processing>
+                                        <title>Processing</title>
+                                    </processing>
+                                    <pickingpacking>
+                                        <title>Picking / Packing</title>
+                                    </pickingpacking>
+                                    <completed>
+                                        <title>Completed</title>
+                                    </completed>
+                                </children>
+                            </authoriselist>
+                        </children>
+                    </sales>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <authoriselist>
+                                        <title>Vine House Farm - Awaiting Authorisation</title>
+                                    </authoriselist>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

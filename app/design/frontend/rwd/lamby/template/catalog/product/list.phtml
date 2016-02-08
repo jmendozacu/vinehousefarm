@@ -1,0 +1,326 @@
+
+<?php
+/**
+ * Product list template
+ *
+ * @see Mage_Catalog_Block_Product_List
+ */
+?>
+<?php
+    $_productCollection=$this->getLoadedProductCollection();
+    $_helper = $this->helper('catalog/output');
+    $_helperCommon = $this->helper('vinehousefarm_common');
+    $this->setData('column_count',3);
+?>
+<?php if(!$_productCollection->count()): ?>
+<?php
+$empty_category_block = Mage::getModel('cms/block')->load('lamby_empty_category');
+ if($empty_category_block->getIsActive()){
+     echo $this->getLayout()->createBlock('cms/block')->setBlockId('lamby_empty_category')->toHtml();
+ } else { ?>
+<p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+<?php } ?>
+<?php else: ?>
+
+<?php echo $this->getToolbarHtml() ?>
+<!-- BEGIN CATEGORY PRODUCTS -->
+<div class="category-products">
+    <?php // List mode ?>
+    <?php if($this->getMode()!='grid'): ?>
+    <?php $_iterator = 0; ?>
+
+    <ol class="products-list" id="products-list">
+    <?php foreach ($_productCollection as $_product): ?>
+        <?php $productAvailabilityStatus = Mage::getModel('SalesOrderPlanning/ProductAvailabilityStatus')->load($_product->getId(), 'pa_product_id') ?>
+        <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>">
+        <!-- BEGIN PRODUCT IMAGE -->
+          <div class="product-image">
+            <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="">
+              <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(230,279); ?>" class="small-image" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />             
+            </a>
+          </div> <!--product-image-->
+          <!-- BEGIN PRODUCT SHOP -->
+          <div class="product-shop">
+            <h2 class="product-name">
+                <?php $_productNameStripped = $this->stripTags($_product->getName(), null, true); ?>
+                <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped; ?>"><?php echo $_helper->productAttribute($_product, $_product->getName() , 'name'); ?></a>
+            </h2>
+            
+            <?php echo $this->getPriceHtml($_product, true) ?>
+                 <?php  if($_product->getRatingSummary()): ?>
+                        <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
+                 <?php else: ?>
+                        <div class="ratings"><div class="rating-box"><div style="width:0%" class="rating"></div></div></div>
+                 <?php  endif;  ?>
+             
+            <div class="desc std">
+              <p><?php echo $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description') ?></p>
+              <p><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped ?>" class="link-learn"><?php echo $this->__('Learn More') ?></a></p>
+            </div> <!--desc std-->
+            
+            <!-- BEGIN ACTIONS -->
+            <div class="actions"> 
+            <?php if($productAvailabilityStatus->getIsSaleable()): ?>
+                   <button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart ajx-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><?php echo $this->__('Add to Cart') ?></span></button>
+              <?php else: ?>
+                   <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+              <?php endif; ?>            
+              <span class="add-to-links">
+                <?php if ($this->helper('wishlist')->isAllow()) : ?>
+                    <a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="button link-wishlist" title="<?php echo $this->__('Add to wishlist');?>"><span><?php echo $this->__('Add to wishlist');?></span></a>
+                <?php endif; ?>
+                <?php if($_compareUrl=$this->getAddToCompareUrl($_product)): ?>
+                    <span class="separator">|</span><a href="<?php echo $_compareUrl ?>" class="button link-compare" title="<?php echo $this->__('Add to compare');?>"><span><?php echo $this->__('Add to compare');?></span></a>
+                <?php endif; ?>
+              </span> <!--add-to-links-->
+            </div> <!--actions-->
+          </div> <!--product-shop-->
+        </li>
+    <?php endforeach; ?>
+    </ol>
+
+    <script type="text/javascript">decorateList('products-list', 'none-recursive')</script>
+
+    <?php else: ?>
+
+    <?php // Grid Mode ***** THIS IS THE ONLY MODE USED ON VINE HOUSE FARM ***** ?>
+
+    <?php $_collectionSize = $_productCollection->count() ?>
+    <?php $_columnCount = $this->getColumnCount(); ?>
+   
+
+  <ul class="products-grid">       
+    <?php $i=0; foreach ($_productCollection as $_product): ?>
+        <?php $productAvailabilityStatus = Mage::getModel('SalesOrderPlanning/ProductAvailabilityStatus')->load($_product->getId(), 'pa_product_id') ?>
+        <?php $sh ?>
+        <?php if ($i++%$_columnCount==0): ?>
+
+        <?php endif ?>
+            <li class="item jsGridItemEqual<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>">
+
+            <div class="item-inner">
+    <div class="product-wrapper">
+      <div class="thumb-wrapper">
+         <?php echo $this->helper('lambysettings')->getLabel($_product);  ?>
+         <?php if(Mage::app()->getStore()->getConfig('lambysettings/lambysettings_quickview/enable')==1){?>
+         <a class="thumb flip" data-fancybox-type="ajax" onclick="callQuickView('<?php echo Mage::getUrl('lambysettings/index/view/id/'.$_product->getId());?>');"><span class="face"><img alt="<?php echo $this->htmlEscape($_product->getName()) ?>" src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(268,325) ?>"></span><span class="face back"><img alt="<?php echo $this->htmlEscape($_product->getName()) ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>" src="<?php echo $this->helper('catalog/image')->init($_product, 'thumbnail')->resize(268,325) ?>">          
+              <span class="quick-view"><span><i>&nbsp;</i><?php echo $this->__('Quick View') ?></span></span>                                                    
+          </span></a>
+          <?php } else {  ?> 
+             <a class="thumb flip" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>"><span class="face"><img alt="<?php echo $this->htmlEscape($_product->getName()) ?>" src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(268,325) ?>"></span><span class="face back"><img alt="<?php echo $this->htmlEscape($_product->getName()) ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>" src="<?php echo $this->helper('catalog/image')->init($_product, 'thumbnail')->resize(268,325) ?>">          
+          </span></a>
+          <?php } ?>
+      </div> <!--thumb-wrapper-->
+      <div class="actions">
+        <span class="add-to-links">
+          <?php if ($this->helper('wishlist')->isAllow()) : ?>
+           <a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="link-wishlist" title="<?php echo $this->__('Add to Wishlist');?>"><span><?php echo $this->__('Add to Wishlist');?></span></a>
+          <?php endif; ?>
+           <?php if($_compareUrl=$this->getAddToCompareUrl($_product)): ?>
+                    <a href="<?php echo $_compareUrl ?>" class="link-compare" title="<?php echo $this->__('Add to Compare');?>"><span><?php echo $this->__('Add to Compare');?></span></a>
+            <?php endif; ?>
+
+            
+        </span> <!--add-to-links-->
+      </div> <!--actions-->
+    </div> <!--product-wrapper-->
+
+
+  <?php $category = Mage::getModel('catalog/layer')->getCurrentCategory(); ?>
+  <?php if ($category->getId() == 10) { $whf_category = true; } else { $whf_category = false; }; ?>
+
+
+
+
+    <?php if (!$this->helper('vinehousefarm_common/catalog_product_view')->showSimpleProducts($_product)): ?>
+
+    <div class="item-info">
+      <div class="info-inner">
+         <div class="whf-item-info-title"><!-- item-title -->
+             <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>">
+                  <?php $prod_name = $this->htmlEscape($_product->getName()) ; 
+                  if(strlen($prod_name) > 30) {echo substr($prod_name,0,30)."...";}else {echo $prod_name;}?>
+             </a>
+             
+          </div> <!--item-title-->
+          <!--<div class="whf-desc"><?php echo $this->escapeHtml($_helperCommon->getProductGroup($_product)) ?></div>-->
+          <div class="item-content">
+            <a class="whf-item-info-moreinfo" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>">more info</a>
+            <div class="item-price"><?php echo $this->getPriceHtml($_product, true) ?></div>
+          </div> <!--item-content-->
+      </div> <!--info-inner-->
+      <div class="actions">
+            <?php if($productAvailabilityStatus->getIsSaleable()): ?>
+              <button type="button"  title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><?php echo $this->__('Add to Cart') ?></span></button>
+            <?php else: ?>
+                <button type="button"  title="<?php echo $this->__('Out of stock') ?></span>" class="button btn-cart"><span><?php echo $this->__('Out of stock') ?></span></button>
+              <?php /*<p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>*/ ?>
+            <?php endif; ?> 
+
+        </div> <!--actions--> 
+    </div> <!--item-info-->
+
+
+  <?php else: //this product has simple products to show ?>
+
+    <div class="whf-item-info">
+      <div class="whf-item-info-title"><?php $prod_name = $this->htmlEscape($_product->getName()) ;
+          if(strlen($prod_name) > 30) {echo substr($prod_name,0,30)."...";}else {echo $prod_name;}?></div>
+      <!-- <p class="whf-item-info-desc jsGridItemEqual2"><?php echo $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description') ?></p> -->
+      <a class="whf-item-info-moreinfo" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>">more info</a>
+
+        <?php echo $this->getChild('product_simples')->setProduct($_product)->toHtml(); ?>
+
+    </div>
+
+  <?php endif; ?>
+
+
+   </div> <!--item-inner-->
+
+            </li>
+
+        <?php if ($i%$_columnCount==0 || $i==$_collectionSize): ?>
+
+        <?php endif ?>
+         
+        <?php endforeach ?>
+  </ul>        
+        <script type="text/javascript">decorateGeneric($$('ul.products-grid'), ['odd','even','first','last'])</script>
+    <?php endif; ?>
+</div> <!--category-products-->
+
+<div class="toolbar-bottom">
+    <?php echo $this->getToolbarHtml() ?>
+</div>
+
+<?php endif; ?>
+
+<div id="mgkquickview">
+<div id="magikloading" style="display:none;text-align:center;margin-top:400px;"><img src="<?php echo $this->getSkinUrl('images/mgkloading.gif');?>" alt="loading">
+</div></div>
+<script type="text/javascript">
+function callQuickView(qurl) { 
+    jQuery('#mgkquickview').show();
+    jQuery('#magikloading').show();
+    jQuery.get(qurl, function(data) {
+      jQuery.fancybox(data);
+      jQuery('#magikloading').hide();
+jQuery('#mgkquickview').hide();
+    });
+ }
+ 
+</script>
+<script type="text/javascript">
+    jQuery(function() {
+        jQuery('.whf-inputs .whf-input-submit .whf-button').click(function(event) {
+            if ( !event.isPropagationStopped() ) {
+                if(!jQuery(this).parent().parent().find('#product-qty').val()){
+                      alert("Please insert a quantity you would like to add to basket");
+                  }
+                if (jQuery(this).parent().parent().find('#product-id').val() && jQuery(this).parent().parent().find('#product-qty').val()) {
+                    var element = jQuery(this);
+                    var productId = jQuery(this).parent().parent().find('#product-id').val();
+                    var productQty = jQuery(this).parent().parent().find('#product-qty').val();
+
+                    new Ajax.Request(AmAjaxObj.url, {
+                        method: 'post',
+                        postBody :'product_id=' + productId + '&qty=' + productQty + '&IsProductView=' + AmAjaxObj.currentCategory,
+                        onCreate: function()
+                        {
+                            AmAjaxObj.showAnimation(AmAjaxObj.typeLoading, element);
+                        }.bind(AmAjaxObj),
+                        onComplete: function()
+                        {
+                            AmAjaxObj.hideAnimation();
+                        }.bind(AmAjaxObj),
+                        onSuccess: function(transport) {
+                            if (transport.responseText.isJSON()) {
+                                var response = transport.responseText.evalJSON();
+                                if (response.error) {
+                                    AmAjaxObj.hideAnimation();
+                                    alert(response.error);
+                                }
+                                else{
+                                    if(response.redirect) {
+                                        //if IE7
+                                        if (document.all && !document.querySelector) {
+                                            oldEvent = oldEvent.substring(21, oldEvent.length-2)
+                                            eval(oldEvent);
+                                        }
+                                        else{
+                                            eval(oldEvent);
+                                        }
+                                        return true;
+                                    }
+                                    AmAjaxObj.hideAnimation();
+                                    try {
+                                        jQuery.confirm({
+                                            'title'      : response.title,
+                                            'message'    : response.message,
+                                            'buttons'    : {
+                                                '1'    : {
+                                                    'name'  :  response.b1_name,
+                                                    'class' : 'am-btn-left',
+                                                    'action': function() {
+                                                        eval(response.b1_action);
+                                                    }
+                                                },
+                                                '2'    : {
+                                                    'name'  :  response.b2_name,
+                                                    'class' : 'am-btn-right',
+                                                    'action': function() {
+                                                        if(response.b2_action.indexOf('document.location') > -1 && window.parent.location != window.location){
+                                                            response.b2_action = response.b2_action.replace('document.location', 'window.parent.location');
+                                                        }
+                                                        eval(response.b2_action);
+                                                    }
+                                                }
+                                            }
+                                        });
+
+                                        var maxHeight = 0.7 * jQuery(window).height();
+                                        var height = jQuery('#messageBox').height();
+                                        if(height > maxHeight){
+                                            $('messageBox').setStyle({
+                                                overflowY : 'scroll',
+                                                maxHeight : maxHeight + 'px'
+                                            });
+                                        }
+                                        if('undefined' != typeof(optionsPrice)){
+                                            window.currentOptionsPrice = optionsPrice;
+                                        }
+                                        if('undefined' != typeof(opConfig)){
+                                            window.currentopConfig = opConfig;
+                                        }
+                                        if('undefined' != typeof(spConfig)){
+                                            window.currentspConfig = spConfig;
+                                        }
+
+                                        eval(response.script);
+                                    } catch(e) {
+                                        console.debug(e);
+                                    }
+                                    if(response.is_add_to_cart === '1'){
+                                        this.updateCart();
+                                        this.updateShoppingCart();
+                                        this.updateMinicart();
+                                        this.updateLinc(response.count);
+                                    }
+                                }
+                            }
+                        }.bind(AmAjaxObj),
+                        onFailure: function()
+                        {
+                            AmAjaxObj.hideAnimation();
+                            eval(oldEvent);
+                        }.bind(AmAjaxObj)
+                    });
+                }
+                event.stopPropagation();
+            }
+
+            return false;
+        });
+    });
+</script>

@@ -1,0 +1,25 @@
+<?php $products	= $this->getProducts(); ?>
+<?php if ($products->getSize()): ?>
+	<table class="data-table linearize-table" id="oldorders-review-table">
+		<col/>
+		<col width="1"/>
+		<col width="1"/>
+		<thead>
+		<tr>
+			<th rowspan=""><?php echo $this->__('Product') ?></th>
+			<th rowspan=""><?php echo $this->__('Sku') ?></th>
+		</tr>
+		</thead>
+		<tbody>
+		<?php
+		foreach ($products as $product):
+			?>
+			<tr>
+				<td><?= $product->getDescription() ?></td>
+				<td><?= $product->getSku() ?></td>
+			</tr>
+			<?php
+		endforeach ?>
+		</tbody>
+	</table>
+<?php endif; ?>

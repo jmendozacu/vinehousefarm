@@ -1,0 +1,58 @@
+<?php /*<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>*/ ?>
+
+<div class="page-title">
+	<h1><?php echo Mage::helper('contacts')->__('Contact Us') ?></h1>
+</div>
+
+<div class="std">
+<div class="whf-page-columns">
+	<div class="whf-page-column">
+		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('contact_us_box1')->toHtml(); ?>
+		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('contact_us_box2')->toHtml(); ?>
+		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('contact_us_text')->toHtml(); ?>
+	</div>
+	<div class="whf-page-column">
+		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('contact_us_formintro')->toHtml(); ?>
+
+		<div class="whf-contact-form">
+			<form action="<?php echo $this->getFormAction(); ?>" id="contactForm" method="post">
+				<div class="whf-contact-form-row">
+					<label>Full name*</label>
+					<input name="name" id="name" type="text" placeholder="Enter your full name" required value="<?php echo $this->htmlEscape($this->helper('contacts')->getUserName()) ?>" />
+				</div>
+
+				<div class="whf-contact-form-row">
+					<label>Telephone*</label>
+					<input name="telephone" id="telephone" type="text" placeholder="Enter your phone" required />
+				</div>
+
+				<div class="whf-contact-form-row">
+					<label>E-mail Address*</label>
+					<input name="email" id="email" type="email" placeholder="Enter your e-mail address" required value="<?php echo $this->htmlEscape($this->helper('contacts')->getUserEmail()) ?>" />
+				</div>
+
+				<div class="whf-contact-form-row">
+					<label>Your Enquiry*</label>
+					<textarea name="comment" id="comment" placeholder="Enter your enquiry" required></textarea>
+				</div>
+
+				<input type="text" name="hideit" id="hideit" value="" style="display: none !important;" />
+
+				<div class="whf-contact-form-row">
+					<button>Send Message</button>
+				</div>
+			</form>
+		</div>
+
+		<?php $this->getLayout()->createBlock('cms/block')->setBlockId('contact_map')->toHtml(); ?>
+	</div>
+</div>
+</div>
+
+<?php /*
+<script type="text/javascript">
+//<![CDATA[
+var contactForm = new VarienForm('contactForm', true);
+//]]>
+</script>
+*/ ?>

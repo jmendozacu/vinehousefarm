@@ -1,0 +1,25 @@
+<div class="whf-inputs">
+    <ul>
+        <?php 
+        foreach ($this->getSimpleProducts() as $product): ?>
+            <?php if ($this->getIsSaleable($product)): ?>
+                <li>
+                    <input type="hidden" id="product-id" name="product-id" value="<?php echo $product->getId() ?>"/>
+                    <input type="hidden" id="super-id" name="" value="<?php echo $product->getSuperAttributeId() ?>"/>
+                    <input type="hidden" id="super-value" name="" value="<?php echo $product->getSupperAttributeValueId() ?>"/>
+                        <div class="whf-input-kg"><?php echo $this->escapeHtml($product->getOptionTitle()) ?></div>
+                        <div class="whf-input-price"><?php echo Mage::helper('core')->currency($product->getPrice(), true, false); ?></div>
+                        <div class="whf-input-input"><input placeholder="0" id="product-qty" name="product-qty" required /></div>
+                        <div class="whf-input-submit"><button class="whf-button"><?php echo $this->__('Add'); ?></button></div>
+                </li>
+            <?php else: ?>
+                <li>
+                    <div class="whf-input-kg"><?php echo $this->escapeHtml($product->getOptionTitle()) ?></div>
+                    <div class="whf-input-price"><?php echo Mage::helper('core')->currency($product->getPrice(), true, false); ?></div>
+                    <div class="whf-input-input"><input placeholder="0" required disabled="disabled" /></div>
+                    <div class="whf-input-submit"><button class="whf-button"><?php echo $this->__('Out of stock'); ?></button></div>
+                </li>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </ul>
+</div>

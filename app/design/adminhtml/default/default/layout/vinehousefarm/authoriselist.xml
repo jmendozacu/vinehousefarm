@@ -1,0 +1,565 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_authoriselist_index>
+        <reference name="content">
+            <block type="authoriselist/adminhtml_order_edit" name="authoriselist_edit"
+                   template="vinehousefarm/authoriselist/edit.phtml"/>
+            <block type="authoriselist/adminhtml_sales_order_view_items" name="order_items"
+                   template="vinehousefarm/authoriselist/sales/order/view/items.phtml">
+                <action method="addItemRender">
+                    <type>default</type>
+                    <block>authoriselist/adminhtml_sales_order_view_items_renderer_default</block>
+                    <template>vinehousefarm/authoriselist/sales/order/view/items/renderer/default.phtml</template>
+                </action>
+                <action method="addColumnRender">
+                    <column>qty</column>
+                    <block>adminhtml/sales_items_column_qty</block>
+                    <template>vinehousefarm/authoriselist/sales/items/column/qty.phtml</template>
+                </action>
+                <action method="addColumnRender">
+                    <column>name</column>
+                    <block>adminhtml/sales_items_column_name</block>
+                    <template>sales/items/column/name.phtml</template>
+                </action>
+                <action method="addColumnRender">
+                    <column>name</column>
+                    <block>adminhtml/sales_items_column_name_grouped</block>
+                    <template>sales/items/column/name.phtml</template>
+                    <type>grouped</type>
+                </action>
+                <block type="adminhtml/sales_order_totals" name="order_totals"
+                       template="vinehousefarm/authoriselist/sales/order/totals.phtml"/>
+            </block>
+            <block type="adminhtml/sales_order_view_info" name="order_info"
+                   template="vinehousefarm/authoriselist/sales/order/view/info.phtml">
+                <block type="adminhtml/sales_order_payment" name="order_payment"/>
+                <block type="authoriselist/adminhtml_order_shipping" name="order_shipping_method"
+                       template="vinehousefarm/authoriselist/sales/order/view/shipping.phtml"/>
+            </block>
+        </reference>
+    </adminhtml_authoriselist_index>
+
+    <adminhtml_authoriselist_empty>
+        <reference name="content">
+            <block type="authoriselist/adminhtml_order_empty" name="authoriselist_empty"
+                   template="vinehousefarm/authoriselist/empty.phtml"/>
+        </reference>
+    </adminhtml_authoriselist_empty>
+
+    <adminhtml_processing_index>
+        <reference name="content">
+            <block type="authoriselist/adminhtml_processing" name="processing_grid"/>
+        </reference>
+    </adminhtml_processing_index>
+
+    <adminhtml_ordersearch_index>
+        <reference name="content">
+            <block type="authoriselist/adminhtml_ordersearch" name="ordersearch_grid"/>
+        </reference>
+    </adminhtml_ordersearch_index>
+
+    <adminhtml_pickingpacking_index>
+        <reference name="content">
+            <block type="authoriselist/adminhtml_pickingpacking" name="pickingpacking_grid"/>
+        </reference>
+    </adminhtml_pickingpacking_index>
+
+    <adminhtml_pickingpacking_reason>
+        <reference name="content">
+            <block type="authoriselist/adminhtml_pickingpacking_edit" name="pickingpacking_edit">
+                <block type="authoriselist/adminhtml_pickingpacking_edit_form" name="form"/>
+            </block>
+        </reference>
+    </adminhtml_pickingpacking_reason>
+
+    <adminhtml_completed_index>
+        <reference name="content">
+            <block type="authoriselist/adminhtml_completed_grid" name="completed_grid"/>
+        </reference>
+    </adminhtml_completed_index>
+
+    <adminhtml_moto_create_index>
+        <reference name="left">
+            <action method="setIsCollapsed"><value>true</value></action>
+        </reference>
+        <reference name="head">
+            <action method="addJs"><script>mage/adminhtml/sales/centinel.js</script></action>
+            <action method="addJs"><file>mage/directpost.js</file></action>
+            <action method="addJs"><file>mage/adminhtml/sales.js</file></action>
+            <action method="addJs"><file>mage/adminhtml/giftmessage.js</file></action>
+            <action method="addJs"><file>mage/adminhtml/product/composite/configure.js</file></action>
+            <action method="addJs"><file>varien/configurable.js</file></action>
+            <action method="addJs"><file>mage/adminhtml/giftoptions/tooltip.js</file></action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>sagepaysuite/css/sagePaySuite.css</name>
+            </action>
+            <action method="addItem">
+                <type>js</type>
+                <name>sagepaysuite/direct.js</name>
+            </action>
+            <action method="addItem">
+                <type>js</type>
+                <name>sagepaysuite/common.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>sagepaysuite/js/sagePaySuite_CreateOrder.js</name>
+            </action>
+            <action method="addItem">
+                <type>js</type>
+                <name>sagepaysuite/livepipe/livepipe.js</name>
+            </action>
+            <action method="addItem">
+                <type>js</type>
+                <name>sagepaysuite/livepipe/window.js</name>
+            </action>
+            <block type="captureplus/scriptinclude" name="captureplus_scriptinclude"  template="captureplus/scriptinclude.phtml" />
+            <block type="adminhtml/template" name="optional_zip_countries" as="optional_zip_countries" template="directory/js/optional_zip_countries.phtml" />
+        </reference>
+        <reference name="js">
+            <block type="adminhtml/template" template="sales/order/create/js.phtml" name="create" />
+            <block type="captureplus/scriptinclude" name="captureplus_scriptinclude"  template="captureplus/scriptinclude.phtml" />
+        </reference>
+        <reference name="root">
+            <block type="adminhtml/sales_order_create" name="content">
+                <block type="adminhtml/sales_order_create_form" template="sales/order/create/form.phtml" name="form">
+                    <block type="adminhtml/sales_order_create_messages" name="message" />
+                    <block type="adminhtml/sales_order_create_customer" template="sales/order/create/abstract.phtml" name="customer">
+                        <block type="adminhtml/sales_order_create_customer_grid" name="grid" />
+                    </block>
+                    <block type="adminhtml/sales_order_create_store" template="sales/order/create/abstract.phtml" name="store">
+                        <block type="adminhtml/sales_order_create_store_select" template="sales/order/create/store/select.phtml" name="select" />
+                    </block>
+                    <block type="adminhtml/sales_order_create_data" template="vinehousefarm/authoriselist/sales/order/create/data.phtml" name="data">
+                        <block type="adminhtml/sales_order_create_sidebar" template="sales/order/create/sidebar.phtml" name="sidebar">
+                            <block type="adminhtml/sales_order_create_sidebar_cart" template="sales/order/create/sidebar/items.phtml" name="cart" />
+                            <block type="adminhtml/sales_order_create_sidebar_wishlist" template="sales/order/create/sidebar/items.phtml" name="wishlist" />
+                            <block type="adminhtml/sales_order_create_sidebar_reorder" template="sales/order/create/sidebar/items.phtml" name="reorder" />
+                            <block type="adminhtml/sales_order_create_sidebar_viewed" template="sales/order/create/sidebar/items.phtml" name="viewed" />
+                            <block type="authoriselist/adminhtml_sales_order_create_sidebar_ordered" template="sales/order/create/sidebar/items.phtml" name="ordered" />
+                            <block type="authoriselist/adminhtml_sales_order_create_sidebar_specialoffer" template="sales/order/create/sidebar/items.phtml" name="specialoffer" />
+                            <!--<block type="adminhtml/sales_order_create_sidebar_compared" template="sales/order/create/sidebar/items.phtml" name="compared" />-->
+                            <!--<block type="adminhtml/sales_order_create_sidebar_pcompared" template="sales/order/create/sidebar/items.phtml" name="pcompared" />-->
+                            <!--<block type="adminhtml/sales_order_create_sidebar_pviewed" template="sales/order/create/sidebar/items.phtml" name="pviewed" />-->
+                        </block>
+                        <block type="adminhtml/sales_order_create_form_account" template="sales/order/create/form/account.phtml" name="form_account" />
+                        <block type="authoriselist/adminhtml_sales_order_create_shipping_address" template="sales/order/create/form/address.phtml" name="shipping_address" />
+                        <block type="adminhtml/sales_order_create_billing_address" template="sales/order/create/form/address.phtml" name="billing_address" />
+                        <block type="adminhtml/sales_order_create_shipping_method" template="sales/order/create/abstract.phtml" name="shipping_method">
+                            <block type="adminhtml/sales_order_create_shipping_method_form" template="sales/order/create/shipping/method/form.phtml" name="form" />
+                        </block>
+                        <block type="adminhtml/template" name="gift_options" template="vinehousefarm/authoriselist/sales/order/giftoptions.phtml">
+                            <block type="adminhtml/sales_order_create_giftmessage" template="vinehousefarm/authoriselist/sales/order/create/giftmessage.phtml" name="giftmessage" />
+                        </block>
+                        <block type="adminhtml/sales_order_create_billing_method" template="sales/order/create/abstract.phtml" name="billing_method">
+                            <block type="adminhtml/sales_order_create_billing_method_form" template="sales/order/create/billing/method/form.phtml" name="form" />
+                        </block>
+                        <block type="adminhtml/sales_order_create_newsletter" template="sales/order/create/abstract.phtml" name="newsletter">
+                            <block type="adminhtml/sales_order_create_newsletter_form" template="sales/order/create/newsletter/form.phtml" name="form" />
+                        </block>
+                        <block type="adminhtml/sales_order_create_search" template="sales/order/create/abstract.phtml" name="search">
+                            <block type="adminhtml/sales_order_create_search_grid" name="grid" />
+                        </block>
+                        <block type="adminhtml/sales_order_create_items" template="sales/order/create/items.phtml" name="items">
+                            <block type="adminhtml/sales_order_create_items_grid" template="vinehousefarm/authoriselist/sales/order/create/items/grid.phtml" name="items_grid">
+                                <block type="adminhtml/sales_order_create_coupons" template="sales/order/create/coupons/form.phtml" name="coupons">
+                                    <block type="adminhtml/sales_order_create_coupons_form" template="sales/order/create/coupons/form.phtml" name="form" />
+                                </block>
+                            </block>
+                        </block>
+                        <block type="adminhtml/sales_order_create_comment" template="sales/order/create/comment.phtml" name="comment" />
+                        <block type="adminhtml/sales_order_create_totals" template="sales/order/create/totals.phtml" name="totals" />
+                        <block type="core/text_list" name="order_item_extra_info"></block>
+                    </block>
+                </block>
+            </block>
+            <block before="footer" type="sagepaysuite/javascriptVars"
+                   name="sagepaysuite.js.vars"
+                   template="sagepaysuite/payment/SagePaySuiteVars.phtml"
+                   output="toHtml" />
+        </reference>
+        <reference name="data">
+            <block type="centinel/adminhtml_validation" as="card_validation" name="card_validation" template="sales/order/create/abstract.phtml">
+                <block type="centinel/adminhtml_validation_form" template="centinel/validation/form.phtml" name="form" />
+            </block>
+        </reference>
+        <reference name="order_item_extra_info">
+            <block type="giftmessage/adminhtml_sales_order_create_giftoptions" name="gift_options_link" template="giftmessage/sales/order/create/giftoptions.phtml">
+                <block type="giftmessage/adminhtml_sales_order_create_items" name="gift_options_item_data" template="giftmessage/sales/order/create/items.phtml" />
+            </block>
+        </reference>
+        <reference name="items_grid">
+            <block type="adminhtml/template" name="popup_window" template="giftmessage/popup.phtml">
+                <block type="giftmessage/adminhtml_sales_order_create_form" name="gift_options_form" template="giftmessage/giftoptionsform.phtml" />
+            </block>
+        </reference>
+    </adminhtml_moto_create_index>
+
+    <adminhtml_moto_create_load_block_json>
+        <reference name="root">
+            <block type="adminhtml/sales_order_create_load" name="content" />
+        </reference>
+    </adminhtml_moto_create_load_block_json>
+
+    <adminhtml_moto_create_load_block_plain>
+        <reference name="root">
+            <block type="core/text_list" name="content" />
+        </reference>
+    </adminhtml_moto_create_load_block_plain>
+
+    <adminhtml_moto_create_load_block_data>
+        <reference name="content">
+            <block type="adminhtml/sales_order_create_data" template="vinehousefarm/authoriselist/sales/order/create/data.phtml" name="data">
+                <block type="adminhtml/sales_order_create_sidebar" template="sales/order/create/sidebar.phtml" name="sidebar">
+                    <block type="adminhtml/sales_order_create_sidebar_cart" template="sales/order/create/sidebar/items.phtml" name="cart" />
+                    <block type="adminhtml/sales_order_create_sidebar_wishlist" template="sales/order/create/sidebar/items.phtml" name="wishlist" />
+                    <block type="adminhtml/sales_order_create_sidebar_reorder" template="sales/order/create/sidebar/items.phtml" name="reorder" />
+                    <block type="adminhtml/sales_order_create_sidebar_viewed" template="sales/order/create/sidebar/items.phtml" name="viewed" />
+                    <block type="authoriselist/adminhtml_sales_order_create_sidebar_ordered" template="sales/order/create/sidebar/items.phtml" name="ordered" />
+                    <block type="authoriselist/adminhtml_sales_order_create_sidebar_specialoffer" template="sales/order/create/sidebar/items.phtml" name="specialoffer" />
+                    <!--<block type="adminhtml/sales_order_create_sidebar_compared" template="sales/order/create/sidebar/items.phtml" name="compared" />-->
+                    <!--<block type="adminhtml/sales_order_create_sidebar_pcompared" template="sales/order/create/sidebar/items.phtml" name="pcompared" />-->
+                    <!--<block type="adminhtml/sales_order_create_sidebar_pviewed" template="sales/order/create/sidebar/items.phtml" name="pviewed" />-->
+                </block>
+                <block type="adminhtml/sales_order_create_form_account" template="sales/order/create/form/account.phtml" name="form_account" />
+                <block type="authoriselist/adminhtml_sales_order_create_shipping_address" template="sales/order/create/form/address.phtml" name="shipping_address" />
+                <block type="adminhtml/sales_order_create_billing_address" template="sales/order/create/form/address.phtml" name="billing_address" />
+                <!--<block type="adminhtml/sales_order_create_shipping_method" template="sales/order/create/abstract.phtml" name="shipping_method">-->
+                    <!--<block type="adminhtml/sales_order_create_shipping_method_form" template="sales/order/create/shipping/method/form.phtml" name="form" />-->
+                <!--</block>-->
+                <block type="adminhtml/sales_order_create_billing_method" template="sales/order/create/abstract.phtml" name="billing_method">
+                    <block type="adminhtml/sales_order_create_billing_method_form" template="sales/order/create/billing/method/form.phtml" name="form" />
+                </block>
+                <block type="adminhtml/sales_order_create_newsletter" template="sales/order/create/abstract.phtml" name="newsletter">
+                    <block type="adminhtml/sales_order_create_newsletter_form" template="sales/order/create/newsletter/form.phtml" name="form" />
+                </block>
+                <block type="adminhtml/sales_order_create_search" template="sales/order/create/abstract.phtml" name="search">
+                    <block type="adminhtml/sales_order_create_search_grid" name="grid" />
+                </block>
+                <block type="adminhtml/sales_order_create_items" template="sales/order/create/items.phtml" name="items">
+                    <block type="adminhtml/sales_order_create_items_grid" template="vinehousefarm/authoriselist/sales/order/create/items/grid.phtml" name="items_grid">
+                        <block type="adminhtml/sales_order_create_coupons" template="sales/order/create/coupons/form.phtml" name="coupons">
+                            <block type="adminhtml/sales_order_create_coupons_form" template="sales/order/create/coupons/form.phtml" name="form" />
+                        </block>
+                    </block>
+                </block>
+                <block type="adminhtml/sales_order_create_comment" template="sales/order/create/comment.phtml" name="comment" />
+                <block type="adminhtml/sales_order_create_totals" template="sales/order/create/totals.phtml" name="totals" />
+                <block type="adminhtml/template" name="gift_options" template="vinehousefarm/authoriselist/sales/order/giftoptions.phtml">
+                    <block type="adminhtml/sales_order_create_giftmessage" template="vinehousefarm/authoriselist/sales/order/create/giftmessage.phtml" name="giftmessage" />
+                </block>
+                <block type="core/text_list" name="order_item_extra_info"></block>
+            </block>
+            <block type="core/template" name="captureplus_scriptreload" template="captureplus/scriptreload.phtml" as="data">
+                <action method="setChild">
+                    <name>data</name>
+                    <block>data</block>
+                </action>
+                <action method="setData">
+                    <key>include_block</key>
+                    <value>data</value>
+                </action>
+            </block>
+            <action method="setChild">
+                <name>data</name>
+                <block>captureplus_scriptreload</block>
+            </action>
+        </reference>
+    </adminhtml_moto_create_load_block_data>
+
+    <adminhtml_moto_create_load_block_header>
+        <reference name="content">
+            <block type="adminhtml/sales_order_create_header" name="header" />
+        </reference>
+    </adminhtml_moto_create_load_block_header>
+
+
+    <adminhtml_moto_create_load_block_sidebar>
+        <reference name="content">
+            <block type="adminhtml/sales_order_create_sidebar" template="sales/order/create/sidebar.phtml" name="sidebar">
+                <block type="adminhtml/sales_order_create_sidebar_cart" template="sales/order/create/sidebar/items.phtml" name="cart" />
+                <block type="adminhtml/sales_order_create_sidebar_wishlist" template="sales/order/create/sidebar/items.phtml" name="wishlist" />
+                <block type="adminhtml/sales_order_create_sidebar_reorder" template="sales/order/create/sidebar/items.phtml" name="reorder" />
+                <block type="adminhtml/sales_order_create_sidebar_viewed" template="sales/order/create/sidebar/items.phtml" name="viewed" />
+                <block type="authoriselist/adminhtml_sales_order_create_sidebar_ordered" template="sales/order/create/sidebar/items.phtml" name="ordered" />
+                <block type="authoriselist/adminhtml_sales_order_create_sidebar_specialoffer" template="sales/order/create/sidebar/items.phtml" name="specialoffer" />
+                <!--<block type="adminhtml/sales_order_create_sidebar_compared" template="sales/order/create/sidebar/items.phtml" name="compared" />-->
+                <!--<block type="adminhtml/sales_order_create_sidebar_pcompared" template="sales/order/create/sidebar/items.phtml" name="pcompared" />-->
+                <!--<block type="adminhtml/sales_order_create_sidebar_pviewed" template="sales/order/create/sidebar/items.phtml" name="pviewed" />-->
+            </block>
+        </reference>
+    </adminhtml_moto_create_load_block_sidebar>
+
+    <adminhtml_moto_create_load_block_form_account>
+        <reference name="content">
+            <block type="adminhtml/sales_order_create_form_account" template="sales/order/create/form/account.phtml" name="form_account" />
+        </reference>
+    </adminhtml_moto_create_load_block_form_account>
+
+    <adminhtml_moto_create_load_block_shipping_address>
+        <reference name="content">
+            <block type="authoriselist/adminhtml_sales_order_create_shipping_address" template="sales/order/create/form/address.phtml" name="shipping_address" />
+            <block type="core/template" name="captureplus_scriptreload" template="captureplus/scriptreload.phtml" as="shipping_address">
+                <action method="setChild">
+                    <name>shipping_address</name>
+                    <block>shipping_address</block>
+                </action>
+                <action method="setData">
+                    <key>include_block</key>
+                    <value>shipping_address</value>
+                </action>
+            </block>
+            <action method="setChild">
+                <name>shipping_address</name>
+                <block>captureplus_scriptreload</block>
+            </action>
+        </reference>
+    </adminhtml_moto_create_load_block_shipping_address>
+
+    <adminhtml_moto_create_load_block_billing_address>
+        <reference name="content">
+            <block type="adminhtml/sales_order_create_billing_address" template="sales/order/create/form/address.phtml" name="billing_address" />
+        </reference>
+    </adminhtml_moto_create_load_block_billing_address>
+
+    <!--<adminhtml_moto_create_load_block_shipping_method>-->
+        <!--<reference name="content">-->
+            <!--<block type="adminhtml/sales_order_create_shipping_method" template="sales/order/create/abstract.phtml" name="shipping_method">-->
+                <!--<block type="adminhtml/sales_order_create_shipping_method_form" template="sales/order/create/shipping/method/form.phtml" name="form" />-->
+            <!--</block>-->
+        <!--</reference>-->
+    <!--</adminhtml_moto_create_load_block_shipping_method>-->
+
+    <adminhtml_moto_create_load_block_billing_method>
+        <reference name="content">
+            <block type="adminhtml/sales_order_create_billing_method" template="sales/order/create/abstract.phtml" name="billing_method">
+                <block type="adminhtml/sales_order_create_billing_method_form" template="sales/order/create/billing/method/form.phtml" name="form" />
+            </block>
+        </reference>
+    </adminhtml_moto_create_load_block_billing_method>
+
+    <adminhtml_moto_create_load_block_newsletter>
+        <reference name="content">
+            <block type="adminhtml/sales_order_create_newsletter" template="sales/order/create/abstract.phtml" name="newsletter">
+                <block type="adminhtml/sales_order_create_newsletter_form" template="sales/order/create/newsletter/form.phtml" name="form" />
+            </block>
+        </reference>
+    </adminhtml_moto_create_load_block_newsletter>
+
+    <adminhtml_moto_create_load_block_search>
+        <reference name="content">
+            <block type="adminhtml/sales_order_create_search" template="sales/order/create/abstract.phtml" name="search">
+                <block type="adminhtml/sales_order_create_search_grid" name="grid" />
+            </block>
+        </reference>
+    </adminhtml_moto_create_load_block_search>
+
+    <adminhtml_moto_create_load_block_search_grid>
+        <reference name="content">
+            <block type="adminhtml/sales_order_create_search_grid" name="grid" />
+        </reference>
+    </adminhtml_moto_create_load_block_search_grid>
+
+    <adminhtml_moto_create_load_block_items>
+        <reference name="content">
+            <block type="adminhtml/sales_order_create_items" template="sales/order/create/items.phtml" name="items">
+                <block type="adminhtml/sales_order_create_items_grid" template="vinehousefarm/authoriselist/sales/order/create/items/grid.phtml" name="items_grid">
+                    <block type="adminhtml/sales_order_create_coupons" template="sales/order/create/coupons/form.phtml" name="coupons">
+                        <block type="adminhtml/sales_order_create_coupons_form" template="sales/order/create/coupons/form.phtml" name="form" />
+                    </block>
+                </block>
+            </block>
+            <block type="core/text_list" name="order_item_extra_info"></block>
+        </reference>
+    </adminhtml_moto_create_load_block_items>
+
+    <adminhtml_moto_create_load_block_comment>
+        <reference name="content">
+            <block type="adminhtml/sales_order_create_comment" template="sales/order/create/comment.phtml" name="comment" />
+        </reference>
+    </adminhtml_moto_create_load_block_comment>
+
+    <adminhtml_moto_create_load_block_totals>
+        <reference name="content">
+            <block type="adminhtml/sales_order_create_totals" template="sales/order/create/totals.phtml" name="totals" />
+        </reference>
+    </adminhtml_moto_create_load_block_totals>
+
+    <adminhtml_moto_create_load_block_giftmessage>
+        <reference name="content">
+            <block type="adminhtml/sales_order_create_giftmessage" template="vinehousefarm/authoriselist/sales/order/create/giftmessage.phtml" name="giftmessage" />
+        </reference>
+    </adminhtml_moto_create_load_block_giftmessage>
+
+    <adminhtml_moto_create_load_block_message>
+        <reference name="content">
+            <block type="adminhtml/sales_order_create_messages" name="message" />
+        </reference>
+    </adminhtml_moto_create_load_block_message>
+
+    <adminhtml_moto_create_load_block_customer_grid>
+        <reference name="content">
+            <block type="adminhtml/sales_order_create_customer_grid" name="grid" />
+        </reference>
+    </adminhtml_moto_create_load_block_customer_grid>
+
+    <adminhtml_moto_create_load_block_sidebar_cart>
+        <reference name="content">
+            <block type="adminhtml/sales_order_create_sidebar_cart" template="sales/order/create/sidebar/items.phtml" name="sidebar_cart" />
+        </reference>
+    </adminhtml_moto_create_load_block_sidebar_cart>
+
+    <adminhtml_moto_create_load_block_sidebar_wishlist>
+        <reference name="content">
+            <block type="adminhtml/sales_order_create_sidebar_wishlist" template="sales/order/create/sidebar/items.phtml" name="sidebar_wishlist" />
+        </reference>
+    </adminhtml_moto_create_load_block_sidebar_wishlist>
+
+    <adminhtml_moto_create_load_block_sidebar_reorder>
+        <reference name="content">
+            <block type="adminhtml/sales_order_create_sidebar_reorder" template="sales/order/create/sidebar/items.phtml" name="sidebar_reorder" />
+        </reference>
+    </adminhtml_moto_create_load_block_sidebar_reorder>
+
+    <adminhtml_moto_create_load_block_sidebar_viewed>
+        <reference name="content">
+            <block type="adminhtml/sales_order_create_sidebar_viewed" template="sales/order/create/sidebar/items.phtml" name="sidebar_viewed" />
+        </reference>
+    </adminhtml_moto_create_load_block_sidebar_viewed>
+
+    <adminhtml_moto_create_load_block_sidebar_ordered>
+        <reference name="content">
+            <block type="authoriselist/adminhtml_sales_order_create_sidebar_ordered" template="sales/order/create/sidebar/items.phtml" name="sidebar_ordered" />
+        </reference>
+    </adminhtml_moto_create_load_block_sidebar_ordered>
+
+    <adminhtml_moto_create_load_block_sidebar_specialoffer>
+        <reference name="content">
+            <block type="authoriselist/adminhtml_sales_order_create_sidebar_specialoffer" template="sales/order/create/sidebar/items.phtml" name="sidebar_specialoffer" />
+        </reference>
+    </adminhtml_moto_create_load_block_sidebar_specialoffer>
+
+    <!--<adminhtml_moto_create_load_block_sidebar_compared>-->
+        <!--<reference name="content">-->
+            <!--<block type="adminhtml/sales_order_create_sidebar_compared" template="sales/order/create/sidebar/items.phtml" name="sidebar_compared" />-->
+        <!--</reference>-->
+    <!--</adminhtml_moto_create_load_block_sidebar_compared>-->
+
+    <adminhtml_moto_create_load_block_sidebar_pviewed>
+        <reference name="content">
+            <block type="adminhtml/sales_order_create_sidebar_pviewed" template="sales/order/create/sidebar/items.phtml" name="sidebar_pviewed" />
+        </reference>
+    </adminhtml_moto_create_load_block_sidebar_pviewed>
+
+    <!--<adminhtml_moto_create_load_block_sidebar_pcompared>-->
+        <!--<reference name="content">-->
+            <!--<block type="adminhtml/sales_order_create_sidebar_pcompared" template="sales/order/create/sidebar/items.phtml" name="sidebar_pcompared" />-->
+        <!--</reference>-->
+    <!--</adminhtml_moto_create_load_block_sidebar_pcompared>-->
+
+    <adminhtml_sales_order_create_load_block_giftmessage>
+        <reference name="giftmessage">
+            <action method="setTemplate">
+                <template>vinehousefarm/authoriselist/sales/order/create/giftmessage.phtml</template>
+            </action>
+        </reference>
+    </adminhtml_sales_order_create_load_block_giftmessage>
+
+    <adminhtml_sales_order_create_load_block_items>
+        <reference name="items_grid">
+            <action method="setTemplate">
+                <template>vinehousefarm/authoriselist/sales/order/create/items/grid.phtml</template>
+            </action>
+        </reference>
+    </adminhtml_sales_order_create_load_block_items>
+
+    <adminhtml_sales_order_create_load_block_sidebar>
+        <remove name="compared"/>
+        <remove name="pcompared"/>
+        <remove name="pviewed"/>
+
+        <reference name="content">
+            <block type="authoriselist/adminhtml_sales_order_create_sidebar_ordered"
+                   template="sales/order/create/sidebar/items.phtml" name="ordered"/>
+            <block type="authoriselist/adminhtml_sales_order_create_sidebar_specialoffer"
+                   template="sales/order/create/sidebar/items.phtml" name="specialoffer"/>
+        </reference>
+    </adminhtml_sales_order_create_load_block_sidebar>
+
+    <adminhtml_sales_order_create_load_block_data>
+        <remove name="compared"/>
+        <remove name="pcompared"/>
+        <remove name="pviewed"/>
+
+        <reference name="data">
+            <block type="authoriselist/adminhtml_sales_order_create_shipping_address" template="sales/order/create/form/address.phtml" name="shipping_address" />
+        </reference>
+
+        <reference name="items_grid">
+            <action method="setTemplate">
+                <template>vinehousefarm/authoriselist/sales/order/create/items/grid.phtml</template>
+            </action>
+        </reference>
+
+        <reference name="sidebar">
+            <block type="authoriselist/adminhtml_sales_order_create_sidebar_ordered" template="sales/order/create/sidebar/items.phtml" name="ordered" />
+            <block type="authoriselist/adminhtml_sales_order_create_sidebar_specialoffer" template="sales/order/create/sidebar/items.phtml" name="specialoffer" />
+        </reference>
+    </adminhtml_sales_order_create_load_block_data>
+
+    <adminhtml_sales_order_create_index>
+
+        <remove name="compared"/>
+        <remove name="pcompared"/>
+        <remove name="pviewed"/>
+
+        <reference name="items_grid">
+            <action method="setTemplate">
+                <template>vinehousefarm/authoriselist/sales/order/create/items/grid.phtml</template>
+            </action>
+        </reference>
+
+        <reference name="data">
+            <block type="authoriselist/adminhtml_sales_order_create_shipping_address" template="sales/order/create/form/address.phtml" name="shipping_address" />
+        </reference>
+
+        <reference name="sidebar">
+            <block type="authoriselist/adminhtml_sales_order_create_sidebar_ordered" template="sales/order/create/sidebar/items.phtml" name="ordered" />
+            <block type="authoriselist/adminhtml_sales_order_create_sidebar_specialoffer" template="sales/order/create/sidebar/items.phtml" name="specialoffer" />
+        </reference>
+
+    </adminhtml_sales_order_create_index>
+
+    <adminhtml_sales_order_create_load_block_sidebar_ordered>
+        <reference name="content">
+            <block type="authoriselist/adminhtml_sales_order_create_sidebar_ordered" template="sales/order/create/sidebar/items.phtml" name="sidebar_ordered" />
+        </reference>
+    </adminhtml_sales_order_create_load_block_sidebar_ordered>
+
+    <adminhtml_sales_order_create_load_block_sidebar_specialoffer>
+        <reference name="content">
+            <block type="authoriselist/adminhtml_sales_order_create_sidebar_specialoffer" template="sales/order/create/sidebar/items.phtml" name="sidebar_specialoffer" />
+        </reference>
+    </adminhtml_sales_order_create_load_block_sidebar_specialoffer>
+
+    <adminhtml_sales_order_create_load_block_shipping_address>
+        <reference name="content">
+            <block type="authoriselist/adminhtml_sales_order_create_shipping_address" template="sales/order/create/form/address.phtml" name="shipping_address" />
+            <block type="core/template" name="captureplus_scriptreload" template="captureplus/scriptreload.phtml" as="shipping_address">
+                <action method="setChild">
+                    <name>shipping_address</name>
+                    <block>shipping_address</block>
+                </action>
+                <action method="setData">
+                    <key>include_block</key>
+                    <value>shipping_address</value>
+                </action>
+            </block>
+            <action method="setChild">
+                <name>shipping_address</name>
+                <block>captureplus_scriptreload</block>
+            </action>
+        </reference>
+    </adminhtml_sales_order_create_load_block_shipping_address>
+</layout>

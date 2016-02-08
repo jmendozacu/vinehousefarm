@@ -1,0 +1,199 @@
+<?php $footer_type = Mage::getStoreConfig('lambysettings/lambysettings_appearance/footer'); ?>
+
+<?php /*<!-- Logo Brand Block -->*/ ?>
+<?php // echo $this->getLayout()->createBlock('cms/block')->setBlockId('lamby_logo_brand_block')->toHtml() ?>
+
+<footer>
+
+
+
+<div class="footer <?php echo $footer_type;?>">
+
+<!-- BEGIN INFORMATIVE FOOTER -->  
+  <?php switch ($footer_type) {
+      case 'informative' :
+          ?>
+
+<div class="newsletter-wrap">
+  <div class="inner">
+      <!-- Footer Newsletter -->
+    <?php echo $this->getLayout()->createBlock('newsletter/subscribe')->setTemplate('newsletter/subscribe_footer.phtml')->toHtml() ; ?>
+    
+     <?php if (Mage::getStoreConfig('lambysettings/lambysettings_social/social_link')) { ?>
+    <div class="social"> 
+       <h4><span>Follow us</span></h4>
+
+        <ul class="link">
+        <?php
+          if (Mage::getStoreConfig('lambysettings/lambysettings_social/facebook_social_link')) {
+        ?>
+          <li class="fb">
+            <a target="_blank" rel="nofollow" href="<?php echo Mage::getStoreConfig('lambysettings/lambysettings_social/facebook_social_link_path') ?>" title="<?php echo $this->__('Facebook'); ?>">
+              <div class="social-tooltip"><?php echo $this->__('Facebook'); ?></div>
+            </a>
+          </li>
+        <?php } 
+          if (Mage::getStoreConfig('lambysettings/lambysettings_social/twitter_social_link')) {
+        ?>
+          <li class="tw">
+            <a target="_blank" rel="nofollow"  href="<?php echo Mage::getStoreConfig('lambysettings/lambysettings_social/twitter_social_link_path') ?>" title="<?php echo $this->__('Twitter'); ?>">
+              <div class="social-tooltip"><?php echo $this->__('Twitter'); ?></div>
+            </a>
+          </li>
+        <?php } 
+          if (Mage::getStoreConfig('lambysettings/lambysettings_social/googleplus_social_link')) {
+        ?>
+          <li class="googleplus">
+            <a target="_blank" rel="nofollow" href="<?php echo Mage::getStoreConfig('lambysettings/lambysettings_social/googleplus_social_link_path') ?>" title="<?php echo $this->__('GooglePlus'); ?>">
+              <div class="social-tooltip"><?php echo $this->__('Google+'); ?></div>
+            </a>
+          </li>
+        <?php } 
+          if (Mage::getStoreConfig('lambysettings/lambysettings_social/rss_social_link')) {
+        ?>
+          <li class="rss">
+            <a target="_blank" rel="nofollow" href="<?php echo Mage::getStoreConfig('lambysettings/lambysettings_social/rss_social_link_path') ?>" title="<?php echo $this->__('RSS'); ?>">
+              <div class="social-tooltip"><?php echo $this->__('RSS'); ?></div>
+            </a>
+          </li>
+        <?php } 
+          if (Mage::getStoreConfig('lambysettings/lambysettings_social/pinterest_social_link')) {
+        ?>
+          <li class="pintrest">
+            <a target="_blank" rel="nofollow" href="<?php echo Mage::getStoreConfig('lambysettings/lambysettings_social/pinterest_social_link_path') ?>" title="<?php echo $this->__('Pinterest'); ?>">
+              <div class="social-tooltip"><?php echo $this->__('Pinterest'); ?></div>
+            </a>
+          </li>
+        <?php } 
+          if (Mage::getStoreConfig('lambysettings/lambysettings_social/linkedin_social_link')) {
+        ?>
+          <li class="linkedin">
+            <a  target="_blank" rel="nofollow" href="<?php echo Mage::getStoreConfig('lambysettings/lambysettings_social/linkedin_social_link_path') ?>" title="<?php echo $this->__('LinkedIn'); ?>">
+              <div class="social-tooltip"><?php echo $this->__('LinkedIn'); ?></div>
+            </a>
+          </li>
+        <?php } 
+          if (Mage::getStoreConfig('lambysettings/lambysettings_social/youtube_social_link')) {
+        ?>
+          <li class="youtube">
+            <a target="_blank" rel="nofollow" href="<?php echo Mage::getStoreConfig('lambysettings/lambysettings_social/youtube_social_link_path') ?>" title="<?php echo $this->__('YouTube'); ?>">
+              <div class="social-tooltip"><?php echo $this->__('YouTube'); ?></div>
+            </a>
+          </li>
+        <?php } ?>
+        </ul>
+
+    </div> <!--social-->
+    <?php } ?>
+  </div> <!--inner-->
+</div> <!--newsletter-wrap-->
+
+<div class="inner">
+<?php // echo $this->getLayout()->createBlock('cms/block')->setBlockId('lamby_footer_about_us')->toHtml() ?>
+<?php // echo $this->getLayout()->createBlock('cms/block')->setBlockId('lamby_footer_information_links_block')->toHtml() ?>
+<?php // echo $this->getLayout()->createBlock('cms/block')->setBlockId('lamby_footer_contact_us')->toHtml() ?>
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('whf_footer')->toHtml() ?>
+</div> <!--inner-->
+
+
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('lamby_footer_links')->toHtml() ?>
+
+<!-- BEGIN SIMPLE FOOTER -->  
+          <?php
+          break;
+      case 'simple' :
+      default: ?>
+     
+<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('lamby_footer_links')->toHtml() ?>
+
+     <?php     
+  }
+  ?> 
+
+</div> <!--footer-->
+
+</footer>
+
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <div class="pswp__bg"></div>
+
+    <div class="pswp__scroll-wrap">
+
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<?php if (Mage::getStoreConfig('lambysettings/lambysettings_footer/footer_google_analytics')): ?>
+<?php echo Mage::getStoreConfig('lambysettings/lambysettings_footer/footer_google_analytics_path') ?>       
+<?php endif; ?>
+
+<script type="text/javascript">
+  
+
+        jQuery( document ).ready(function($) {
+          // jQuery('.jsEqual1').matchHeight();
+          
+          jQuery('.jsGridItemEqual2').matchHeight();
+          jQuery('.jsGridItemEqual').matchHeight();
+          jQuery('.bird-box .bird-box-desc').matchHeight();
+          jQuery('body .albums-grid .album-name').matchHeight();
+          jQuery('body .photos-grid .photo-name').matchHeight();
+          jQuery('.blog_post li, .std .blog_post li').matchHeight();
+          jQuery('.whf-offer-banner p').matchHeight();
+          jQuery('.whf-offer-banner-block .whf-offer-banner').matchHeight();
+
+          // jQuery('.bird-box-desc').dotdotdot({
+          //     watch: "window"
+          // });
+        });
+
+</script>

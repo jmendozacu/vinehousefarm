@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_library_index>
+        <reference name="content">
+            <block type="birdlibrary/adminhtml_library" name="bird.grid"/>
+        </reference>
+    </adminhtml_library_index>
+
+    <adminhtml_library_edit>
+        <reference name="content">
+            <block type="birdlibrary/adminhtml_library_edit" name="bird.edit"/>
+        </reference>
+        <reference name="left">
+            <block type="birdlibrary/adminhtml_library_edit_tabs" name="library.tabs">
+                <block type="birdlibrary/adminhtml_library_edit_tab_main" name="library.tabs.main">
+                    <block type="birdlibrary/adminhtml_library_edit_tab_product" name="form_after_products"
+                           template="vinehousefarm/birdlabrary/products.phtml" output="toHtml"/>
+                    <block type="birdlibrary/adminhtml_library_edit_tab_links" name="form_after_links"
+                           template="vinehousefarm/birdlabrary/links.phtml" output="toHtml"/>
+                </block>
+                <block type="birdlibrary/adminhtml_library_edit_tab_product" name="library.tabs.products"/>
+                <block type="birdlibrary/adminhtml_catalog_product_helper_form_gallery_content"
+                       name="library.tabs.gallery"/>
+                <block type="birdlibrary/adminhtml_library_edit_tab_links" name="library.tabs.links"/>
+                <action method="addTab">
+                    <name>main_section</name>
+                    <block>library.tabs.main</block>
+                </action>
+                <action method="addTab">
+                    <name>product_section</name>
+                    <block>library.tabs.products</block>
+                </action>
+                <action method="addTab">
+                    <name>gallery_section</name>
+                    <block>library.tabs.gallery</block>
+                </action>
+                <action method="addTab">
+                    <name>links_section</name>
+                    <block>library.tabs.links</block>
+                </action>
+            </block>
+        </reference>
+    </adminhtml_library_edit>
+
+    <adminhtml_catalog_product_edit>
+        <reference name="product_tabs">
+            <action method="addTab">
+                <name>bird_product_grid</name>
+                <block>birdlibrary/adminhtml_catalog_product_edit_library</block>
+            </action>
+            <!--<block type="adminhtml/widget_grid_serializer" name="bird_grid_serializer">-->
+                <!--<reference name="bird_grid_serializer">-->
+                    <!--<action method="initSerializerBlock">-->
+                        <!--<grid_block_name>catalog.product.edit.tab.birds</grid_block_name>-->
+                        <!--<data_callback>getSelectedBirds</data_callback>-->
+                        <!--<hidden_input_name>links[birds]</hidden_input_name>-->
+                        <!--<reload_param_name>products_birds</reload_param_name>-->
+                    <!--</action>-->
+                    <!--<action method="addColumnInputName">-->
+                        <!--<input_name>position</input_name>-->
+                    <!--</action>-->
+                <!--</reference>-->
+            <!--</block>-->
+        </reference>
+    </adminhtml_catalog_product_edit>
+
+    <adminhtml_product_birdsgrid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="birdlibrary/adminhtml_catalog_product_edit_library" name="catalog.product.edit.tab.birds" />
+            <block type="adminhtml/widget_grid_serializer" name="birds_grid_serializer">
+                <reference name="birds_grid_serializer">
+                    <action method="initSerializerBlock">
+                        <grid_block_name>catalog.product.edit.tab.birds</grid_block_name>
+                        <data_callback>getSelectedBirds</data_callback>
+                        <hidden_input_name>links[birds]</hidden_input_name>
+                        <reload_param_name>product_birds</reload_param_name>
+                    </action>
+                    <action method="addColumnInputName">
+                        <input_name>position_bird</input_name>
+                    </action>
+                </reference>
+            </block>
+        </block>
+    </adminhtml_product_birdsgrid>
+</layout>

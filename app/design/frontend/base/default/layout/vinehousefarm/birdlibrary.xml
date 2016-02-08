@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <library_bird_index>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>js/vinehousefarm/bird.js</name></action>
+        </reference>
+        <reference name="content">
+            <block type="birdlibrary/birds" name="library.birds"
+                   template="vinehousefarm/birdlibrary/library.phtml"/>
+        </reference>
+    </library_bird_index>
+
+    <library_bird_view>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/page-2columns-left.phtml</template>
+            </action>
+        </reference>
+        <reference name="left">
+
+            <remove name="left.poll"/>
+            <remove name="leftMenu"/>
+            <remove name="listingpage_block"/>
+
+            <block type="birdlibrary/bird" name="library.bird.left"
+                   template="vinehousefarm/birdlibrary/bird-left.phtml" before="-">
+                <block type="birdlibrary/bird_map" name="library.bird.view.map"
+                       template="vinehousefarm/birdlibrary/bird/map.phtml"/>
+            </block>
+        </reference>
+        <reference name="content">
+            <block type="birdlibrary/bird" name="library.bird.view" template="vinehousefarm/birdlibrary/bird.phtml">
+                <block type="birdlibrary/bird_slider" name="library.bird.view.slider"
+                       template="vinehousefarm/birdlibrary/bird/slider.phtml"/>
+                <block type="birdlibrary/bird_sound" name="library.bird.view.sound"
+                       template="vinehousefarm/birdlibrary/bird/sound.phtml"/>
+                <block type="birdlibrary/bird_video" name="library.bird.view.video"
+                       template="vinehousefarm/birdlibrary/bird/video.phtml"/>
+                <block type="birdlibrary/bird_product" name="library.bird.view.product"
+                       template="vinehousefarm/birdlibrary/bird/product.phtml"/>
+            </block>
+        </reference>
+    </library_bird_view>
+
+    <catalog_product_view>
+        <reference name="product.info">
+            <block type="birdlibrary/catalog_product_view_birds" name="product.birds" as="product_birds"
+                   template="vinehousefarm/birdlibrary/list.phtml"></block>
+        </reference>
+    </catalog_product_view>
+</layout>

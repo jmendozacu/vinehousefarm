@@ -1,0 +1,118 @@
+<?php
+/**
+ * $this->renderCategoriesMenuHtml() supports optional arguments:
+ * int Level number for list item class to start from
+ * string Extra class of outermost list items
+ * string If specified wraps children list in div with this class
+ */
+?>
+
+    <?php $_helper = Mage::helper('catalog/category') ?>
+    <?php $_categories = $_helper->getStoreCategories() ?>
+    <?php //$currentCategory = Mage::registry('current_category') ?>
+
+
+
+
+<script type="text/javascript">
+jQuery(document).ready(function() {
+          jQuery('.toggle').click(function() {
+               if (jQuery('.submenu').is(":hidden"))
+               {
+                    jQuery('.search-mobile').slideUp("fast");
+                    jQuery('.submenu').slideDown("fast");
+
+               } else {
+                    jQuery('.submenu').slideUp("fast");
+               }
+               return false;
+          });
+
+          jQuery('.toggle-search').click(function() {
+               if (jQuery('.search-mobile').is(":hidden"))
+               {
+                    jQuery('.submenu').slideUp("fast");
+                    jQuery('.search-mobile').slideDown("fast");
+
+               } else {
+                    jQuery('.search-mobile').slideUp("fast");
+               }
+               return false;
+          });
+});
+
+/*Phone Menu*/
+jQuery(document).ready(function() {
+        jQuery(".topnav").accordion({
+                accordion:false,
+                speed: 300,
+                closedSign: '+',
+                openedSign: '-'
+        });
+});
+
+</script>
+
+<?php $_menu = $this->renderCategoriesMenuHtml(0,'level-top') ?>
+<?php if($_menu): ?>
+<div id="menu" class="hidden-desktop">
+  <ul class="navmenu">
+     <li>
+      <div class="menutop">
+        <div class="toggle">
+          <div class="toggle-text">Browse Categories</div>
+        </div>
+        <div class="toggle-search"><span class="whf-icon-search"></span></div>
+      </div>
+       <ul class="submenu" style="display:none;">
+         <li>
+           <ul class="topnav">
+              <?php echo $_menu; ?>
+              <li>
+                <a href="<?php echo Mage::helper('cms/page')->getPageUrl( 17 ) ?>">Advice &amp; Blog</a>
+                <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('nav_block_advices')->toHtml(); ?>
+              </li>
+              <li>
+                <a href="<?php echo Mage::helper('cms/page')->getPageUrl( 3 ) ?>">About Us</a>
+                <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('nav_block_about')->toHtml(); ?>
+              </li>
+           </ul>
+         </li>
+       </ul> 
+       <div class="search-mobile" style="display:none;">
+         <?php // echo $this->getChildHtml('topSearch') ?>
+
+
+<?php
+
+/* @var $this Mage_Core_Block_Template */
+/* @var $catalogSearchHelper Mage_Catalogsearch_Helper_Data */
+$catalogSearchHelper =  $this->helper('catalogsearch');
+?>
+
+
+ <div class="search-box">
+   <form id="search_mini_form" action="<?php echo $catalogSearchHelper->getResultUrl() ?>" method="get">                     
+        <input id="search" type="text" name="<?php echo $catalogSearchHelper->getQueryParamName() ?>" value="<?php echo $catalogSearchHelper->getEscapedQueryText() ?>" class="searchbox" maxlength="<?php echo $catalogSearchHelper->getMaxQueryLength();?>" placeholder="<?php echo $this->__('Search') ?>" required />
+        <button type="submit" title="<?php echo $this->__('Search') ?>" class="button-common search-btn-bg" id="submit-button">
+            <?php /*<span class="searchIconNew"></span>*/ ?>
+            <span class="whf-icon-search"></span>
+        </button>
+        <div id="search_autocomplete" class="search-autocomplete"></div>
+        <script type="text/javascript">
+        //<![CDATA[
+            // var searchForm = new Varien.searchForm('search_mini_form', 'search', '<?php echo $this->__('Search entire store here...') ?>');
+            // searchForm.initAutocomplete('<?php echo $catalogSearchHelper->getSuggestUrl() ?>', 'search_autocomplete');
+        //]]>
+        </script>    
+   </form>
+ </div> <!--search-box-->
+
+
+
+
+       </div>
+     </li>
+  </ul> <!--navmenu-->
+</div>
+<?php endif ?>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <adminhtml_customer_edit>
+         <reference name="customer_edit_tabs">
+            <action method="addTab"><name>customer_edit_tab_action</name><block>oldorders/adminhtml_customer_edit_tab_orders</block></action>
+        </reference>
+        <reference name="content">
+            <block type="core/template" name="oldorder_script" template="vinehousefarm/oldorders/js.phtml" />
+        </reference>
+   </adminhtml_customer_edit>
+
+    <adminhtml_oldorder_products>
+        <block type="oldorders/adminhtml_orders_products" name="root" output="toHtml" template="vinehousefarm/oldorders/details.phtml"/>
+    </adminhtml_oldorder_products>
+</layout>

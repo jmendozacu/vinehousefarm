@@ -1,0 +1,76 @@
+
+<?php
+/**
+ * Template for Mage_Page_Block_Html
+ */
+?>
+<!DOCTYPE html>
+<html lang="<?php echo $this->getLang() ?>">
+<head>
+<?php echo $this->getChildHtml('head') ?>
+</head>
+
+<body class="<?php echo $this->getBodyClass()?' '.$this->getBodyClass().'':'' ?>">
+
+<?php echo $this->getChildHtml('after_body_start') ?>
+
+       <?php echo $this->getChildHtml('global_notices') ?>      
+       <?php echo $this->getChildHtml('header') ?>
+        <!-- BEGIN Main Container col2-left -->           
+       <section class="main-container col2-left-layout">
+          <?php echo $this->getChildHtml('breadcrumbs') ?> 
+           <div class="main-container-inner">               
+          <article class="col-main">                                          
+              <?php echo $this->getChildHtml('global_messages') ?>
+
+<div class="page-title">
+  <h2><?php echo Mage::getSingleton('catalog/layer')->getCurrentCategory()->getName() ?></h2>
+</div> <!--page-title-->
+
+<?php
+  $category = Mage::getSingleton('catalog/layer')->getCurrentCategory();
+  $categories = $category->getCollection()
+    ->addAttributeToSelect(array('name', 'thumbnail', 'description', 'image'))
+    ->addAttributeToFilter('is_active', 1)
+    ->addIdFilter($category->getChildren())
+?>
+
+<div class="whf-subcategories">
+  <ul>
+
+    <?php foreach ($categories as $category): ?>
+    <li class="whf-subcategory">
+      <div class="whf-subcategory-thumb">
+        <a href="<?php echo $category->getUrl() ?>"><img src="<?php echo $category->getImageUrl() ?>" /></a>
+      </div>
+      <div class="whf-subcategory-description">
+        <h3 class="whf-subcategory-name"><a href="<?php echo $category->getUrl() ?>"><?php echo $category->getName() ?></a></h3>
+        <p><?php echo $category->getDescription() ?></p>
+        <a class="whf-button" href="<?php echo $category->getUrl() ?>">Browse Products</a>
+      </div>
+    </li>
+    <?php endforeach; ?>
+
+  </ul>
+</div>
+
+<?php echo $this->getChildHtml('content') ?>
+
+          </article> <!--col-main-->
+          <aside class="col-left sidebar">               
+              <?php // echo $this->getChildHtml('left') ?>
+
+              <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('category_sidebar_special_offer')->toHtml() ?>
+              <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('category_sidebar_deal')->toHtml() ?>
+              <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('category_sidebar_call')->toHtml() ?>
+              <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('category_sidebar_bird_library')->toHtml() ?>
+
+          </aside> <!--col-right sidebar-->         
+          </div><!--main-container-inner-->
+       </section> <!--main-container col2-left-layout-->   
+      
+<?php echo $this->getChildHtml('footer') ?>
+<?php echo $this->getChildHtml('before_body_end') ?>
+<?php echo $this->getAbsoluteFooter() ?>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<?php
+/**
+ * @package Vine-House-Farm.
+ * @author: A.A.Treitjak <a.treitjak@gmail.com>
+ * @copyright: 2012 - 2015 BelVG.com
+ */
+
+/**
+ * @var $this Vinehousefarm_Birdlibrary_Block_Bird
+ * @var $bird Vinehousefarm_Birdlibrary_Model_Bird
+ */
+$bird = $this->getBird();
+
+?>
+
+<div class="whf-sidebar-block">
+    <h4 class="whf-sidebar-block-title">Latin name</h4>
+    <p><?php echo $this->escapeHtml($bird->getLatinName()); ?></p>
+</div>
+
+<div class="whf-sidebar-block">
+    <h4 class="whf-sidebar-block-title">Habitat</h4>
+    <p><?php echo $this->escapeHtml($bird->getHabitat()); ?></p>
+</div>
+
+<?php echo $this->getChildHtml('library.bird.view.map') ?>
+
+<div class="whf-sidebar-block">
+    <h4 class="whf-sidebar-block-title">Conservation status</h4>
+    <p>Breeds in woods and copses with plenty of undergrowth. They are also commonly seen in hedges, gardens, parks. Not that commonly seen in the open countryside.</p>
+</div>
+
+<div class="whf-sidebar-block">
+    <h4 class="whf-sidebar-block-title">UK Breeding population</h4>
+    <p><?php echo $this->escapeHtml($bird->getPopulation()); ?></p>
+</div>
+
+<!--<div class="whf-sidebar-block">-->
+<!--    <h4 class="whf-sidebar-block-title">Eggs and nest</h4>-->
+<!--    <div class="whf-sidebar-block-borderblock">-->
+<!--        <img src="--><?php //echo $this->helper('birdlibrary')->getBirdEgg($bird); ?><!--" alt="">-->
+<!--    </div>-->
+<!--</div>-->
+
+<?php if ($this->isLinks()): ?>
+    <div class="whf-sidebar-block">
+        <h4 class="whf-sidebar-block-title"><?php echo $this->helper('birdlibrary')->__('Related Birds'); ?></h4>
+        <?php foreach ($this->getBirdLinks() as $link): ?>
+            <p>
+                <a href="<?php echo $this->helper('birdlibrary')->escapeUrl($this->getUrl('library/bird/view', array('id' => $link->getId()))); ?>">
+                    <?php echo $this->escapeHtml($link->getBirdName()); ?>
+                </a>
+            </p>
+        <?php endforeach ?>
+    </div>
+<?php endif ?>

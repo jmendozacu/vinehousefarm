@@ -1,0 +1,60 @@
+<?php
+/**
+ * @package Vine-House-Farm.
+ * @author: A.A.Treitjak <a.treitjak@gmail.com>
+ * @copyright: 2012 - 2015 BelVG.com
+ */
+?>
+
+
+<?php if (($block = $this->getLayout()->getBlock('library.tabs.links')) && $_gridJsObject = $block->getJsObjectName()): ?>
+    <script type="text/javascript">
+        var linksProducts = $H(<?php echo $this->getBirdsJson() ?>);
+
+        Event.observe(window, 'load', function () {
+            $('bird_main_in_links').value = linksProducts.toQueryString();
+
+            function registerLink(grid, element, checked) {
+                if (checked) {
+                    linksProducts.set(element.value, element.value);
+                }
+                else {
+                    linksProducts.unset(element.value);
+                }
+                $('bird_main_in_links').value = linksProducts.toQueryString();
+                grid.reloadParams = {'selected_products[]': linksProducts.keys()};
+            }
+
+            function linkRowClick(grid, event) {
+                var trElement = Event.findElement(event, 'tr');
+                var isInput = Event.element(event).tagName == 'INPUT';
+                if (trElement) {
+                    var checkbox = Element.getElementsBySelector(trElement, 'input');
+                    if (checkbox[0]) {
+                        var checked = isInput ? checkbox[0].checked : !checkbox[0].checked;
+                        <?php echo $_gridJsObject ?>.
+                        setCheckboxChecked(checkbox[0], checked);
+                    }
+                }
+            }
+
+            var tabIndex = 1000;
+
+            function linkRowInit(grid, row) {
+                var checkbox = $(row).getElementsByClassName('checkbox')[0];
+            }
+
+
+            <?php echo $_gridJsObject ?>.
+            rowClickCallback = linkRowClick;
+            <?php echo $_gridJsObject ?>.
+            initRowCallback = linkRowInit;
+            <?php echo $_gridJsObject ?>.
+            checkboxCheckCallback = registerLink;
+            <?php echo $_gridJsObject ?>.
+            rows.each(function (row) {
+                linkRowInit(<?php echo $_gridJsObject ?>, row)
+            });
+        });
+    </script>
+<?php endif; ?>

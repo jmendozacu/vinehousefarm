@@ -4,9 +4,6 @@
 app/code/community/Phoenix/
 app/code/community/Cm/
 app/code/core/
-app/design/adminhtml/default/default/
-app/design/frontend/base/
-app/design/frontend/rwd/
 app/design/frontend/default/blank/
 app/design/frontend/default/default/
 app/design/frontend/default/iphone/
@@ -43,7 +40,6 @@ app/etc/local.xml.additional
 app/etc/local.xml.template
 app/etc/local.xml
 app/.htaccess
-app/locale/
 app/Mage.php
 /cron.php
 cron.sh
@@ -98,6 +94,7 @@ media/import/
 media/xmlconnect/
 media/catalog/product/cache/
 media/catalog/product/placeholder/default/
+media/catalog/bird/cache/
 /api.php
 nbproject/
 pear
@@ -112,11 +109,8 @@ shell/log.php
 sitemap.xml
 skin/adminhtml/default/default/
 skin/adminhtml/default/enterprise
-skin/frontend/base/
-skin/frontend/rwd/
 skin/frontend/default/blank/
 skin/frontend/default/blue/
-skin/frontend/default/default/
 skin/frontend/default/french/
 skin/frontend/default/german/
 skin/frontend/default/iphone/

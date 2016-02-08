@@ -1,0 +1,78 @@
+
+<?php
+/**
+ * Template for Mage_Page_Block_Html
+ */
+?>
+<!DOCTYPE html>
+<html lang="<?php echo $this->getLang() ?>">
+<head>
+<?php echo $this->getChildHtml('head') ?>
+</head>
+
+<body class="<?php echo $this->getBodyClass()?' '.$this->getBodyClass().'':'' ?>" itemscope itemtype="http://schema.org/WebPage">
+    <?php echo $this->getChildHtml('after_body_start') ?>
+    <?php echo $this->getChildHtml('global_notices') ?>      
+       <?php echo $this->getChildHtml('header') ?> 
+
+      <div class="home-slider-container">
+        <div class="main-col">
+          <div class="home-slider">
+            <a id="home-slider-nav-prev" class="home-slider-nav prev" href="#"><span class="whf-icon whf-icon-arrow-left"></span></a>
+            <ul class="bxslider">
+              <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('lamby_home_slider_banner_block')->toHtml() ?>
+            </ul>
+            <a id="home-slider-nav-next" class="home-slider-nav next" href="#"><span class="whf-icon whf-icon-arrow-right"></span></a>
+          </div>
+        </div>
+      </div>
+
+<?php /*
+      <!-- Header block call Mobile-->
+      <div class="our-features-box mob">
+         <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('lamby_header_block')->toHtml() ?>  
+      </div>
+*/ ?>
+            
+      <div class="main-col">
+        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('lamby_home_offer_banner_block')->toHtml() ?>
+      </div>
+
+      <div class="main-col">
+        <div class="home-video">
+          <div class="home-video-left home-video-player" style="background-image: url('<?php echo $this->getSkinUrl('images/vinehousefarm/player.jpg'); ?>');">
+            <a href="#" class="whf-icon whf-icon-play"></a>
+            <iframe class="home-video-player-iframe" src="http://fast.wistia.net/embed/iframe/5g2m00h8zm" frameborder="0" allowfullscreen></iframe>
+          </div>
+          <div class="home-video-right home-video-description">
+            <h3 class="home-video-title">Learn About Us</h3>
+            <h4 class="home-video-title-small">High Quality Bird Food</h4>
+            <p>Wild bird food direct from our conservation award winning farm and at low prices Vine House Farm bird foods started off with a clear vision and the main principles of that vision still hold true today.</p>
+            <a href="#" class="whf-button" data-hovercolor="#212c61">more</a>
+          </div>
+        </div>
+      </div>
+
+      <?php /*
+      <div class="main-col">  
+        <article>             
+          <?php echo $this->getChildHtml('breadcrumbs') ?>               
+          <?php echo $this->getChildHtml('global_messages') ?>
+          <?php echo $this->getChildHtml('content') ?>
+        </article>
+      </div> <!--main-col-->
+      */ ?>
+      
+      <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('lamby_home_latest_blog_block')->toHtml() ?>      
+      
+      <?php echo $this->getChildHtml('footer') ?>
+      <?php echo $this->getChildHtml('before_body_end') ?>
+      <?php echo $this->getAbsoluteFooter() ?>     
+
+      <?php if(Mage::app()->getStore()->getConfig('lambysettings/lambysettings_newsletterpopup/newsletterpopup_enable')==1){?>
+          <?php echo $this->getLayout()->createBlock('newsletter/subscribe')->setTemplate('newsletter/subscribe_home_popup.phtml')->toHtml() ; ?>
+      <?php } ?>
+  
+</body>
+</html>
+

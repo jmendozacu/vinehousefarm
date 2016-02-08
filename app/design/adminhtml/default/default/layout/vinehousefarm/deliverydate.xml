@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_deliverydate_index>
+        <reference name="content">
+            <block type="vinehousefarm_deliverydate/adminhtml_deliverydate" name="deliverydate"/>
+        </reference>
+        <reference name="head">
+            <action method="addItem"><type>js_css</type><name>calendar/calendar-win2k-1.css</name><params></params></action>
+            <action method="addItem"><type>js</type><name>calendar/calendar.js</name></action>
+            <action method="addItem"><type>js</type><name>calendar/calendar-setup.js</name></action>
+            <block type="core/html_calendar" name="head.calendar" as="calendar" template="vinehousefarm/deliverydate/js/calendar.phtml">
+            </block>
+        </reference>
+    </adminhtml_deliverydate_index>
+    <adminhtml_sales_order_view>
+        <reference name="head">
+            <action method="addItem"><type>js</type><name>calendar/calendar-setup.js</name></action>
+        </reference>
+        <reference name="order_tab_info">
+            <action method="setTemplate" ifconfig="vinehousefarm_deliverydate/deliverydate_general/enabled">
+                <template>vinehousefarm/deliverydate/info.phtml</template>
+            </action>
+        </reference>
+    </adminhtml_sales_order_view>
+    <adminhtml_futureorder_index>
+        <reference name="content">
+            <block type="vinehousefarm_deliverydate/adminhtml_futureorder" name="futureorder_grid"/>
+        </reference>
+    </adminhtml_futureorder_index>
+</layout>

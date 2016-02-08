@@ -1,0 +1,60 @@
+<?php
+/**
+ * @package Vine-House-Farm.
+ * @author: A.A.Treitjak <a.treitjak@gmail.com>
+ * @copyright: 2012 - 2015 BelVG.com
+ */
+?>
+
+
+<?php if (($block = $this->getLayout()->getBlock('library.tabs.products')) && $_gridJsObject = $block->getJsObjectName()): ?>
+    <script type="text/javascript">
+        var videosProducts = $H(<?php echo $this->getProductsJson() ?>);
+
+        Event.observe(window, 'load', function () {
+            $('video_main_in_products').value = videosProducts.toQueryString();
+
+            function registerLocationProduct(grid, element, checked) {
+                if (checked) {
+                    videosProducts.set(element.value, element.value);
+                }
+                else {
+                    videosProducts.unset(element.value);
+                }
+                $('video_main_in_products').value = videosProducts.toQueryString();
+                grid.reloadParams = {'selected_products[]': videosProducts.keys()};
+            }
+
+            function locationProductRowClick(grid, event) {
+                var trElement = Event.findElement(event, 'tr');
+                var isInput = Event.element(event).tagName == 'INPUT';
+                if (trElement) {
+                    var checkbox = Element.getElementsBySelector(trElement, 'input');
+                    if (checkbox[0]) {
+                        var checked = isInput ? checkbox[0].checked : !checkbox[0].checked;
+                        <?php echo $_gridJsObject ?>.
+                        setCheckboxChecked(checkbox[0], checked);
+                    }
+                }
+            }
+
+            var tabIndex = 1000;
+
+            function locationProductRowInit(grid, row) {
+                var checkbox = $(row).getElementsByClassName('checkbox')[0];
+            }
+
+
+            <?php echo $_gridJsObject ?>.
+            rowClickCallback = locationProductRowClick;
+            <?php echo $_gridJsObject ?>.
+            initRowCallback = locationProductRowInit;
+            <?php echo $_gridJsObject ?>.
+            checkboxCheckCallback = registerLocationProduct;
+            <?php echo $_gridJsObject ?>.
+            rows.each(function (row) {
+                locationProductRowInit(<?php echo $_gridJsObject ?>, row)
+            });
+        });
+    </script>
+<?php endif; ?>

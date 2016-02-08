@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <dropship_email_order_items>
+        <block type="authoriselist/sales_order_email_dropship_items" name="items" template="email/order/items.phtml">
+            <action method="addItemRender">
+                <type>default</type>
+                <block>sales/order_email_items_order_default</block>
+                <template>email/order/items/order/default.phtml</template>
+            </action>
+            <action method="addItemRender">
+                <type>grouped</type>
+                <block>sales/order_email_items_order_grouped</block>
+                <template>email/order/items/order/default.phtml</template>
+            </action>
+            <action method="addItemRender">
+                <type>nodisplay</type>
+                <block>sales/order_email_items_order_default</block>
+                <template>authoriselist/email/order/items/order/default.phtml</template>
+            </action>
+            <!--<block type="sales/order_totals" name="order_totals" template="sales/order/totals.phtml">-->
+            <!--<action method="setLabelProperties"><value>colspan="3" align="right" style="padding:13px 9px"</value></action>-->
+            <!--<action method="setValueProperties"><value>align="right" style="padding:13px 9px"</value></action>-->
+            <!--<block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml">-->
+            <!--<action method="setIsPlaneMode"><value>1</value></action>-->
+            <!--</block>-->
+            <!--</block>-->
+        </block>
+        <block type="core/text_list" name="additional.product.info"/>
+    </dropship_email_order_items>
+
+    <supplier_email_order_items>
+        <block type="authoriselist/sales_order_email_supplier_items" name="items" template="vinehousefarm/email/order/items.phtml">
+            <action method="addItemRender">
+                <type>default</type>
+                <block>sales/order_email_items_order_default</block>
+                <template>vinehousefarm/email/order/items/order/default.phtml</template>
+            </action>
+            <action method="addItemRender">
+                <type>grouped</type>
+                <block>sales/order_email_items_order_grouped</block>
+                <template>vinehousefarm/email/order/items/order/default.phtml</template>
+            </action>
+            <action method="addItemRender">
+                <type>nodisplay</type>
+                <block>sales/order_email_items_order_default</block>
+                <template>vinehousefarm/email/order/items/order/nodefault.phtml</template>
+            </action>
+            <!--<block type="sales/order_totals" name="order_totals" template="sales/order/totals.phtml">-->
+            <!--<action method="setLabelProperties"><value>colspan="3" align="right" style="padding:3px 9px"</value></action>-->
+            <!--<action method="setValueProperties"><value>align="right" style="padding:3px 9px"</value></action>-->
+            <!--<block type="tax/sales_order_tax" name="tax" template="tax/order/tax.phtml">-->
+            <!--<action method="setIsPlaneMode"><value>1</value></action>-->
+            <!--</block>-->
+            <!--</block>-->
+        </block>
+        <block type="core/text_list" name="additional.product.info"/>
+    </supplier_email_order_items>
+
+    <catalog_product_view>
+        <reference name="product.info">
+            <block type="vinehousefarm_common/catalog_product_view_bought" name="product.bought" as="product_bought"
+                   template="vinehousefarm/common/list.phtml"></block>
+
+            <block type="vinehousefarm_common/catalog_product_view_icons" name="product.icons" as="product_icons"
+                   template="vinehousefarm/common/icons.phtml"></block>
+        </reference>
+    </catalog_product_view>
+
+    <catalog_category_default>
+        <reference name="product_list">
+            <block type="vinehousefarm_common/catalog_product_view_simples" name="product.simples" as="product_simples"
+                   template="vinehousefarm/common/catalog/simples.phtml"></block>
+        </reference>
+    </catalog_category_default>
+
+    <catalogsearch_result_index>
+        <reference name="search_result_list">
+            <block type="vinehousefarm_common/catalog_product_view_simples" name="product.simples" as="product_simples"
+                   template="vinehousefarm/common/catalog/simples.phtml"></block>
+        </reference>
+    </catalogsearch_result_index>
+
+    <PRODUCT_TYPE_configurable translate="label" module="catalog">
+        <reference name="product.info">
+            <block type="vinehousefarm_common/catalog_product_view_simples" name="product.simples" as="product_simples"
+                   template="vinehousefarm/common/simples.phtml"></block>
+        </reference>
+    </PRODUCT_TYPE_configurable>
+</layout> 

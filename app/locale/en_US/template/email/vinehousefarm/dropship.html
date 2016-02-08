@@ -1,0 +1,71 @@
+<!--@subject {{var store.getFrontendName()}}: Order # {{var order.increment_id}} for {{var order.getCustomerName}} @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var logo_url":"Email Logo Image Url",
+"var logo_alt":"Email Logo Image Alt",
+"htmlescape var=$order.getCustomerName()":"Customer Name",
+"store url=\"customer/account/\"":"Customer Account Url",
+"var order.increment_id":"Order Id",
+"var order.getCreatedAtFormated('long')":"Order Created At (datetime)",
+"var order.getBillingAddress().format('html')":"Billing Address",
+"var order.getShippingAddress().format('html')":"Shipping Address",
+"var order.getShippingDescription()":"Shipping Description",
+"layout handle=\"sales_email_order_items\" order=$order":"Order Items Grid",
+"var order.getEmailCustomerNote()":"Email Order Note"}
+@-->
+<!--@styles
+@-->
+
+{{inlinecss file="email-inline.css"}}
+
+<table cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td class="order-details">
+            <p><strong>Customer Order Reference:</strong> {{var order.increment_id}}</p>
+            <p>Order Date: {{var order.getCreatedAtFormated('long')}}</p>
+        </td>
+    </tr>
+    <tr>
+        <td class="order-details">
+            <p><strong>Order From:</strong></p>
+            <p>
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td class="address-details">
+                            <h6>Vine House Farm</h6>
+                            <p>Deeping St Nicholas, Spalding,</p>
+                            <p>Lincolnshire, PE11 3DG</p>
+                        </td>
+                    </tr>
+                </table>
+            </p>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="order-details">
+            <p><strong>Order From:</strong></p>
+            <p>
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td class="address-details">
+                            <strong>Dispatch to:<strong>
+                            <p>{{var order.getCustomerName}}</p>
+                            <p>{{var order.getShippingAddress().format('html')}}</p>
+                        </td>
+                    </tr>
+                </table>
+            </p>
+        </td>
+    </tr>
+
+    <tr class="order-information">
+        <td>
+            <strong>Items:</strong>
+            {{layout handle="supplier_email_order_items" order=$order}}
+        </td>
+    </tr>
+</table>
+
+<p>Thank you.</p>
+<p>If there is a problem with this order please reply to this email or call 01775 630208.</p>
