@@ -1,7 +1,7 @@
 <div class="add-to-cart">
 <?php $_product = $this->getProduct(); ?>
     <?php $productAvailabilityStatus = Mage::getModel('SalesOrderPlanning/ProductAvailabilityStatus')->load($_product->getId(), 'pa_product_id'); ?>
-<?php $buttonTitle = $this->__('Update Cart'); ?>
+<?php $buttonTitle = $this->__('Update Basket'); ?>
 <?php if($productAvailabilityStatus->getIsSaleable()): ?>
   <label for="qty"><?php echo $this->__('Quantity:') ?></label>  
   <div class="pull-left">  

@@ -9,9 +9,11 @@
             <li id="product_tabs_<?php echo $_tab['alias'] ?>" class="tabLink<?php echo !$_index?' activeLink first':(($_index==count($this->getTabs())-1)?' last':'')?>"><a href="#"><?php echo $_tab['title']?></a></li>
         <?php endif; ?>
     <?php endforeach; ?>
+
     <?php if($custom_tab1->getIsActive()): ?>
         <li id="product_tabs_custom"><a href="#"><?php echo $custom_tab1->getTitle(); ?></a></li>
     <?php endif; ?>
+
     <?php if($custom_tab2->getIsActive()): ?>
         <li id="product1_tabs_custom"><a href="#"><?php echo $custom_tab2->getTitle(); ?></a></li>
     <?php endif; ?>
