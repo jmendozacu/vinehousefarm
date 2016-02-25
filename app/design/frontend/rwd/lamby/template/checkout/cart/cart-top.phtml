@@ -81,11 +81,11 @@
     <?php echo Mage::helper('checkout')->formatPrice($this->getSubtotal()) ?>            
     </div> <!--top-subtotal-->
     <div class="actions">
-    <button type="button" class="view-cart" onclick="window.location='<?php echo $this->getUrl('checkout/cart') ?>';" title="<?php echo $this->__('View Cart') ?>" ><span><?php echo $this->__('View Cart') ?></span></button>                 
+    <button type="button" class="view-cart" onclick="window.location='<?php echo $this->getUrl('checkout/cart') ?>';" title="<?php echo $this->__('View Basket') ?>" ><span><?php echo $this->__('View Basket') ?></span></button>
     <button type="button" title="<?php echo $this->__('Checkout') ?>" class="btn-checkout" onclick="window.location='<?php echo $this->getCheckoutUrl() ?>';"><span><?php echo $this->__('Checkout') ?></span></button>                         
     </div>  <!--actions-->
     <?php else: ?>               
-    <p class="a-center noitem"><?php echo $this->__('You have no items in your shopping cart.') ?></p>               
+    <p class="a-center noitem"><?php echo $this->__('You have no items in your shopping basket.') ?></p>
     <?php endif ?>
     </div> <!--top-cart-content-->
   </li>
