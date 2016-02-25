@@ -46,7 +46,7 @@
                 <li class="item">
                     <?php if ($this->isItemAvailableForReorder($_item)): ?>
                         <?php $_showAddButtonFlag = true ?>
-                        <input type="checkbox" name="order_items[]" id="reorder-item-<?php echo $_item->getId() ?>" value="<?php echo $_item->getId() ?>" title="<?php echo $this->__('Add to Cart') ?>" class="checkbox validate-one-required-by-name" />
+                        <input type="checkbox" name="order_items[]" id="reorder-item-<?php echo $_item->getId() ?>" value="<?php echo $_item->getId() ?>" title="<?php echo $this->__('Add to Basket') ?>" class="checkbox validate-one-required-by-name" />
                         <script type="text/javascript">
                         //<![CDATA[
                             $('reorder-item-<?php echo $_item->getId() ?>').advaiceContainer = 'cart-sidebar-reorder-advice-container';
@@ -61,7 +61,7 @@
             <div id="cart-sidebar-reorder-advice-container"></div>
             <div class="actions">
                 <?php if ($_showAddButtonFlag): ?>
-                    <button type="submit" title="<?php echo $this->__('Add to Cart') ?>" onclick="setLocation('<?php echo $this->getAddToCartUrl($_item) ?>')"class="button btn-cart"><span><?php echo $this->__('Add to Cart') ?></span></button>
+                    <button type="submit" title="<?php echo $this->__('Add to Basket') ?>" onclick="setLocation('<?php echo $this->getAddToCartUrl($_item) ?>')"class="button btn-cart"><span><?php echo $this->__('Add to Basket') ?></span></button>
                      <button onclick="setLocation('<?php echo $this->getUrl('customer/account') ?>')" class="button button-clear" id="viewall"><?php echo $this->__('View All'); ?></button>
                 <?php endif; ?>
                

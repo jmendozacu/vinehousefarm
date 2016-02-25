@@ -35,7 +35,7 @@ $options = $this->getChild('customer.wishlist.item.options')
 ?>
 <div class="cart-cell">
 <?php if ($productAvailabilityStatus->getIsSaleable()): ?>
-    <button type="button" title="<?php echo $this->__('Add to Cart') ?>" onclick="addWItemToCart(<?php echo $item->getId()?>);" class="button btn-cart"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+    <button type="button" title="<?php echo $this->__('Add to Basket') ?>" onclick="addWItemToCart(<?php echo $item->getId()?>);" class="button btn-cart"><span><span><?php echo $this->__('Add to Basket') ?></span></span></button>
 <?php else: ?>
     <?php if ($productAvailabilityStatus->getIsSaleable()): ?>
         <p class="availability in-stock">
