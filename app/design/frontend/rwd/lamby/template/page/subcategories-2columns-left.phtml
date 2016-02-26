@@ -30,6 +30,7 @@
 <?php
   $category = Mage::getSingleton('catalog/layer')->getCurrentCategory();
   $categories = $category->getCollection()
+    ->addAttributeToSort('position', 'asc')
     ->addAttributeToSelect(array('name', 'thumbnail', 'description', 'image'))
     ->addAttributeToFilter('is_active', 1)
     ->addIdFilter($category->getChildren())

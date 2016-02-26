@@ -1684,12 +1684,12 @@ nav > .main-col.main-col { /* vinehousefarm */
 }
 #nav li.drop-menu .whf-submenu-description p { /* vinehousefarm */
 	font-family: 'montserratlight';
-	font-size: 15px;
+	font-size: 13px;
 	margin: 0;
-	line-height: 1.6em;
+	line-height: 1.5em;
 }
 #nav li.drop-menu .whf-submenu-description p + p { /* vinehousefarm */
-	margin-top: 1.6em;
+	margin-top: 1.5em;
 }
 #nav li.drop-menu .whf-submenu-subcategories { /* vinehousefarm */
 	margin-left: 465px;
@@ -1738,12 +1738,16 @@ nav > .main-col.main-col { /* vinehousefarm */
 	/*opacity: 1;*/
 }
 #nav li.drop-menu .whf-submenu-subcategory-thumb img { /* vinehousefarm */
-	display: block;
-	width: 100%;
-	height: auto;
+    display: block;
+    width: auto;
+    height: auto;
+    max-height: 80px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
 }
 #nav li.drop-menu .whf-submenu-subcategory-title { /* vinehousefarm */
-	font-size: 15px;
+	font-size: 13px;
 	color: #fff;
 	text-align: center;
 	font-family: 'montserratregular';
@@ -16074,9 +16078,9 @@ li.item:hover a.thumb span.quick-view {
 	color: #212c60;
 }
 .whf-subcategories-summary { /* vinehousefarm */
-	/*border-top: solid 2px #f2f2f2;
+	border-top: solid 2px #f2f2f2;
 	margin-top: 30px;
-	padding-top: 50px;*/
+	padding-top: 50px;
 	padding-bottom: 50px;
 }
 .whf-subcategories-summary-title { /* vinehousefarm */

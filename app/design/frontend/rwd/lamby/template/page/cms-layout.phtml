@@ -39,18 +39,21 @@
       </div>
 
       <div class="main-col">
-        <div class="home-video">
-          <div class="home-video-left home-video-player" style="background-image: url('<?php echo $this->getSkinUrl('images/vinehousefarm/player.jpg'); ?>');">
-            <a href="#" class="whf-icon whf-icon-play"></a>
-            <iframe class="home-video-player-iframe" src="http://fast.wistia.net/embed/iframe/5g2m00h8zm" frameborder="0" allowfullscreen></iframe>
-          </div>
-          <div class="home-video-right home-video-description">
-            <h3 class="home-video-title">Learn About Us</h3>
-            <h4 class="home-video-title-small">High Quality Bird Food</h4>
-            <p>Wild bird food direct from our conservation award winning farm and at low prices Vine House Farm bird foods started off with a clear vision and the main principles of that vision still hold true today.</p>
-            <a href="#" class="whf-button" data-hovercolor="#212c61">more</a>
-          </div>
-        </div>
+        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('vinehous_video_block')->toHtml() ?>
+<?php /*
+<div class="home-video">
+<div class="home-video-left home-video-player" style="background-image: url('<?php echo $this->getSkinUrl('images/vinehousefarm/player.jpg'); ?>');">
+<a href="#" class="whf-icon whf-icon-play"></a>
+<iframe class="home-video-player-iframe" src="http://fast.wistia.net/embed/iframe/5g2m00h8zm" frameborder="0" allowfullscreen></iframe>
+</div>
+<div class="home-video-right home-video-description">
+<h3 class="home-video-title">Learn About Us</h3>
+<h4 class="home-video-title-small">High Quality Bird Food</h4>
+<p>Wild bird food direct from our conservation award winning farm and at low prices Vine House Farm bird foods started off with a clear vision and the main principles of that vision still hold true today.</p>
+<a href="#" class="whf-button" data-hovercolor="#212c61">more</a>
+</div>
+</div>
+*/ ?>
       </div>
 
       <?php /*
