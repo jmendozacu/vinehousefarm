@@ -1010,12 +1010,12 @@ ul#cart-sidebar {
 .header-circles { /* vinehousefarm */
 	/*overflow: hidden;*/
 	float: left;
-	padding: 0 65px;
+	padding: 0 50px;
 }
 .header-circles a { /* vinehousefarm */
 	display: block;
 	box-sizing: border-box;
-	width: 94px;
+	width: 80px;
 	padding-bottom: 16px;
 }
 .header-circles li { /* vinehousefarm */
@@ -1023,7 +1023,7 @@ ul#cart-sidebar {
 	position: relative;
 }
 .header-circles li + li { /* vinehousefarm */
-	margin-left: 15px;
+	margin-left: 5px;
 }
 .header-circles-circle { /* vinehousefarm */
 	box-sizing: border-box;

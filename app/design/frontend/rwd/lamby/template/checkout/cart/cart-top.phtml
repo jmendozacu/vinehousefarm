@@ -51,9 +51,20 @@
       <div class="header-circles-circle">
         <span class="whf-icon whf-icon-person"></span>
       </div>
-      <span class="header-circles-title"><?php echo $this->__('My Account') ?></span>
+      <span class="header-circles-title"><?php echo $this->__('Account') ?></span>
     </a>
   </li>
+
+  <?php if(Mage::getSingleton( 'customer/session' )->isLoggedIn()) { ?>
+    <li>
+      <a href="<?php echo $this->getUrl('')."customer/account/logout/"; ?>">
+        <div class="header-circles-circle">
+          <span class="whf-icon whf-icon-person"></span>
+        </div>
+        <span class="header-circles-title"><?php echo $this->__('Log Out') ?></span>
+      </a>
+    </li>
+  <?php } ?>
 
   <li class="jsHeaderCirclesCart">
     <a href="<?php echo $this->getUrl('checkout/cart') ?>">

@@ -6,7 +6,7 @@
 		clear: both;
 	}
 	.header-circles {
-		padding: 0 45px;
+		padding: 0 20px;
 	}
 	.header-circles li + li {
 		margin-left: 10px;
@@ -165,13 +165,13 @@
 	.header-circles {
 		padding: 0;
 		float: right;
-		margin-right: -20px;
+		margin-right: -14px;
 	}
 	.header-circles li + li {
-		margin-left: 5px;
+		margin-left: 0;
 	}
 	.header-circles a {
-		width: 84px;
+		width: 76px;
 	}
 
 	.top-cart-content {
@@ -759,19 +759,20 @@
 		padding-top: 0;
 	}
 	.header-circles {
-		margin-right: -17px;
+		margin-right: 0;
 	}
 	.header-circles a {
-		width: 74px;
+		width: 55px;
 		padding-bottom: 0;
-		padding-top: 10px;
+		padding-top: 14px;
 	}
 	.header-circles-circle {
-		width: 40px;
-		height: 40px;
+		width: 36px;
+		height: 36px;
 	}
 	.header-circles-circle .whf-icon {
-		line-height: 36px;
+		line-height: 32px;
+		font-size: 12px;
 	}
 	.header-circles-title {
 		font-size: 10px;

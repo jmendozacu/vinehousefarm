@@ -8,6 +8,7 @@
             <?php if(Mage::getSingleton( 'customer/session' )->isLoggedIn()) { ?>
                 <li><a href="<?php echo $this->getUrl('')."customer/account/logout/"; ?>"><span><?php echo $this->__('Log Out') ?></span></a></li>
             <?php } ?>
+            
             <?php $_links = $this->getLinks(); ?>
             <?php $_index = 1; ?>
             <?php $_count = count($_links); ?>
