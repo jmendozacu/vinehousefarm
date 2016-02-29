@@ -262,10 +262,10 @@
             <li id="el1" class="tabLink activeLink"><a href="#">Birds that love this product</a></li>
             <?php } ?>
             <?php //if(strlen($product_bought)>1){ ?>
-              <li id="el2" class="tabLink"><a href="#">Customers also bought</a></li>
+              <?php /*<li id="el2" class="tabLink"><a href="#">Customers also bought</a></li>*/ ?>
             <?php //} ?>
             <?php if(strlen($upsell_products)>1){ ?>
-              <li id="el3" class="tabLink"><a href="#">Recommended products</a></li>
+              <li id="el2" class="tabLink"><a href="#">Recommended products</a></li>
             <?php } ?>
 
 </ul>
@@ -275,11 +275,11 @@
           <?php echo $product_birds ?>
         </div></div>
 
-        <div style="display: none;" id="el2_contents" class="tabcontent"><div class="whf-contents product-tabs-content-inner clearfix">
+        <?php /*<div style="display: none;" id="el2_contents" class="tabcontent"><div class="whf-contents product-tabs-content-inner clearfix">
           <?php echo $product_bought ?>
-        </div></div>
+        </div></div>*/ ?>
 
-        <div style="display: none;" id="el3_contents" class="tabcontent"><div class="whf-contents product-tabs-content-inner clearfix">
+        <div style="display: none;" id="el2_contents" class="tabcontent"><div class="whf-contents product-tabs-content-inner clearfix">
             <?php echo $upsell_products ?>
         </div></div>
 
