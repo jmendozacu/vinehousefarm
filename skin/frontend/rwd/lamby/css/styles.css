@@ -7809,9 +7809,9 @@ button.button.button-clear {
 	color: #969696;
 }
 .availability.out-of-stock {
-	background: #7bbd42;
+	background: #c0392b;
 	color: #fff;
-	border-radius: 15px;
+	/*border-radius: 15px;*/
 	padding: 3px 10px
 }
 .availability.out-of-stock span {
