@@ -28,18 +28,28 @@
 					<?php } ?>
 					<h2><a href="<?php echo $post->getPermalink() ?>" title="<?php echo $this->htmlEscape($post->getPostTitle()) ?>"><?php echo $this->htmlEscape($post->getPostTitle()) ?></a></h2>
 					<div class="whf-details">
+
+<?php /*
 <ul class="whf-blog-social">
 <li class="whf-blog-social-profile whf-fb" style="height: 40px;"><a href="http://www.facebook.com/sharer.php?u=<?php echo $post->getPermalink() ?>" target="_blank"></a></li>
 <li class="whf-blog-social-profile whf-tw" style="height: 40px;"><a href="http://twitter.com/share?url=<?php echo $post->getPermalink() ?>" target="_blank"></a></li>
 <li class="whf-blog-social-profile whf-gp" style="height: 40px;"><a href="https://plus.google.com/share?url=<?php echo $post->getPermalink() ?>" target="_blank"></a></li>
 </ul>
+*/ ?>
+
+
 						<h3>
-							<time class="entry-date" datetime="<?php echo date('c', strtotime($post->getPostDate()));?>"><?php echo date('F d, Y', strtotime($post->getPostDate()));?></time>
+							<time class="entry-date" datetime="<?php echo date('c', strtotime($post->getPostDate()));?>"><?php echo date('F, Y', strtotime($post->getPostDate()));?></time>
 						</h3>
 						<?php $category = $helper->getPostCategory($post); ?>
+
+						<?php /*
 						<?php if ($category): ?>
 							<h4>Category: <a href="<?php echo $category->getUrl() ?>"><?php echo $category->getName() ?></a></h4>
 						<?php endif ?>
+						*/ ?>
+
+
 					</div>
 				</li>
 			<?php endforeach; ?>
