@@ -1322,7 +1322,7 @@ footer .coppyright {
 	width: 300px;
 }
 .product-tabs {
-	width: 300px;
+	/*width: 300px;*/
 	height: auto;
 	border-bottom: none;
 	padding: 0;
@@ -1335,11 +1335,11 @@ footer .coppyright {
 }
 .tab-box .activeLink a {
 	width: 94%;
-	height: 42px;
+	/*height: 42px;*/
 }
 .tab-box a {
 	width: 94%;
-	height: 42px;
+	/*height: 42px;*/
 }
 .tabcontent {
 	padding: 5px 0;
@@ -2759,7 +2759,7 @@ footer .coppyright {
 	width: 300px;
 }
 .product-tabs {
-	width: 300px;
+	/*width: 300px;*/
 	height: auto;
 	border-bottom: none;
 	padding: 0;
@@ -4154,7 +4154,7 @@ footer .coppyright {
 	width: 530px;
 }
 .product-tabs {
-	width: 530px;
+	/*width: 530px;*/
 	padding: 0;
 }
 .product-tabs li {
@@ -5327,7 +5327,7 @@ ul.products-grid {
 	width: 740px;
 }*/
 .product-tabs {
-	width: 740px;
+	/*width: 740px;*/
 }
 /*.tabcontent {
 	width: 715px;
@@ -6299,7 +6299,7 @@ ul.products-grid {
 	width: 950px;
 }
 .product-tabs {
-	width: 950px;
+	/*width: 950px;*/
 }
 .tabcontent {
 	/*padding: 5px 0;*/

@@ -7427,11 +7427,11 @@ fieldset {
 	margin-right: 0px;
 	text-decoration: none;
 	text-transform: uppercase;
-	font-size: 12px;
-	font-weight: 700;
+	font-size: 11px;
+	font-weight: 500;
 	transition: color 300ms ease-in-out 0s, background-color 300ms ease-in-out 0s, background-position 300ms ease-in-out 0s;
 	/*font-family: 'Open Sans', sans-serif;*/
-	padding: 0 12px;
+	padding: 0 10px;
 	border-right: solid 1px transparent;
 	border-left: solid 1px transparent;
 
