@@ -1,7 +1,7 @@
 <dd>
     <input name="datechange" id="date-change" type="checkbox"/> <?php echo $this->__('Would you like your order dispatched on a specific date?') ?>
-    <ul style="border-top: 1px solid #D1D1D1; margin-top: 12px; padding-top: 10px; display: none;" id="dalivery-date">
-    <li>
+    <ul style="border-top: 1px solid #D1D1D1; margin-top: 12px; padding-top: 10px;" id="dalivery-date">
+    <li class="date-field" style="display: none;">
         <label for="page_date-end"><?php echo $this->__('Delivery Date') ?>:</label>
         <input name="shipping_arrival_date_display" id="shipping_arrival_date_display" value="" title="date" class=" input-text" style="width: 100px;" type="text"> <img style="display: initial;" src="<?php echo Mage::getBaseUrl('skin')?>adminhtml/default/default/images/grid-cal.gif" alt="" class="v-middle" id="shipping_arrival_date_trig" title="Select Date" style=""> <a href="javascript:void(0)" id="link_reset" style="margin-left:5px;"><img style="display: initial;" src="<?php echo $this->getSkinUrl('images/reload.png');?>" alt="" class="v-middle" title="Reset"></a>
         <input name="shipping_arrival_date" id="shipping_arrival_date" value="" onChange="shippingArrivalDateOnChange(this); return false;" title="date"  type="hidden"> 
@@ -34,7 +34,7 @@
     jQuery(function() {
         jQuery('#date-change').on('click', function(e) {
 
-            jQuery('#dalivery-date').toggle();
+            jQuery('#dalivery-date .date-field').toggle();
         });
     });
 
