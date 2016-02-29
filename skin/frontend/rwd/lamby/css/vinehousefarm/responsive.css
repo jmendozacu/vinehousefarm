@@ -307,6 +307,16 @@
 }
 
 @media only screen and (max-width: 767px) {
+	.bird-library ul li, body .albums-grid li.item, body .photos-grid li.item {
+		width: 50%;
+	}
+	.bird-box .bird-box-desc, body .albums-grid .album-name, body .photos-grid .photo-name {
+		padding: 10px;
+	}
+	.bird-box .bird-box-desc, body .albums-grid .album-name, body .photos-grid .photo-name {
+		font-size: 12px;
+	}
+
 	.whf-features-box {
 		display: none;
 	}
