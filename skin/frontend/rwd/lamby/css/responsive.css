@@ -1397,17 +1397,14 @@ ul#crosssell-products-list .item, ul#crosssell-products-list .item.last {
 	height: auto !important;
 }
 /* Checkout Page */
-.one-page-checkout .step-title h3 {
+/*.one-page-checkout .step-title h3 {
 	margin: 0 0 0 45px;
-}
+}*/
 .one-page-checkout .step {
 	padding: 5px 0px 10px 0px;
 }
 select#billing-address-select {
 	width: 290px;
-}
-.one-page-checkout .step-title {
-	padding: 0;
 }
 .group-select li input.input-text, .group-select li textarea {
 	width: 275px;
@@ -2841,17 +2838,14 @@ ul#crosssell-products-list .item, ul#crosssell-products-list .item.last {
 	height: auto !important;
 }
 /* Checkout Page */
-.one-page-checkout .step-title h3 {
+/*.one-page-checkout .step-title h3 {
 	margin: 0 0 0 45px;
-}
+}*/
 .one-page-checkout .step {
 	padding: 5px 0px 10px 0px;
 }
 select#billing-address-select {
 	width: 450px;
-}
-.one-page-checkout .step-title {
-	padding: 0;
 }
 .group-select li input.input-text, .group-select li textarea {
 	width: 275px;
@@ -4202,9 +4196,6 @@ footer .coppyright {
 select#billing-address-select {
 	width: 290px;
 }
-.one-page-checkout .step-title {
-	padding: 0;
-}
 .group-select li input.input-text, .group-select li textarea {
 	width: 275px;
 }
@@ -5389,9 +5380,6 @@ ul#upsell-products-list .item.last {
 select#billing-address-select {
 	width: 420px;
 }
-.one-page-checkout .step-title {
-	padding: 0;
-}
 /* My Dashboard */
 .recent-orders .title-buttons {
 	display: none;
@@ -6348,9 +6336,6 @@ ul#upsell-products-list .item.last {
 
 select#billing-address-select {
 	width: 480px;
-}
-.one-page-checkout .step-title {
-	padding: 0;
 }
 /* My Dashboard */
 .recent-orders .title-buttons {
