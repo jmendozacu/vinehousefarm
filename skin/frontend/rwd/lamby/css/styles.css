@@ -16677,10 +16677,11 @@ a:hover .social-tooltip { /* vinehousefarm */
 	color: #5d893c;
 }
 .whf-offer-banner-insummary { /* vinehousefarm */
-	float: right;
+	/*float: right;*/
 	border: solid 1px #f2f2f2;
-	margin-left: 20px;
-	margin-bottom: 20px;
+	margin-top: 20px;
+	/*margin-left: 20px;*/
+	/*margin-bottom: 20px;*/
 }
 .whf-offer-banner-insummary .whf-offer-banner-title-small { /* vinehousefarm */
 	color: #5d893c;
