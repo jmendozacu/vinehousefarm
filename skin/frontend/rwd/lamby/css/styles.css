@@ -16689,12 +16689,16 @@ a:hover .social-tooltip { /* vinehousefarm */
 .whf-offer-banner-insummary .whf-offer-banner-title { /* vinehousefarm */
 	color: #212c61;
 }
-.whf-offer-banner-insummary .whf-button { /* vinehousefarm */
+.whf-offer-banner-insummary .whf-button, .whf-offer-banner-block-onsidebar .whf-offer-banner.category_sidebar_call .whf-button { /* vinehousefarm */
 	background: #212c61;
 	border-color: #212c61;
 	color: #fff;
 }
-.whf-offer-banner-insummary .whf-button:hover { /* vinehousefarm */
+.whf-offer-banner-block-onsidebar .whf-offer-banner.category_sidebar_call .whf-button {
+	width: auto;
+	margin-top: 1em;
+}
+.whf-offer-banner-insummary .whf-button:hover, .whf-offer-banner-block-onsidebar .whf-offer-banner.category_sidebar_call .whf-button:hover { /* vinehousefarm */
 	border-color: #5d893c;
 	background: #5d893c;
 	color: #fff;
