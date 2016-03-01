@@ -13,7 +13,9 @@
             <li data-index="<?php echo $_index; ?>" id="product_tabs_<?php echo $_tab['alias'] ?>" class="tabLink<?php echo !$_index?' activeLink first':(($_index==count($this->getTabs())-1)?' last':'')?>"><a href="#"><?php echo str_replace("Product ","", $_tab['title']) ?></a></li>
         
             <?php if ($_index == 0): ?>
-            <li id="product_tabs_productspec" class="tabLink"><a href="#">Specification</a></li>
+              <?php if ($productspec): ?>
+              <li id="product_tabs_productspec" class="tabLink"><a href="#">Specification</a></li>
+              <?php endif; ?>
             <?php endif; ?>
 
         <?php endif; ?>
@@ -33,7 +35,9 @@
         <div class="tabcontent" id="product_tabs_<?php echo $_tab['alias'] ?>_contents"><div class="product-tabs-content-inner clearfix"><?php echo $this->getChildHtml($_tab['alias']) ?></div></div>
     
          <?php if ($_index == 0): ?>
-          <div class="tabcontent" id="product_tabs_productspec_contents"><div class="product-tabs-content-inner clearfix"><p><?php echo $productspec; ?></p></div></div>
+            <?php if ($productspec): ?>
+            <div class="tabcontent" id="product_tabs_productspec_contents"><div class="product-tabs-content-inner clearfix"><p><?php echo $productspec; ?></p></div></div>
+            <?php endif; ?>
          <?php endif; ?>
     <?php endif; ?>
 <?php endforeach; ?>
