@@ -361,7 +361,7 @@
 		height: 30px;
 		line-height: 30px;
 		font-size: 12px;
-		width: 125px;
+		min-width: 125px;
 	}
 	.home-slider-nav {
 		width: 40px;
