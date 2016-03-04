@@ -232,7 +232,7 @@
 "Your order # is: <a href=""%s"">%s</a>","Your order # is: <a href=""%s"">%s</a>"
 "Your order has been received","Your order has been received"
 "Your order number is ","Your order number is "
-"Zip/Postal Code","Postcode/Zip"
+"Zip/Postal Code","Postcode"
 "osCommerce Orders","osCommerce Orders"
 "separate by "",""","separate by "","""
 "My Cart","My Basket"
