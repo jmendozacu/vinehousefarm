@@ -258,30 +258,41 @@
             $product_birds = $this->getChildHtml('product_birds');
             $product_bought = $this->getChildHtml('product_bought');
             $upsell_products = $this->getChildHtml('upsell_products');
-            if(strlen($product_birds)>1){ ?>
-            <li id="el1" class="tabLink activeLink"><a href="#">Birds that love this product</a></li>
+            ?>
+
+          <?php if(strlen($upsell_products)>1){ ?>
+              <li id="el1" class="tabLink activeLink"><a href="#">Recommended products</a></li>
             <?php } ?>
+
+            <?php if(strlen($product_birds)>1){ ?>
+            <li id="el2" class="tabLink "><a href="#">Birds that love this product</a></li>
+            <?php } ?>
+
+
             <?php //if(strlen($product_bought)>1){ ?>
-              <li id="el2" class="tabLink"><a href="#">Customers also bought</a></li>
+              <?php /*<li id="el2" class="tabLink"><a href="#">Customers also bought</a></li>*/ ?>
             <?php //} ?>
-            <?php if(strlen($upsell_products)>1){ ?>
-              <li id="el3" class="tabLink"><a href="#">Recommended products</a></li>
-            <?php } ?>
+
+
+  
 
 </ul>
 </div> <!--tab-box-->
 
+
         <div style="display: none;" id="el1_contents" class="tabcontent"><div class="whf-contents product-tabs-content-inner clearfix">
-          <?php echo $product_birds ?>
+            <?php echo $upsell_products ?>
         </div></div>
 
         <div style="display: none;" id="el2_contents" class="tabcontent"><div class="whf-contents product-tabs-content-inner clearfix">
-          <?php echo $product_bought ?>
+          <?php echo $product_birds ?>
         </div></div>
 
-        <div style="display: none;" id="el3_contents" class="tabcontent"><div class="whf-contents product-tabs-content-inner clearfix">
-            <?php echo $upsell_products ?>
-        </div></div>
+        <?php /*<div style="display: none;" id="el2_contents" class="tabcontent"><div class="whf-contents product-tabs-content-inner clearfix">
+          <?php echo $product_bought ?>
+        </div></div>*/ ?>
+
+
 
         
 

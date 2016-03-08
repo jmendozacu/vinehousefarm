@@ -48,7 +48,7 @@
 <div class="whf-submenu">
   <div class="whf-submenu-description">
     <h3><?php echo $_category->getName() ?></h3>
-    <?php echo $_category->getDescription() ?>
+    <p><?php echo $_category->getDescription() ?></p>
   </div>
   <div class="whf-submenu-subcategories">
     <ul>
@@ -267,7 +267,7 @@ $_thirdLevelCat = Mage::getModel('catalog/category')->load($_subsubcategory->get
                 $("#nav > li").hover(function() {
                     var el = $(this).find(".level0-wrapper");
                     el.hide();
-                    el.css("left", "0");
+                    el.css("left", "-124px");
                     el.stop(true, true).delay(0).fadeIn(0, "easeOutCubic");
                 }, function() {
                     $(this).find(".level0-wrapper").stop(true, true).delay(0).fadeOut(0, "easeInCubic");
