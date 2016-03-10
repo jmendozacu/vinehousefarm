@@ -28,7 +28,8 @@ class Vinehousefarm_Birdlibrary_BirdController extends Mage_Core_Controller_Fron
 
             if ($bird) {
 
-                $this->getLayout()->getBlock('head')->setTitle($bird->getBirdName());
+                $this->getLayout()->getBlock('head')->setTitle($bird->getTitle());
+                $this->getLayout()->getBlock('head')->setName($bird->getTitle());
                 $this->getLayout()->getBlock('head')->setBirdName($bird->getBirdName());
                 $this->getLayout()->getBlock('head')->setDescription($bird->getDescription());
                 $this->getLayout()->getBlock('head')->setKeywords($bird->getKeywords());
