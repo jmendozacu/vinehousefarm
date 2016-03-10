@@ -9,7 +9,7 @@
 <?php if ($this->canShowMap()): ?>
 <div class="whf-sidebar-block">
 <h4 class="whf-sidebar-block-title">Distribution Map and Info</h4>
-<p>Commonly seen throughout the UK.</p>
+<p><?php echo $this->escapeHtml($this->getBird()->getDistributionInfo()); ?></p>
 <div class="whf-sidebar-block-borderblock">
     <div class="whf-sidebar-block-map" id="sidebarmap">
         <img src="<?php echo $this->escapeUrl($this->getBirdMapUrl()); ?>" alt="<?php echo $this->getBird()->getBirdName(); ?>" width="270" height="400">
