@@ -116,6 +116,11 @@ class Vinehousefarm_Birdlibrary_Block_Adminhtml_Library_Edit_Tab_Main
             //'required'  => true,
         ));
 
+        $fieldset->addField('distribution_info', 'textarea', array(
+            'name'      => 'distribution_info',
+            'label'     => $this->_getHelper()->__('Distribution Info'),
+        ));
+
         $fieldset->addField('egg_nest', 'imagemap', array(
             'name'      => 'egg_nesti',
             'label'     => $this->_getHelper()->__('Eggs & Nest'),
