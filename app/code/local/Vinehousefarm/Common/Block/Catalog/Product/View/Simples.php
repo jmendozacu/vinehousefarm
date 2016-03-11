@@ -8,22 +8,28 @@
 class Vinehousefarm_Common_Block_Catalog_Product_View_Simples extends Mage_Core_Block_Template
 {
     protected $products;
+    protected $product;
 
     /**
      * @return array
      */
-    public function getSimpleProducts()
+    public function getSimpleProducts($product = false)
     {
-        //reset the products array to ensure it loops correctly
+
+        
+        $this->products = false;
         if (!$this->getProducts()) {
-            if ($this->getProduct()->isConfigurable()) {
-                $collection = $this->getProduct()->getTypeInstance()->getUsedProductCollection()->addAttributeToSelect('*')->addFilterByRequiredOptions();
+            if (!$product){
+                $product = $this->getProduct();
+            }
+            if ($product->isConfigurable()) {
+                $collection = $product->getTypeInstance()->getUsedProductCollection()->addAttributeToSelect('*')->addFilterByRequiredOptions();
 
                 if ($collection) {
                     if ($collection->getSize()) {
 
-                        $options = $this->getProduct()->getTypeInstance()->getConfigurableOptions($this->getProduct());
-                        $attributes = $this->getProduct()->getTypeInstance()->getUsedProductAttributes($this->getProduct());
+                        $options = $product->getTypeInstance()->getConfigurableOptions($product);
+                        $attributes = $product->getTypeInstance()->getUsedProductAttributes($product);
 
                         foreach ($collection as $item) {
                             foreach ($attributes as $id => $attribute) {
@@ -71,6 +77,20 @@ class Vinehousefarm_Common_Block_Catalog_Product_View_Simples extends Mage_Core_
         $this->products = $products;
     }
 
+//    public function setProduct($product){
+////        $this->product = $product;
+////        $this->_product = $product;
+////        Mage::register('product', $product);
+//    }
+
+//    public function getProductId(){
+//        if (isset($this->product)){
+//            return $this->product->getId();
+//        } else {
+//            return false;
+//        }
+//    }
+
     /**
      * Retrieve current product model
      *
@@ -81,6 +101,13 @@ class Vinehousefarm_Common_Block_Catalog_Product_View_Simples extends Mage_Core_
         if (!Mage::registry('product') && $this->getProductId()) {
             $product = Mage::getModel('catalog/product')->load($this->getProductId());
             Mage::register('product', $product);
+        } else if ($this->getProductId()){
+            if (Mage::registry('product') && Mage::registry('product') == $this->getProductId()) {
+                $this->setData('product', Mage::registry('product'));
+            } else {
+                $product = Mage::getModel('catalog/product')->load($this->getProductId());
+                Mage::register('product', $product);
+            }
         } else {
             if (Mage::registry('product')) {
                 $this->setData('product', Mage::registry('product'));
