@@ -16,7 +16,7 @@ class Vinehousefarm_Common_Block_Catalog_Product_View_Simples extends Mage_Core_
     public function getSimpleProducts($product = false)
     {
 
-        
+
         $this->products = false;
         if (!$this->getProducts()) {
             if (!$product){
