@@ -2918,13 +2918,23 @@ input#coupon_code {
 	border-top: none;
 }
 .cart-table tfoot .button {
-	background: #4c5962 !important;
-	border-color: #4c5962 !important;
+	background: #008000 !important;
+	border-color: #008000 !important;
+}
+.cart-table tfoot .button#empty_cart_button {
+	background: #FF0000 !important;
+	border-color: #FF0000 !important;
 }
 .cart-table tfoot .button:hover {
-	background: #2c3942 !important;
-	border-color: #2c3942 !important;
+	background: #008000 !important;
+	border-color: #008000 !important;
 }
+
+.cart-table tfoot .button#empty_cart_button:hover {
+	background: #FF0000 !important;
+	border-color: #FF0000 !important;
+}
+
 #shopping-cart-table dl {
 	margin: 0;
 	padding: 0;
@@ -7798,7 +7808,7 @@ button.button.button-clear {
 	/*border-radius: 2px;*/
 	padding: 3px 10px;
 
-	background: #f2f2f2;
+	/*background: #f2f2f2;*/
 	font-family: 'montserratbold';
 	font-family: 12px;
 }
@@ -7806,7 +7816,7 @@ button.button.button-clear {
 	color: #fff;
 	font-weight: bold;
 
-	color: #969696;
+	/*color: #969696;*/
 }
 .availability.out-of-stock {
 	background: #c0392b;
@@ -8138,9 +8148,9 @@ button.button.btn-proceed-checkout {
 	color: #fff;
 	width: 100%;
 
-	background: #212c60;
+	background: #008000;
 	font-family: 'montserratsemi_bold';
-	border: solid 1px #212c60;
+	border: solid 1px #008000;
 }
 button.button.btn-proceed-checkout:hover {
 	/*background: #333;*/
@@ -8148,8 +8158,8 @@ button.button.btn-proceed-checkout:hover {
 	/*color: #fff;*/
 	/*border: 1px #000 solid;*/
 
-	background: #313c70;
-	border: solid 1px #313c70;
+	background: #008000;
+	border: solid 1px #008000;
 }
 button.button.btn-proceed-checkout:before {
 	content: "\f00c";
@@ -9695,12 +9705,12 @@ button.button:hover {
 	border: 1px #4F7533 solid;
 }
 button.button.coupon, button.button.get-quote {
-	background: #969696;
-	border-color: #969696;
+	background: #008000;
+	border-color: #008000;
 }
 button.button.coupon:hover, button.button.get-quote:hover {
-	background: #868686;
-	border-color: #868686;
+	background: #008000;
+	border-color: #008000;
 }
 button.button span {
 	font-weight: bold;
