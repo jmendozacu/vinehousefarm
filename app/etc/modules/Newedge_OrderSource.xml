@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<config>
+    <modules>
+        <Newedge_OrderSource>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Newedge_OrderSource>
+    </modules>
+</config>

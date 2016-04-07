@@ -1,0 +1,25 @@
+<div id="order_source_fields">
+	<div class="fieldset " id="main">
+		<div class="hor-scroll">
+			<table cellspacing="0" class="form-list">
+				<tbody>
+				<tr>
+					<td class="label"><label for="group_id">Source <span class="required"></span></label></td>
+					<td class="value">
+						<select id="source_id" name="order_moto_source" class=" select">
+							<option>Website</option>
+							<?php
+								$sources = $this->getSources();
+								foreach ($sources as $source) {
+									echo "<option value='{$source["value"]}'>{$source["label"]}</option>";
+								}
+							?>
+<!--							loop the sources and show them.-->
+						</select>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

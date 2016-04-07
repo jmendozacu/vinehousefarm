@@ -1,0 +1,110 @@
+<?php
+/**
+ * Mageplace Freshdesk extension
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2014 Mageplace. (http://www.mageplace.com)
+ * @license     http://www.mageplace.com/disclaimer.html
+ */
+
+/**
+ * @see Mageplace_Gallery_Block_Customer_Photo_List
+ * @var Mageplace_Gallery_Block_Customer_Photo_List $this
+ */
+?>
+<div class="mpgallery-customer-photo-list">
+
+    <?php echo $this->getMessagesBlock()->getGroupedHtml(); ?>
+
+    <?php echo $this->getChildHtml('top'); ?>
+
+    <?php $_photos = $this->getPhotos(); ?>
+    <div class="page-title title-buttons">
+        <h1><?php echo $this->__('My Photos') ?></h1>
+
+        <div class="actions">
+            <?php if ($this->isUploadButtonVisible()): ?>
+                <button type="button" title="<?php echo $this->__('Upload') ?>" class="button btn-upload-photo"
+                        onclick="location.href='<?php echo $this->getUploadUrl(); ?>'">
+                    <span><span><?php echo $this->__('Upload Photo') ?></span></span>
+                </button>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <?php if (sizeof($_photos->getItems()) > 0): ?>
+
+        <?php echo $this->getPagerHtml(); ?>
+
+        <table class="data-table" id="my-photo-table">
+            <col width="1"/>
+            <col/>
+            <col width="1"/>
+            <col width="1"/>
+            <col width="1"/>
+            <thead>
+            <tr>
+                <th><?php echo $this->__('Thumb') ?></th>
+                <th><?php echo $this->__('Name') ?></th>
+                <th><?php echo $this->__('Status') ?></th>
+                <th><?php echo $this->__('Date Created') ?></th>
+                <th>&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($_photos as $_photo): ?>
+                <?php $_photo->setStoreId(array('0')); ?>
+                <tr>
+                    <td>
+                        <img src="<?php echo $this->getPhotoSrc($_photo); ?>"
+                             title="<?php echo $this->escapeHtml($_photo->getName()); ?>"/>
+                    </td>
+                    <td><?php echo $this->escapeHtml($_photo->getName()); ?></td>
+                    <td><em><?php echo $this->getStatusName($_photo->getIsActive()); ?></em></td>
+                    <td class="right-cell-content"><span
+                            class="nobr"><?php echo $this->formatDate($_photo->getCreatedAt()); ?></span></td>
+                    <td class="a-center">
+                        <span class="nobr">
+                            <?php $separator = false; ?>
+                            <?php if ($this->canView($_photo)): ?>
+                                <a href="<?php echo $this->getViewUrl($_photo) ?>"><?php echo $this->__('View'); ?></a>
+                                <?php $separator = true; ?>
+                            <?php endif; ?>
+                            <?php if ($this->canEdit($_photo)): ?>
+                                <?php if ($separator): ?>
+                                    <span class="separator">|</span>
+                                <?php endif; ?>
+                                <a href="<?php echo $this->getEditUrl($_photo); ?>"
+                                   class="link-edit"><?php echo $this->helper('customer')->__('Edit'); ?></a>
+                                <?php $separator = true; ?>
+                            <?php endif; ?>
+                            <?php if ($this->canDelete($_photo)): ?>
+                                <?php if ($separator): ?>
+                                    <span class="separator">|</span>
+                                <?php endif; ?>
+                                <a href="<?php echo $this->getDeleteUrl($_photo); ?>"
+                                   onclick="return confirm('<?php echo $this->__('Are you sure you want to delete photo?'); ?>');"
+                                   class="link-delete"><?php echo $this->helper('customer')->__('Delete'); ?></a>
+                                <?php $separator = true; ?>
+                            <?php endif; ?>
+                         </span>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+
+        <script type="text/javascript">
+            decorateTable('my-photo-table');
+        </script>
+
+        <?php echo $this->getPagerHtml(); ?>
+
+    <?php else: ?>
+        <p><?php echo $this->__('There are no photos to display.'); ?></p>
+    <?php endif; ?>
+
+    <?php echo $this->getChildHtml('bottom'); ?>
+
+</div>

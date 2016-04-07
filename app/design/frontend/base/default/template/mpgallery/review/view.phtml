@@ -1,0 +1,31 @@
+<?php
+/**
+ * MagePlace Gallery Extension
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2014 Mageplace. (http://www.mageplace.com)
+ * @license     http://www.mageplace.com/disclaimer.html
+ */
+
+/**
+ * @var Mageplace_Gallery_Block_Review_View $this
+ */
+
+$_review = $this->getReview();
+?>
+    <dt class="review-item">
+        <?php echo $this->helper('review')->__('Review by <span>%s</span>', $_review->getName()); ?>
+        <small><?php echo $this->helper('review')->__('(Posted on %s)', $this->formatDate($_review->getCreationDate())); ?></small>
+    </dt>
+    <dd class="review-item">
+        <div class="ratings">
+            <div class="rating-box">
+                <div class="rating" style="width:<?php echo $this->getRate(); ?>%"></div>
+            </div>
+        </div>
+
+        <div class="comment">
+            <?php echo nl2br($_review->getComment()); ?>
+        </div>
+    </dd>

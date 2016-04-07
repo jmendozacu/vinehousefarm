@@ -1,0 +1,202 @@
+<?php
+/**
+ * MagePlace Gallery Extension
+ *
+ * @category    Mageplace_Gallery
+ * @package     Mageplace_Gallery
+ * @copyright   Copyright (c) 2014 Mageplace. (http://www.mageplace.com)
+ * @license     http://www.mageplace.com/disclaimer.html
+ */
+
+/**
+ * @var Mageplace_Gallery_Block_Adminhtml_Album_Edit_Form $this
+ */
+?>
+<div class="content-header">
+    <h3 class="icon-head head-categories">
+        <?php echo $this->escapeHtml($this->getHeader()) . ($this->getAlbumId() ? ' (' . $this->__('ID: %s', $this->getAlbumId()) . ')' : ''); ?>
+    </h3>
+
+    <p class="content-buttons form-buttons">
+        <?php echo $this->getResetButtonHtml(); ?>
+        <?php if ($this->getAlbumId() && !$this->isRoot()): ?>
+            <?php echo $this->getDeleteButtonHtml(); ?>
+        <?php endif; ?>
+        <?php echo $this->getSaveButtonHtml(); ?>
+    </p>
+</div>
+
+<?php echo $this->getTabsHtml(); ?>
+
+<iframe name="iframeSave" style="display:none; width:100%;" src="<?php echo $this->getJsUrl(); ?>blank.html"></iframe>
+
+<form target="iframeSave" id="album_form" action="<?php echo $this->getSaveUrl(); ?>" method="post"
+      enctype="multipart/form-data">
+    <div class="no-display">
+        <input type="hidden" name="isIframe" value="1"/>
+        <input name="form_key" type="hidden" value="<?php echo $this->getFormKey(); ?>"/>
+        <input type="hidden" name="active_tab_id" id="active_tab_id" value=""/>
+    </div>
+
+    <div id="album_tab_content"></div>
+</form>
+
+<script type="text/javascript">
+    //<![CDATA[
+    albumForm = new varienForm('album_form');
+
+    albumForm.getAlbumId = function () {
+        var $id = $(this.formId).getInputs('hidden', 'general[id]').first();
+        if (Object.isElement($id)) {
+            return $id.value;
+        }
+
+        return false;
+    };
+
+    albumForm.setAlbumPath = function (path) {
+        var $path = $(this.formId).getInputs('hidden', 'general[path]').first();
+        if (Object.isElement($path)) {
+            return $path.value = path;
+        }
+    };
+
+    albumForm.submit = function (url) {
+        this.errorSections = $H({});
+        this.canShowError = true;
+        this.submitUrl = url;
+
+        if (this.validator && this.validator.validate()) {
+            if (this.validationUrl) {
+                this._validate();
+            } else {
+                if (this.isSubmitted) {
+                    return false;
+                }
+
+                this.isSubmitted = true;
+                this._submit();
+            }
+
+            showLoadingBox();
+
+            return true;
+        }
+
+        return false;
+    };
+
+    albumForm.refreshPath = function () {
+        var albumId = this.getAlbumId();
+
+        if (!albumId) {
+            return false;
+        }
+
+        new Ajax.Request('<?php echo $this->getRefreshPathUrl(); ?>', {
+            method: 'POST',
+            evalScripts: true,
+
+            onSuccess: function (transport) {
+                if (transport.responseText.isJSON()) {
+                    var response = transport.responseText.evalJSON();
+                    if (response.error) {
+                        alert(response.message);
+                    } else {
+                        if (albumForm.getAlbumId() == response['id']) {
+                            albumForm.setAlbumPath(response['path']);
+                        }
+                    }
+                } else if (transport && transport.responseText) {
+                    alert(transport.responseText);
+                } else {
+                    alert(transport);
+                }
+            }
+        });
+    };
+
+    function showLoadingBox() {
+        var loaderArea = $$('#html-body .wrapper')[0];
+        Position.clone($(loaderArea), $('loading-mask'), {offsetLeft: -2});
+        toggleSelectsUnderBlock($('loading-mask'), false);
+        Element.show('loading-mask');
+    }
+
+    function albumSubmit(url, useAjax) {
+        var activeTab = $('active_tab_id');
+        if (activeTab) {
+            if (activeTab.tabsJsObject && activeTab.tabsJsObject.activeTab) {
+                activeTab.value = activeTab.tabsJsObject.activeTab.id;
+            }
+        }
+
+        var generalId = Object.isElement($$('#album_form [name="general[id]"]').first()) ? $$('#album_form [name="general[id]"]').first().value : '';
+        var generalPath = Object.isElement($$('#album_form [name="general[path]"]').first()) ? $$('#album_form [name="general[path]"]').first().value : '';
+        var generalIsActive = Object.isElement($$('#album_form [name="general[is_active]"]').first()) ? $$('#album_form [name="general[is_active]"]').first().value : '';
+
+        var albumId = generalId ? generalId : 0;
+        var isCreating = albumId == 0;
+        var path = generalPath.split('/');
+        var parentId = path.pop();
+        if (parentId == albumId) {
+            parentId = path.pop();
+        }
+
+        if (isCreating) {
+            if (!tree.currentNodeId) {
+                tree.currentNodeId = parentId;
+            }
+            tree.addNodeTo = parentId;
+        } else {
+            var currentNode = tree.getNodeById(albumId);
+
+            if (currentNode) {
+                if (parseInt(generalIsActive)) {
+                    var oldClass = 'no-active-album';
+                    var newClass = 'active-album';
+                } else {
+                    var oldClass = 'active-album';
+                    var newClass = 'no-active-album';
+                }
+
+                Element.removeClassName(currentNode.ui.wrap.firstChild, oldClass);
+                Element.addClassName(currentNode.ui.wrap.firstChild, newClass);
+            }
+        }
+
+        albumForm.submit();
+    }
+
+    function albumReset(url, useAjax) {
+        if (useAjax) {
+            var params = {active_tab_id: false};
+            updateContent(url, params);
+        } else {
+            location.href = url;
+        }
+    }
+
+    function albumDelete(url, useAjax, albumId) {
+        if (confirm("<?php echo $this->__('Are you sure you want to delete this album?'); ?>")) {
+            if (useAjax) {
+                tree.nodeForDelete = albumId;
+                updateContent(url, {}, true);
+            } else {
+                location.href = url;
+            }
+        }
+    }
+
+    <?php /** @var Mageplace_Gallery_Block_Adminhtml_Album_Tabs $tabBlock */ ?>
+    <?php if($this->isAjax() && ($tabBlock = $this->getLayout()->getBlock('tabs')) && ($_tabsJsObject = $tabBlock->getJsObjectName())): ?>
+    var albumTabsJsObject = <?php echo $_tabsJsObject; ?>;
+    albumTabsJsObject.moveTabContentInDest();
+    if (albumTabsJsObject.activeTab) {
+        $('active_tab_id').value = albumTabsJsObject.activeTab.id;
+    }
+
+    $('active_tab_id').tabsJsObject = albumTabsJsObject;
+    <?php endif; ?>
+    //]]>
+</script>

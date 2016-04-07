@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <newedge module="newedge_ordersource">
+            <title>Order Sources</title>
+            <sort_order>90</sort_order>
+            <children>
+                <form module="newedge_ordersource">
+                    <title>Manage Sources</title>
+                    <sort_order>10</sort_order>
+                    <action>ordersources/index</action>
+                </form>
+            </children>
+        </newedge>
+    </menu>
+</config>

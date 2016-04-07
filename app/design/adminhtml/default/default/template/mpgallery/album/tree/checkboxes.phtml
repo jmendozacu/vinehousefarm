@@ -1,0 +1,143 @@
+<?php
+/**
+ * MagePlace Gallery Extension
+ *
+ * @category    Mageplace_Gallery
+ * @package     Mageplace_Gallery
+ * @copyright   Copyright (c) 2014 Mageplace. (http://www.mageplace.com)
+ * @license     http://www.mageplace.com/disclaimer.html
+ */
+
+/**
+ * @var Mageplace_Gallery_Block_Adminhtml_Album_Tree_Checkboxes $this
+ */
+?>
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('Albums') ?></h4>
+    </div>
+
+    <fieldset id="albums_tree">
+        <input type="hidden" name="album_ids" id="photo_albums" value="<?php echo $this->getIdsString() ?>">
+
+        <div id="photo-albums" class="tree"></div>
+    </fieldset>
+</div>
+
+<?php if ($this->getRootNode() && $this->getRootNode()->hasChildren()): ?>
+    <script type="text/javascript">
+        Ext.EventManager.onDocumentReady(function () {
+            var albumLoader = new Ext.tree.TreeLoader({
+                dataUrl: '<?php echo $this->getLoadTreeUrl()?>'
+            });
+
+            albumLoader.createNode = function (config) {
+                config.uiProvider = Ext.tree.CheckboxNodeUI;
+
+                var node;
+                if (config.children && !config.children.length) {
+                    delete(config.children);
+                    node = new Ext.tree.AsyncTreeNode(config);
+                } else {
+                    node = new Ext.tree.TreeNode(config);
+                }
+
+                return node;
+            };
+
+            albumLoader.on("beforeload", function (treeLoader, node) {
+                treeLoader.baseParams.album = node.attributes.id;
+            });
+
+            albumLoader.on("load", function (treeLoader, node, config) {
+                varienWindowOnload();
+            });
+
+            var tree = new Ext.tree.TreePanel('photo-albums', {
+                animate: true,
+                loader: albumLoader,
+                enableDD: false,
+                containerScroll: true,
+                rootUIProvider: Ext.tree.CheckboxNodeUI,
+                selModel: new Ext.tree.CheckNodeMultiSelectionModel(),
+                rootVisible: <?php echo (int)$this->getRootNode()->getIsVisible() ?>
+            });
+
+            tree.on('check', function (node) {
+                if (node.attributes.checked) {
+                    albumAdd(node);
+                } else {
+                    albumRemove(node);
+                }
+
+                varienElementMethods.setHasChanges(node.getUI().checkbox);
+            }, tree);
+
+            var root = new Ext.tree.TreeNode({
+                text: '<?php echo $this->jsQuoteEscape($this->getRootNode()->getName()) ?>',
+                draggable: false,
+                checked: <?php echo (int)$this->getRootNode()->getChecked() ?>,
+                id: '<?php echo $this->getRootNode()->getId() ?>',
+                disabled: <?php echo (int)$this->getRootNode()->getDisabled(); ?>,
+                uiProvider: Ext.tree.CheckboxNodeUI
+            });
+
+            tree.setRootNode(root);
+            bildAlbumTree(root, <?php echo $this->getTreeJson() ?>);
+            tree.addListener('click', albumClick.createDelegate(this));
+
+            tree.render();
+            root.expand();
+        });
+
+        function bildAlbumTree(parent, config) {
+            if (!config) return null;
+
+            if (parent && config && config.length) {
+                for (var i = 0; i < config.length; i++) {
+                    config[i].uiProvider = Ext.tree.CheckboxNodeUI;
+
+                    var node;
+                    var _node = Object.clone(config[i]);
+                    if (_node.children && !_node.children.length) {
+                        delete(_node.children);
+                        node = new Ext.tree.AsyncTreeNode(_node);
+                    } else {
+                        node = new Ext.tree.TreeNode(config[i]);
+                    }
+
+                    parent.appendChild(node);
+                    node.loader = node.getOwnerTree().loader;
+                    if (config[i].children) {
+                        bildAlbumTree(node, config[i].children);
+                    }
+                }
+            }
+        }
+
+        function albumClick(node, e) {
+            if (node.disabled) {
+                return;
+            }
+
+            node.getUI().check(!node.getUI().checked());
+            varienElementMethods.setHasChanges(Event.element(e), e);
+        }
+
+        function albumAdd(node) {
+            var ids = $('photo_albums').value.split(',');
+            ids.push(node.id);
+            $('photo_albums').value = ids.join(',');
+        }
+
+        function albumRemove(node) {
+            var ids = $('photo_albums').value.split(',');
+
+            while (-1 != ids.indexOf(node.id)) {
+                ids.splice(ids.indexOf(node.id), 1);
+            }
+
+            $('photo_albums').value = ids.join(',');
+        }
+    </script>
+<?php endif; ?>

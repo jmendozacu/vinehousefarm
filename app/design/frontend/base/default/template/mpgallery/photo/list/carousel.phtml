@@ -1,0 +1,157 @@
+<?php
+/**
+ * MagePlace Gallery Extension
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2014 Mageplace. (http://www.mageplace.com)
+ * @license     http://www.mageplace.com/disclaimer.html
+ */
+
+/**
+ * @var Mageplace_Gallery_Block_Photo_List_Carousel $this
+ */
+
+$_curAlbum = $this->getCurrentAlbum();
+$_photoCollection = $this->getPhotos();
+$_photoCount = $_photoCollection->count();
+$_helper = $this->helper('mpgallery');
+$_urlHelper = $this->helper('mpgallery/url');
+$_mode = $this->getMode();
+?>
+
+<?php echo $this->getChildHtml('top'); ?>
+
+<?php if ($_photoCount): ?>
+    <div class="gallery-carousel-photos">
+        <?php if ($this->getDisplayButtons() && $this->isTopButtonsPosition()) : ?>
+            <div class="buttons">
+                <button type="button" title="<?php echo $this->__('Prev'); ?>"
+                        <?php if (!$this->isFirstPage()): ?>onclick="location.href = '<?php echo $this->getPreviousPageUrl(); ?>'"<?php endif; ?>
+                        class="button<?php if ($this->isFirstPage()): ?> disabled<?php endif; ?>">
+                    <span><span><?php echo $this->__('Prev'); ?></span></span>
+                </button>
+
+                <button type="button" title="<?php echo $this->__('Next'); ?>"
+                        <?php if (!$this->isLastPage()): ?>onclick="location.href = '<?php echo $this->getNextPageUrl(); ?>'"<?php endif; ?>
+                        class="button<?php if ($this->isLastPage()): ?> disabled<?php endif; ?>">
+                    <span><span><?php echo $this->__('Next'); ?></span></span>
+                </button>
+            </div>
+        <?php endif; ?>
+
+        <ul class="photos-carousel">
+            <?php $i = 0; ?>
+            <?php /** @var Mageplace_Gallery_Model_Photo $_photo */ ?>
+            <?php foreach ($_photoCollection as $_photo): ?>
+                <?php $_photoNameStripped = $this->stripTags($_photo->getName(), null, true); ?>
+
+                <li class="item<?php if ((++$i - 1) % $_photoCount == 0): ?> first<?php elseif ($i % $_photoCount == 0): ?> last<?php endif; ?>">
+                    <a href="<?php echo $_urlHelper->getPhotoUrl($_photo); ?>"
+                       title="<?php echo $_photoNameStripped; ?>"
+                       id="photo-carousel-image-<?php echo $_photo->getUrlKey(); ?>"
+                       class="photo-image"><img
+                            src="<?php echo $this->getImage($_photo, 'small_image', $this->getPhotoSize()); ?>"
+                            alt="<?php echo $_photoNameStripped; ?>"/></a>
+
+                    <?php if ($this->getDisplayName()) : ?>
+                        <h2 class="photo-name">
+                            <a href="<?php echo $_urlHelper->getPhotoUrl($_photo); ?>"
+                               title="<?php echo $_photoNameStripped; ?>">
+                                <?php echo $_photo->getName(); ?>
+                            </a>
+                        </h2>
+                    <?php endif; ?>
+
+                    <?php if ($this->getDisplayRate()) : ?>
+                        <div class="ratings">
+                            <div class="rating-box">
+                                <div class="rating" style="width:<?php echo $this->getPhotoAvgRate($_photo); ?>%"></div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if ($this->getDisplayUpdateDate()) : ?>
+                        <div class="update-date">
+                            <?php echo $this->formatDate($_photo->getUpdateDate(), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM); ?>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if ($this->getDisplayShortDescription()) : ?>
+                        <div class="desc std">
+                            <?php echo $_photo->getShortDescription(); ?>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if ($this->getDisplayShowLink()) : ?>
+                        <div class="actions">
+                            <a href="<?php echo $_urlHelper->getPhotoUrl($_photo); ?>"
+                               title="<?php echo $_photoNameStripped; ?>"
+                               class="link-learn"><?php echo $this->__('Show'); ?></a>
+                        </div>
+                    <?php endif; ?>
+                </li>
+            <?php endforeach ?>
+        </ul>
+
+        <script type="text/javascript">
+            decorateGeneric($$('ul.photos-carousel'), ['odd', 'even', 'first', 'last'])
+        </script>
+
+        <?php if ($this->getDisplayButtons() && $this->isBottomButtonsPosition()) : ?>
+            <div class="buttons">
+                <button type="button" title="<?php echo $this->__('Prev'); ?>"
+                        <?php if (!$this->isFirstPage()): ?>onclick="location.href = '<?php echo $this->getPreviousPageUrl(); ?>'"<?php endif; ?>
+                        class="button<?php if ($this->isFirstPage()): ?> disabled<?php endif; ?>">
+                    <span><span><?php echo $this->__('Prev'); ?></span></span>
+                </button>
+
+                <button type="button" title="<?php echo $this->__('Next'); ?>"
+                        <?php if (!$this->isLastPage()): ?>onclick="location.href = '<?php echo $this->getNextPageUrl(); ?>'"<?php endif; ?>
+                        class="button<?php if ($this->isLastPage()): ?> disabled<?php endif; ?>">
+                    <span><span><?php echo $this->__('Next'); ?></span></span>
+                </button>
+            </div>
+        <?php endif; ?>
+    </div>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $('.gallery-carousel-photos .photo-image').bind('click', function (event) {
+                event.preventDefault();
+
+                var position = 0;
+                var imgKey = this.id.replace('photo-carousel-image-', '');
+                for (var i = 0; i < carouselImageUrls.length; i++) {
+                    if (carouselImageUrls[i]['id'] == imgKey) {
+                        position = ++i;
+                        break;
+                    }
+                }
+
+                Lightview.show(carouselImageUrls, {
+                    controls: {
+                        slider: {
+                            items: <?php echo $this->getLimit() < $_photoCount ? $this->getLimit() : $_photoCount; ?>
+                        }
+                    },
+                    slideshow: <?php echo $this->slideshowDelay(); ?>,
+                    onShow: function () {
+                        <?php if($this->isSlideshowAutostart()): ?>
+                        setTimeout(function () {
+                            Lightview.play();
+                        }, <?php echo $this->slideshowDelay(); ?>);
+                        <?php endif; ?>
+                    }
+                }, position);
+            });
+
+            $('#photo_view_image').css({"cursor": "pointer"});
+        });
+
+        var carouselImageUrls = <?php echo $this->getImagesJson(); ?>;
+    </script>
+
+<?php endif; ?>
+
+<?php echo $this->getChildHtml('bottom'); ?>

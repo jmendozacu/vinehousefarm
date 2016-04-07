@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * MagePlace Gallery Extension
+ *
+ * @category    Mageplace_Gallery
+ * @package     Mageplace_Gallery
+ * @copyright   Copyright (c) 2014 Mageplace. (http://www.mageplace.com)
+ * @license     http://www.mageplace.com/disclaimer.html
+ */
+-->
+<layout>
+	<adminhtml_gallery_album_edit>
+		<update handle="editor" />
+
+		<reference name="head">
+			<action method="addItem">
+				<type>skin_css</type>
+				<name>mpgallery/css/gallery.css</name>
+			</action>
+			<action method="addItem">
+				<type>skin_js</type>
+				<name>mpgallery/js/gallery.js</name>
+			</action>
+		</reference>
+
+		<reference name="left">
+			<block type="mpgallery/adminhtml_album_tree" name="mp.album.tree" template="mpgallery/album/tree.phtml" />
+		</reference>
+
+		<reference name="content">
+			<block type="mpgallery/adminhtml_album_edit" name="mp.album.edit" template="mpgallery/album/edit.phtml" />
+		</reference>
+
+		<reference name="js">
+			<block type="core/template" template="catalog/wysiwyg/js.phtml" name="catalog.wysiwyg.js" />
+		</reference>
+	</adminhtml_gallery_album_edit>
+
+	<adminhtml_gallery_photo_index>
+		<reference name="head">
+			<action method="addItem">
+				<type>skin_js</type>
+				<name>mpgallery/js/gallery.js</name>
+			</action>
+		</reference>
+
+		<reference name="content">
+			<block type="mpgallery/adminhtml_photo" name="mp.photo.grid" />
+		</reference>
+	</adminhtml_gallery_photo_index>
+
+	<adminhtml_gallery_photo_edit>
+		<update handle="editor" />
+
+		<reference name="head">
+			<action method="addItem">
+				<type>skin_css</type>
+				<name>mpgallery/css/gallery.css</name>
+			</action>
+			<action method="addItem">
+				<type>skin_js</type>
+				<name>mpgallery/js/gallery.js</name>
+			</action>
+		</reference>
+
+		<reference name="left">
+			<block type="mpgallery/adminhtml_photo_edit_tabs" name="mp.photo.tabs" />
+		</reference>
+
+		<reference name="content">
+			<block type="mpgallery/adminhtml_photo_edit" name="mp.photo.edit" />
+		</reference>
+	</adminhtml_gallery_photo_edit>
+
+	<adminhtml_gallery_photo_albums>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="mpgallery/adminhtml_photo_edit_tab_albums" name="mp.photo.edit.tab.albums" />
+		</block>
+	</adminhtml_gallery_photo_albums>
+
+	<adminhtml_gallery_multiupload_index>
+		<reference name="content">
+			<block type="mpgallery/adminhtml_multiupload" name="mp.multiupload">
+				<block type="mpgallery/adminhtml_album_tree_checkboxes" name="mp.multiupload.albums" />
+			</block>
+		</reference>
+	</adminhtml_gallery_multiupload_index>
+
+	<adminhtml_gallery_review_index>
+		<reference name="content">
+			<block type="mpgallery/adminhtml_review" name="mp.review.grid" />
+		</reference>
+	</adminhtml_gallery_review_index>
+
+	<adminhtml_gallery_review_edit>
+		<reference name="head">
+			<action method="addItem">
+				<type>skin_js</type>
+				<name>mpgallery/js/gallery.js</name>
+			</action>
+		</reference>
+
+		<reference name="content">
+			<block type="mpgallery/adminhtml_review_edit" name="mp.review.edit" />
+		</reference>
+	</adminhtml_gallery_review_edit>
+
+	<adminhtml_system_config_edit>
+		<reference name="head">
+			<action method="addItem">
+				<type>skin_js</type>
+				<name>mpgallery/js/gallery.js</name>
+			</action>
+		</reference>
+	</adminhtml_system_config_edit>
+
+    <adminhtml_catalog_product_edit>
+        <reference name="product_tabs">
+            <action method="addTab">
+                <name>gallery_albums_tab</name>
+                <block>mpgallery/adminhtml_catalog_product_edit_tab</block>
+            </action>
+        </reference>
+    </adminhtml_catalog_product_edit>
+
+    <adminhtml_gallery_product_index>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="mpgallery/adminhtml_catalog_product_edit_tab_albums" name="mp.product.tab.albums"/>
+        </block>
+    </adminhtml_gallery_product_index>
+
+</layout>

@@ -1,0 +1,133 @@
+<?php
+/**
+ * MagePlace Gallery Extension
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2014 Mageplace. (http://www.mageplace.com)
+ * @license     http://www.mageplace.com/disclaimer.html
+ */
+
+/**
+ * @var Mageplace_Gallery_Block_Photo_Upload $this
+ */
+
+$_album = $this->getCurrentAlbum();
+?>
+    <div class="gallery-photo-upload-messages"><?php echo $this->getMessagesBlock()->getGroupedHtml(); ?></div>
+
+<?php echo $this->getChildHtml('top'); ?>
+
+    <div class="gallery-photo-upload">
+        <div class="photo-info page-title">
+            <h1><?php echo $this->__('Upload Photo'); ?></h1>
+        </div>
+
+        <form action="<?php echo $this->getUploadUrl(); ?>" method="post" id="photo-upload-form"
+              enctype="multipart/form-data">
+
+            <?php if ($this->isProductPhotoUpload()) : ?>
+                <input type="hidden" name="product_id" value="<?php echo $this->getProductId(); ?>"/>
+            <?php endif; ?>
+
+            <?php if ($this->getBackUrl()) : ?>
+                <input type="hidden" name="return_url" value="<?php echo base64_encode($this->getBackUrl()); ?>"/>
+            <?php endif; ?>
+
+            <div class="fieldset">
+                <table cellspacing="0" class="form-list">
+                    <tr>
+                        <td class="label">
+                            <label for="uploader_name" class="required"><?php echo $this->__('Your Name'); ?><em>*</em></label>
+                        </td>
+                        <td class="value">
+                            <input type="text" class="input-text required-entry" name="uploader_name" id="uploader_name"
+                                   value="<?php echo $this->getName(); ?>"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+                            <label for="uploader_email" class="required"><?php echo $this->__('Your Email'); ?>
+                                <em>*</em></label>
+                        </td>
+                        <td class="value">
+                            <input type="text" class="input-text required-entry validate-email" name="uploader_email"
+                                   id="uploader_email" value="<?php echo $this->getEmail(); ?>"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">
+                            <label for="name" class="required"><?php echo $this->__('Photo Name'); ?><em>*</em></label>
+                        </td>
+                        <td class="value">
+                            <input type="text" class="input-text required-entry" name="name" id="name"
+                                   value="<?php echo $this->getPhotoName(); ?>"/>
+                        </td>
+                    </tr>
+                    <?php if ($this->isAlbumVisible()): ?>
+                        <tr>
+                            <td class="label">
+                                <label for="album" class="required"><?php echo $this->__('Photo Album'); ?>
+                                    <em>*</em></label>
+                            </td>
+                            <td class="value">
+                                <select name="album" id="album" class="validate-select required-entry">
+                                    <?php $curAlbumKey = $this->getCurrentAlbumKey(); ?>
+                                    <?php foreach ($this->getAlbums() as $key => $name): ?>
+                                        <option
+                                            value="<?php echo $key; ?>"<?php if ($curAlbumKey == $key) : ?> selected<?php endif; ?>>
+                                            <?php echo $this->escapeHtml($name); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
+                    <?php if ($this->isPhotoImageVisible()): ?>
+                        <tr>
+                            <td class="label">
+                                <label for="image" class="required"><?php echo $this->__('Photo Image'); ?>
+                                    <em>*</em></label>
+                            </td>
+                            <td class="value">
+                                <input type="file" class="input-text required-entry" value="" name="image" id="image">
+                            </td>
+                        </tr>
+                    <?php endif; ?>
+                    <tr>
+                        <td class="label">
+                            <label for="description"
+                                   class="required"><?php echo $this->__('Photo Description'); ?></label>
+                        </td>
+                        <td class="value">
+                            <textarea name="description" id="description" class="textarea"
+                                      cols="20" rows="3"><?php echo $this->getPhotoDescription(); ?></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button type="submit" title="<?php echo $this->getUploadButtonTitle(); ?>" class="button">
+                                <span><span><?php echo $this->getUploadButtonTitle(); ?></span></span>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </form>
+
+        <script type="text/javascript">
+            var uploadForm = new VarienForm('photo-upload-form');
+        </script>
+
+        <div class="buttons-set">
+            <p class="back-link">
+                <a href="<?php echo $this->escapeUrl($this->getBackUrl()); ?>"
+                   title="<?php echo $this->escapeHtml($this->getBackTitle()); ?>">
+                    <small>&laquo; </small>
+                    <?php echo $this->getBackTitle(); ?>
+                </a>
+            </p>
+        </div>
+    </div>
+
+<?php echo $this->getChildHtml('bottom'); ?>

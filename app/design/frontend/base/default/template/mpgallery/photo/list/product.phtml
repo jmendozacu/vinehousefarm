@@ -1,0 +1,221 @@
+<?php
+/**
+ * MagePlace Gallery Extension
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2014 Mageplace. (http://www.mageplace.com)
+ * @license     http://www.mageplace.com/disclaimer.html
+ */
+
+/**
+ * @var Mageplace_Gallery_Block_Photo_List_Product $this
+ */
+
+$_curAlbum = $this->getCurrentAlbum();
+$_photoCollection = $this->getPhotos();
+$_photoCount = $_photoCollection->count();
+$_helper = $this->helper('mpgallery');
+$_urlHelper = $this->helper('mpgallery/url');
+$_mode = $this->getMode();
+?>
+
+<div class="box-collateral box-gallery-photos" id="gallery-product-photos">
+
+    <?php echo $this->getChildHtml('top'); ?>
+
+    <h2><?php echo $this->__('Related Photos'); ?></h2>
+
+    <?php if ($this->getDisplayButtonArea() && $this->isTopButtonsPosition()) : ?>
+        <div class="buttons top-buttons">
+            <?php if ($this->getDisplayButtons()) : ?>
+                <div class="nav-buttons">
+                    <button type="button" title="<?php echo $this->__('Prev'); ?>"
+                            <?php if (!$this->isFirstPage()): ?>onclick="location.href = '<?php echo $this->getPreviousPageUrl(); ?>'"<?php endif; ?>
+                            class="button<?php if ($this->isFirstPage()): ?> disabled<?php endif; ?>">
+                        <span><span><?php echo $this->__('Prev'); ?></span></span>
+                    </button>
+
+                    <button type="button" title="<?php echo $this->__('Next'); ?>"
+                            <?php if (!$this->isLastPage()): ?>onclick="location.href = '<?php echo $this->getNextPageUrl(); ?>'"<?php endif; ?>
+                            class="button<?php if ($this->isLastPage()): ?> disabled<?php endif; ?>">
+                        <span><span><?php echo $this->__('Next'); ?></span></span>
+                    </button>
+                </div>
+            <?php endif; ?>
+
+            <?php if ($this->getDisplayUploadButton()) : ?>
+                <div class="action-buttons">
+                    <button type="button" title="<?php echo $this->__('Upload Photo'); ?>"
+                            onclick="location.href = '<?php echo $this->getUploadUrl(); ?>'"
+                            class="button">
+                        <span><span><?php echo $this->__('Upload Photo'); ?></span></span>
+                    </button>
+                </div>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($_photoCount): ?>
+        <table class="photos-grid" id="gallery-photos-product-table">
+            <tr>
+                <?php $i = 0; ?>
+                <?php /** @var Mageplace_Gallery_Model_Photo $_photo */ ?>
+                <?php foreach ($_photoCollection as $_photo): ?>
+                    <?php $_photoNameStripped = $this->stripTags($_photo->getName(), null, true); ?>
+                    <td>
+                        <a href="<?php echo $_urlHelper->getPhotoUrl($_photo); ?>"
+                           title="<?php echo $_photoNameStripped; ?>"
+                           id="photo-product-image-<?php echo $_photo->getUrlKey(); ?>" class="photo-image">
+                            <img
+                                src="<?php echo $this->getImage($_photo, 'small_image', $this->getPhotoSize()); ?>"
+                                alt="<?php echo $_photoNameStripped; ?>"/>
+                        </a>
+
+                        <?php if ($this->getDisplayName()) : ?>
+                            <h3 class="photo-name">
+                                <a href="<?php echo $_urlHelper->getPhotoUrl($_photo); ?>"
+                                   title="<?php echo $_photoNameStripped; ?>"><?php echo $_photo->getName(); ?></a>
+                            </h3>
+                        <?php endif; ?>
+
+                        <div class="ratings">
+                            <div class="rating-box">
+                                <div class="rating" style="width:<?php echo $this->getPhotoAvgRate($_photo); ?>%"></div>
+                            </div>
+                        </div>
+
+                        <?php if ($this->getDisplayUpdateDate()) : ?>
+                            <div class="update-date">
+                                <?php echo $this->formatDate($_photo->getUpdateDate(), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM); ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <?php if ($this->getDisplayShortDescription()) : ?>
+                            <div class="desc std">
+                                <?php echo $_photo->getShortDescription(); ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <?php if ($this->getDisplayShowLink()) : ?>
+                            <div class="actions">
+                                <a href="<?php echo $_urlHelper->getPhotoUrl($_photo); ?>"
+                                   title="<?php echo $_photoNameStripped; ?>"
+                                   class="link-learn"><?php echo $this->__('Show'); ?></a>
+                            </div>
+                        <?php endif; ?>
+                    </td>
+                <?php endforeach ?>
+            </tr>
+        </table>
+
+        <script type="text/javascript">decorateTable('gallery-photos-product-table')</script>
+    <?php else: ?>
+        <div
+            class="gallery-photos-product-empty"><?php echo $this->__('There are no product photos to display.'); ?></div>
+    <?php endif; ?>
+
+    <?php if ($this->getDisplayButtonArea() && $this->isBottomButtonsPosition()) : ?>
+        <div class="buttons bottom-buttons">
+            <?php if ($this->getDisplayButtons()) : ?>
+                <div class="nav-buttons">
+                    <button type="button" title="<?php echo $this->__('Prev'); ?>"
+                            <?php if (!$this->isFirstPage()): ?>onclick="location.href = '<?php echo $this->getPreviousPageUrl(); ?>'"<?php endif; ?>
+                            class="button<?php if ($this->isFirstPage()): ?> disabled<?php endif; ?>">
+                        <span><span><?php echo $this->__('Prev'); ?></span></span>
+                    </button>
+
+                    <button type="button" title="<?php echo $this->__('Next'); ?>"
+                            <?php if (!$this->isLastPage()): ?>onclick="location.href = '<?php echo $this->getNextPageUrl(); ?>'"<?php endif; ?>
+                            class="button<?php if ($this->isLastPage()): ?> disabled<?php endif; ?>">
+                        <span><span><?php echo $this->__('Next'); ?></span></span>
+                    </button>
+                </div>
+            <?php endif; ?>
+
+            <?php if ($this->getDisplayUploadButton()) : ?>
+                <div class="action-buttons">
+                    <button type="button" title="<?php echo $this->__('Upload Photo'); ?>"
+                            onclick="location.href = '<?php echo $this->getUploadUrl(); ?>'"
+                            class="button">
+                        <span><span><?php echo $this->__('Upload Photo'); ?></span></span>
+                    </button>
+                </div>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
+
+    <?php echo $this->getChildHtml('bottom'); ?>
+
+</div>
+
+<script type="text/javascript">
+    <?php if (!$this->isJqueryEnable()) : ?>
+    var productView = $$('.product-view').first();
+    if (Object.isElement(productView)) {
+        var productCollateral = productView.select('.product-collateral').first();
+        if (Object.isElement(productCollateral)) {
+            productCollateral.insert({bottom: $('gallery-product-photos')});
+        } else {
+            productView.insert({bottom: $('gallery-product-photos')});
+        }
+    }
+    <?php if ($this->getScrollToPhotos()) : ?>
+    Event.observe(window, 'load', function () {
+        $('gallery-product-photos').scrollTo();
+    });
+    <?php endif; ?>
+
+
+    <?php else : ?>
+    if (jQuery('.product-view .product-collateral').length > 0) {
+        jQuery('#gallery-product-photos').appendTo('.product-view .product-collateral');
+    } else if (jQuery('.product-view').length > 0) {
+        jQuery('#gallery-product-photos').appendTo('.product-view');
+    }
+
+    jQuery(document).ready(function ($) {
+        <?php if ($this->getScrollToPhotos()) : ?>
+        $('html, body').animate({
+            scrollTop: $('#gallery-product-photos').offset().top
+        }, 0);
+        <?php endif; ?>
+
+        $('#gallery-product-photos .photo-image').bind('click', function (event) {
+            event.preventDefault();
+
+            var position = 0;
+            var imgKey = this.id.replace('photo-product-image-', '');
+            for (var i = 0; i < carouselImageUrls.length; i++) {
+                if (carouselImageUrls[i]['id'] == imgKey) {
+                    position = ++i;
+                    break;
+                }
+            }
+
+            Lightview.show(carouselImageUrls, {
+                controls: {
+                    slider: {
+                        items: <?php echo $this->getLimit() < $_photoCount ? $this->getLimit() : $_photoCount; ?>
+                    }
+                },
+                slideshow: <?php echo $this->slideshowDelay(); ?>,
+                onShow: function () {
+                    <?php if($this->isSlideshowAutostart()): ?>
+                    setTimeout(function () {
+                        Lightview.play();
+                    }, <?php echo $this->slideshowDelay(); ?>);
+                    <?php endif; ?>
+                }
+            }, position);
+        });
+
+        $('#photo_view_image').css({"cursor": "pointer"});
+    });
+
+    var carouselImageUrls = <?php echo $this->getImagesJson(); ?>;
+
+    <?php endif; ?>
+</script>
+
+

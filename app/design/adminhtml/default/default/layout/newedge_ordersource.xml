@@ -1,0 +1,45 @@
+<layout version="0.1.0">
+    <adminhtml_sales_order_create_index>
+        <reference name="items">
+            <block type="newedge_ordersource_orders/source" before="-" name="ordersource" template="sales/order/create/ordersource.phtml">
+                <block type="newedge_ordersource_orders/source" before="-" name="ordersourceform" template="sales/order/create/ordersource/ordersourceform.phtml"/>
+            </block>
+        </reference>
+    </adminhtml_sales_order_create_index>
+    <adminhtml_sales_order_create_load_block_data>
+        <reference name="items">
+            <block type="newedge_ordersource_orders/source" before="-" name="ordersource" template="sales/order/create/ordersource.phtml">
+                <block type="newedge_ordersource_orders/source" before="-" name="ordersourceform" template="sales/order/create/ordersource/ordersourceform.phtml"/>
+            </block>
+        </reference>
+    </adminhtml_sales_order_create_load_block_data>
+    <adminhtml_sales_order_view>
+        <reference name="order_info">
+            <action method="setTemplate">
+                <template>sales/order/view/ordersource.phtml</template>
+            </action>
+        </reference>
+    </adminhtml_sales_order_view>
+    <sales_order_grid_update_handle>
+        <reference name="sales_order.grid">
+            <action method="addColumnAfter">
+                <columnId>order_source</columnId>
+                <arguments>
+                    <header>Order Source</header>
+                    <index>order_moto_source</index>
+                    <filter_index>order_moto_source</filter_index>
+                    <type>text</type>
+                </arguments>
+                <after>shipping_name</after>
+            </action>
+        </reference>
+    </sales_order_grid_update_handle>
+    <adminhtml_sales_order_grid>
+        <!-- apply layout handle defined above -->
+        <update handle="sales_order_grid_update_handle" />
+    </adminhtml_sales_order_grid>
+    <adminhtml_sales_order_index>
+        <!-- apply layout handle defined above -->
+        <update handle="sales_order_grid_update_handle" />
+    </adminhtml_sales_order_index>
+</layout>

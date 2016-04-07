@@ -1,0 +1,389 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * MagePlace Gallery Extension
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2014 Mageplace. (http://www.mageplace.com)
+ * @license     http://www.mageplace.com/disclaimer.html
+ */
+-->
+<layout version="0.1.0">
+	<mpgallery_album_view translate="label">
+		<label>Album</label>
+
+		<reference name="root">
+			<action method="setTemplate">
+				<template>page/1column.phtml</template>
+			</action>
+		</reference>
+
+		<reference name="head">
+			<action method="addCss">
+				<stylesheet>mpgallery/css/gallery.css</stylesheet>
+			</action>
+
+			<action method="addJs" ifconfig="mpgallery/general/jquery_add">
+				<script>mpgallery/jquery/jquery.min.js</script>
+			</action>
+
+			<action method="addJs" ifconfig="mpgallery/general/jquery_add">
+				<script>mpgallery/jquery/jquery_noconflict.js</script>
+			</action>
+
+			<action method="addJs" ifconfig="mpgallery/general/jquery_enable">
+				<script>mpgallery/lightview/js/lightview/lightview.js</script>
+			</action>
+
+			<action method="addJs" ifconfig="mpgallery/general/jquery_enable">
+				<script>mpgallery/lightview/js/spinners/spinners.min.js</script>
+			</action>
+
+			<action method="addItem" ifconfig="mpgallery/general/jquery_enable">
+				<type>js_css</type>
+				<name>mpgallery/lightview/css/lightview/lightview.css</name>
+			</action>
+
+			<action method="addItem" ifconfig="mpgallery/general/review_enable">
+				<type>js_css</type>
+				<name>mpgallery/jquery-bar-rating/css/bar-rating.css</name>
+			</action>
+		</reference>
+
+		<reference name="content">
+			<block type="mpgallery/album_view" name="mpgallery.album" template="mpgallery/album/view.phtml">
+				<block type="mpgallery/album_list" name="mpgallery.album.list" template="mpgallery/album/list.phtml">
+					<block type="mpgallery/album_list_toolbar" name="mpgallery.album.list.toolbar"
+						   template="mpgallery/album/list/toolbar.phtml">
+					</block>
+
+					<!-- Hide toolbar block -->
+					<!--
+					<action method="setDisplayToolbarBlock"><display>0</display></action>
+					-->
+
+					<!-- Hide toolbar block for layout -->
+					<!--
+					<action method="addToolbarPosition"><position>bottom</position><show>0</show><layout>one_column</layout></action>
+					-->
+
+					<action method="addToolbarPosition">
+						<position>bottom</position>
+						<show>0</show>
+					</action>
+					<action method="addToolbarPosition">
+						<position>bottom</position>
+						<show>1</show>
+						<layout>one_column</layout>
+					</action>
+
+					<action method="addColumnCountLayoutDepend">
+						<layout>empty</layout>
+						<mode>empty</mode>
+						<count>6</count>
+					</action>
+					<action method="addColumnCountLayoutDepend">
+						<layout>one_column</layout>
+						<count>5</count>
+					</action>
+					<action method="addColumnCountLayoutDepend">
+						<layout>two_columns_left</layout>
+						<count>4</count>
+					</action>
+					<action method="addColumnCountLayoutDepend">
+						<layout>two_columns_right</layout>
+						<count>4</count>
+					</action>
+					<action method="addColumnCountLayoutDepend">
+						<layout>three_columns</layout>
+						<count>3</count>
+					</action>
+
+					<action method="setToolbarBlockName">
+						<name>mpgallery.album.list.toolbar</name>
+					</action>
+				</block>
+
+				<block type="mpgallery/photo_list" name="mpgallery.photo.list" template="mpgallery/photo/list.phtml">
+					<block type="mpgallery/photo_list_toolbar" name="mpgallery.photo.list.toolbar"
+						   template="mpgallery/photo/list/toolbar.phtml">
+
+						<block type="mpgallery/list_pager" name="mpgallery.photo.list.toolbar.pager" />
+
+						<action method="setDefaultGridPerPage">
+							<limit>9</limit>
+						</action>
+						<action method="setDefaultListPerPage">
+							<limit>5</limit>
+						</action>
+						<action method="setDefaultSimplePerPage">
+							<limit>9</limit>
+						</action>
+
+						<action method="addPagerLimit">
+							<mode>list</mode>
+							<limit>5</limit>
+						</action>
+						<action method="addPagerLimit">
+							<mode>list</mode>
+							<limit>10</limit>
+						</action>
+						<action method="addPagerLimit">
+							<mode>list</mode>
+							<limit>20</limit>
+						</action>
+						<action method="addPagerLimit">
+							<mode>list</mode>
+							<limit>50</limit>
+						</action>
+						<action method="addPagerLimit" translate="label">
+							<mode>list</mode>
+							<limit>all</limit>
+							<label>All</label>
+						</action>
+
+						<!-- set toolbar pager block name -->
+						<!--
+						<action method="setToolbarBlockPagerName">
+							<name>mpgallery.photo.list.toolbar.pager</name>
+						</action>
+						-->
+					</block>
+
+					<action method="addColumnCountLayoutDepend">
+						<layout>empty</layout>
+						<count>6</count>
+					</action>
+					<action method="addColumnCountLayoutDepend">
+						<layout>one_column</layout>
+						<count>5</count>
+					</action>
+					<action method="addColumnCountLayoutDepend">
+						<layout>two_columns_left</layout>
+						<count>4</count>
+					</action>
+					<action method="addColumnCountLayoutDepend">
+						<layout>two_columns_right</layout>
+						<count>4</count>
+					</action>
+					<action method="addColumnCountLayoutDepend">
+						<layout>three_columns</layout>
+						<count>3</count>
+					</action>
+
+					<action method="setToolbarBlockName">
+						<name>mpgallery.photo.list.toolbar</name>
+					</action>
+				</block>
+
+				<action method="setAlbumBlockName">
+					<name>mpgallery.album.list</name>
+				</action>
+				<action method="setPhotoBlockName">
+					<name>mpgallery.photo.list</name>
+				</action>
+				<!--
+				<action method="setCmsBlockBlockName">
+					<name>mpgallery.cms.block</name>
+				</action>
+				-->
+			</block>
+		</reference>
+	</mpgallery_album_view>
+
+	<mpgallery_album_photo_upload>
+		<label>Album Upload Photo</label>
+
+		<reference name="root">
+			<action method="setTemplate">
+				<template>page/1column.phtml</template>
+			</action>
+		</reference>
+
+		<reference name="head">
+			<action method="addCss">
+				<stylesheet>mpgallery/css/gallery.css</stylesheet>
+			</action>
+		</reference>
+
+		<reference name="content">
+			<block type="mpgallery/photo_upload" name="mpgallery.album.photo.upload"
+				   template="mpgallery/photo/upload.phtml" />
+		</reference>
+	</mpgallery_album_photo_upload>
+
+    <mpgallery_photo_uploadform>
+        <label>Product Upload Photo</label>
+
+        <update handle="mpgallery_album_photo_upload" />
+    </mpgallery_photo_uploadform>
+
+    <mpgallery_photo_edit>
+        <label>Photo Edit</label>
+
+        <update handle="mpgallery_album_photo_upload" />
+    </mpgallery_photo_edit>
+
+    <mpgallery_customer_uploadform>
+        <label>Customer Photo Upload</label>
+
+        <update handle="mpgallery_album_photo_upload" />
+    </mpgallery_customer_uploadform>
+
+	<mpgallery_photo_view translate="label">
+		<label>Photo</label>
+
+		<reference name="root">
+			<action method="setTemplate">
+				<template>page/1column.phtml</template>
+			</action>
+		</reference>
+
+		<reference name="head">
+			<action method="addCss">
+				<stylesheet>mpgallery/css/gallery.css</stylesheet>
+			</action>
+
+			<action method="addJs" ifconfig="mpgallery/general/jquery_add">
+				<script>mpgallery/jquery/jquery.min.js</script>
+			</action>
+
+			<action method="addJs" ifconfig="mpgallery/general/jquery_add">
+				<script>mpgallery/jquery/jquery_noconflict.js</script>
+			</action>
+
+			<action method="addJs" ifconfig="mpgallery/general/jquery_enable">
+				<script>mpgallery/lightview/js/lightview/lightview.js</script>
+			</action>
+
+			<action method="addJs" ifconfig="mpgallery/general/jquery_enable">
+				<script>mpgallery/lightview/js/spinners/spinners.min.js</script>
+			</action>
+
+			<action method="addItem" ifconfig="mpgallery/general/jquery_enable">
+				<type>js_css</type>
+				<name>mpgallery/lightview/css/lightview/lightview.css</name>
+			</action>
+
+			<action method="addJs" ifconfig="mpgallery/general/review_enable">
+				<script>mpgallery/jquery-bar-rating/jquery.barrating.min.js</script>
+			</action>
+
+			<action method="addItem" ifconfig="mpgallery/general/review_enable">
+				<type>js_css</type>
+				<name>mpgallery/jquery-bar-rating/css/bar-rating.css</name>
+			</action>
+		</reference>
+
+		<reference name="content">
+			<block type="mpgallery/photo_view" name="mpgallery.photo" template="mpgallery/photo/view.phtml">
+				<block type="mpgallery/photo_list_carousel" name="mpgallery.photo.list.carousel"
+					   template="mpgallery/photo/list/carousel.phtml">
+					<action method="setPhotoPerPage">
+						<limit>5</limit>
+					</action>
+				</block>
+
+				<block type="mpgallery/review_list" name="mpgallery.review.list" as="reviews">
+					<action method="setDefaultLimit">
+						<limit>5</limit>
+					</action>
+					<action method="setDefaultOrder">
+						<order>update_date</order>
+					</action>
+					<action method="setDefaultDirection">
+						<order>DESC</order>
+					</action>
+				</block>
+
+				<action method="setPhotoListBlockName">
+					<name>mpgallery.photo.list.carousel</name>
+				</action>
+			</block>
+		</reference>
+	</mpgallery_photo_view>
+
+	<catalog_product_view>
+		<reference name="head">
+			<action method="addCss">
+				<stylesheet>mpgallery/css/gallery.css</stylesheet>
+			</action>
+
+			<action method="addJs" ifconfig="mpgallery/general/jquery_add">
+				<script>mpgallery/jquery/jquery.min.js</script>
+			</action>
+
+			<action method="addJs" ifconfig="mpgallery/general/jquery_add">
+				<script>mpgallery/jquery/jquery_noconflict.js</script>
+			</action>
+
+			<action method="addJs" ifconfig="mpgallery/general/jquery_enable">
+				<script>mpgallery/lightview/js/lightview/lightview.js</script>
+			</action>
+
+			<action method="addJs" ifconfig="mpgallery/general/jquery_enable">
+				<script>mpgallery/lightview/js/spinners/spinners.min.js</script>
+			</action>
+
+			<action method="addItem" ifconfig="mpgallery/general/jquery_enable">
+				<type>js_css</type>
+				<name>mpgallery/lightview/css/lightview/lightview.css</name>
+			</action>
+
+			<action method="addItem" ifconfig="mpgallery/general/review_enable">
+				<type>js_css</type>
+				<name>mpgallery/jquery-bar-rating/css/bar-rating.css</name>
+			</action>
+		</reference>
+
+		<reference name="content">
+			<block type="mpgallery/photo_list_product" name="mpgallery.photo.list.product"
+				   template="mpgallery/photo/list/product.phtml" after="-">
+				<action method="setPhotoPerPage">
+					<limit>3</limit>
+				</action>
+				<action method="setButtonsPosition">
+					<position>bottom</position>
+				</action>
+			</block>
+		</reference>
+	</catalog_product_view>
+
+	<customer_account>
+		<reference name="head">
+			<action method="addCss">
+				<stylesheet>mpgallery/css/gallery.css</stylesheet>
+			</action>
+		</reference>
+
+		<reference name="customer_account_navigation">
+			<action method="addLink" translate="label" module="mpgallery"
+					ifconfig="mpgallery/photo_upload/photos_view">
+				<name>mpgallery_uploaded_photo</name>
+				<path>mpgallery/customer/photos</path>
+				<label>My Photos</label>
+			</action>
+		</reference>
+
+		<reference name="left">
+			<block type="mpgallery/links" name="mpgallery.links" after="-">
+				<action method="addLink">
+					<path>mpgallery/customer/photos</path>
+				</action>
+			</block>
+		</reference>
+	</customer_account>
+
+	<mpgallery_customer_photos>
+		<update handle="customer_account" />
+
+		<reference name="my.account.wrapper">
+			<block type="mpgallery/customer_photo_list" name="mpgallery.customer.photos"
+				   template="mpgallery/customer/list.phtml" />
+			<block type="customer/account_dashboard" name="customer.account.link.back"
+				   template="customer/account/link/back.phtml" />
+		</reference>
+	</mpgallery_customer_photos>
+
+</layout>

@@ -1,0 +1,135 @@
+<?php
+/**
+ * MagePlace Gallery Extension
+ *
+ * @category    Mageplace_Gallery
+ * @package     Mageplace_Gallery
+ * @copyright   Copyright (c) 2014 Mageplace. (http://www.mageplace.com)
+ * @license     http://www.mageplace.com/disclaimer.html
+ */
+
+/**
+ * @var Mageplace_Gallery_Block_Adminhtml_Album_Edit $this
+ */
+?>
+<div id="album-edit-container" class="album-content">
+    <?php echo $this->getChildHtml('form'); ?>
+</div>
+
+<script type="text/javascript">
+    //<![CDATA[
+    function updateContent(url, params, refreshTree) {
+        if (!params) {
+            params = {};
+        }
+
+        if (!params.form_key) {
+            params.form_key = FORM_KEY;
+        }
+
+        toolbarToggle.stop();
+
+        var $albumEditContainer = $('album-edit-container');
+        var $messages = $('messages');
+        var thisObj = this;
+
+        new Ajax.Request(url + (url.match(new RegExp('\\?')) ? '&' : '?') + 'isAjax=true', {
+            parameters: params,
+            evalScripts: true,
+
+            onComplete: function () {
+                setTimeout(function () {
+                    try {
+                        if (refreshTree) {
+                            thisObj.refreshTreeArea();
+                        }
+
+                        toolbarToggle.start();
+                    } catch (e) {
+                        alert(e.message);
+                    }
+                }, 25);
+            },
+
+            onSuccess: function (transport) {
+                try {
+                    if (transport.responseText.isJSON()) {
+                        var response = transport.responseText.evalJSON();
+                        var needUpdate = true;
+
+                        if (response.error) {
+                            alert(response.message);
+                            needUpdate = false;
+                        }
+
+                        if (response.ajaxExpired && response.ajaxRedirect) {
+                            setLocation(response.ajaxRedirect);
+                            needUpdate = false;
+                        }
+
+                        if (needUpdate) {
+                            if (response.content) {
+                                $($albumEditContainer).update(response.content);
+                            }
+                            if (response.messages) {
+                                $($messages).update(response.messages);
+                            }
+                        }
+                    } else {
+                        $($albumEditContainer).update(transport.responseText);
+                    }
+                } catch (e) {
+                    $($albumEditContainer).update(transport.responseText);
+                }
+            }
+        });
+    }
+
+    function refreshTreeArea(transport) {
+        if (tree && window.editingAlbumBreadcrumbs) {
+            if (tree.nodeForDelete) {
+                var node = tree.getNodeById(tree.nodeForDelete);
+                tree.nodeForDelete = false;
+
+                if (node) {
+                    node.parentNode.removeChild(node);
+                    tree.currentNodeId = false;
+                }
+            } else if (tree.addNodeTo) {
+                var parent = tree.getNodeById(tree.addNodeTo);
+                tree.addNodeTo = false;
+
+                if (parent) {
+                    var node = new Ext.tree.AsyncTreeNode(editingAlbumBreadcrumbs[editingAlbumBreadcrumbs.length - 1]);
+                    node.loaded = true;
+                    tree.currentNodeId = node.id;
+                    parent.appendChild(node);
+
+                    if (parent.expanded) {
+                        tree.selectCurrentNode();
+                    } else {
+                        var timer;
+                        parent.expand();
+
+                        var f = function () {
+                            if (parent.expanded) {
+                                clearInterval(timer);
+                                tree.selectCurrentNode();
+                            }
+                        };
+
+                        timer = setInterval(f, 200);
+                    }
+                }
+            }
+
+            for (var i = 0; i < editingAlbumBreadcrumbs.length; i++) {
+                var node = tree.getNodeById(editingAlbumBreadcrumbs[i].id);
+                if (node) {
+                    node.setText(editingAlbumBreadcrumbs[i].text);
+                }
+            }
+        }
+    }
+    //]]>
+</script>

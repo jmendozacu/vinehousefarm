@@ -1,0 +1,252 @@
+<?php
+/**
+ * MagePlace Gallery Extension
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2014 Mageplace. (http://www.mageplace.com)
+ * @license     http://www.mageplace.com/disclaimer.html
+ */
+
+/**
+ * @var Mageplace_Gallery_Block_Photo_View $this
+ */
+
+$_album = $this->getCurrentAlbum();
+$_photo = $this->getCurrentPhoto();
+$_hideList = $this->hideDisplayListBlock();
+$_escapedName = $this->escapeHtml($_photo->getName());
+?>
+    <div class="gallery-photo-messages"><?php echo $this->getMessagesBlock()->getGroupedHtml(); ?></div>
+
+<?php echo $this->getChildHtml('top'); ?>
+
+<?php if ($contentHeading = $this->getContentHeading()) : ?>
+    <div class="page-title">
+        <h1><?php echo $contentHeading; ?></h1>
+    </div>
+<?php endif; ?>
+
+    <div class="gallery-photo-view">
+        <?php if (!$_hideList && $this->isListBlockFirst()) : ?>
+            <?php echo $this->getPhotoListBlock()->setButtonsPosition('top')->toHtml(); ?>
+        <?php endif; ?>
+
+        <?php if ($this->canDisplayButtons()) : ?>
+            <div class="buttons">
+                <button type="button" title="<?php echo $this->__('Prev'); ?>"
+                        <?php if (!$this->isFirstPage()): ?>onclick="location.href = '<?php echo $this->getPreviousPageUrl(); ?>'"<?php endif; ?>
+                        class="button<?php if ($this->isFirstPage()): ?> disabled<?php endif; ?>">
+                    <span><span><?php echo $this->__('Prev'); ?></span></span>
+                </button>
+
+                <button type="button" title="<?php echo $this->__('Next'); ?>"
+                        <?php if (!$this->isLastPage()): ?>onclick="location.href = '<?php echo $this->getNextPageUrl(); ?>'"<?php endif; ?>
+                        class="button<?php if ($this->isLastPage()): ?> disabled<?php endif; ?>">
+                    <span><span><?php echo $this->__('Next'); ?></span></span>
+                </button>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($_imgUrl = $this->getImageSrc()): ?>
+            <div class="photo-img-box">
+                <p class="photo-image">
+                    <img src="<?php echo $_imgUrl; ?>" alt="<?php echo $_escapedName; ?>"
+                         title="<?php echo $_escapedName; ?>"
+                         id="photo-image-<?php echo $_photo->getUrlKey(); ?>"/>
+                </p>
+            </div>
+        <?php endif; ?>
+
+        <div class="photo-info">
+            <?php if ($this->getDisplayName()) : ?>
+                <div class="photo-name">
+                    <h1><?php echo $_photo->getName(); ?></h1>
+                </div>
+            <?php endif; ?>
+
+            <?php if ($this->getDisplayReview()) : ?>
+                <?php $reviewCount = $this->getReviewCount(); ?>
+                <div class="ratings">
+                    <div class="rating-box">
+                        <div class="rating" style="width:<?php echo $this->getAvgRate(); ?>%"></div>
+                    </div>
+                    <p class="rating-links">
+                        <?php if ($reviewCount): ?>
+                            <a href="javascript:void(0);"
+                               onclick="scrollToReviews()"><?php echo $this->helper('review')->__('%d Review(s)', $reviewCount); ?></a>
+                            <span class="separator">|</span>
+                        <?php endif; ?>
+                        <a href="javascript:void(0);"
+                           onclick="scrollToReviewForm()"><?php echo $this->helper('review')->__('Add Your Review'); ?></a>
+                    </p>
+                </div>
+            <?php endif; ?>
+
+            <?php if ($this->getDisplayUpdateDate()) : ?>
+                <div class="update-date">
+                    <?php echo $this->__('Updated: %s', $this->formatDate($_photo->getUpdateDate(), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM)); ?>
+                </div>
+            <?php endif; ?>
+
+            <div class="photo-collateral">
+                <?php if ($this->getDisplayShortDescription() && ($_shortDescription = $_photo->getShortDescription())): ?>
+                    <div class="box-collateral box-short-description std">
+                        <?php echo $_shortDescription; ?>
+                    </div>
+                <?php endif; ?>
+
+                <?php if ($this->getDisplayDescription() && ($_description = $_photo->getDescription())): ?>
+                    <div class="box-collateral box-description">
+                        <div class="std"><?php echo $_description; ?></div>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+
+        <?php if (!$_hideList && !$this->isListBlockFirst()) : ?>
+            <?php echo $this->getPhotoListBlock()->toHtml(); ?>
+        <?php endif; ?>
+
+        <?php if ($this->getDisplayReview()) : ?>
+            <?php if ($reviewCount): ?>
+                <div id="reviews">
+                    <h2><?php echo $this->__('Photo Reviews'); ?></h2>
+
+                    <?php echo $this->getChildHtml('reviews'); ?>
+                </div>
+            <?php endif; ?>
+
+            <div class="review">
+                <h2><?php echo $this->helper('review')->__('Write Your Own Review'); ?></h2>
+
+                <form action="<?php echo $this->getSaveReviewUrl(); ?>" class="bar-rating" method="post"
+                      id="review-form">
+                    <ul class="form-list">
+                        <li class="input select rating-f">
+                            <label for="option-f"
+                                   class="required"><em>*</em><?php echo $this->__('How do you rate this photo?'); ?>
+                            </label>
+
+                            <div class="input-box">
+                                <select id="option-f" name="rate">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5" selected>5</option>
+                                </select>
+                            </div>
+                        </li>
+
+                        <li>
+                            <label for="name_field"
+                                   class="required"><em>*</em><?php echo $this->helper('review')->__('Name'); ?></label>
+
+                            <div class="input-box">
+                                <input type="text" name="name" id="name_field" class="input-text required-entry"
+                                       value="">
+                            </div>
+                        </li>
+                        <li>
+                            <label for="email_field"
+                                   class="required"><em>*</em><?php echo $this->helper('customer')->__('Email'); ?>
+                            </label>
+
+                            <div class="input-box">
+                                <input type="text" name="email" id="email_field"
+                                       class="input-text required-entry validate-email"
+                                       value="">
+                            </div>
+                        </li>
+                        <li>
+                            <label for="comment_field"
+                                   class="required"><em>*</em><?php echo $this->helper('contacts')->__('Comment'); ?>
+                            </label>
+
+                            <div class="input-box">
+                                <textarea name="comment" id="comment_field" cols="5" rows="3"
+                                          class="required-entry"></textarea>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="buttons-set">
+                        <button type="submit" title="<?php echo $this->helper('review')->__('Submit Review'); ?>"
+                                class="button">
+                            <span><span><?php echo $this->helper('review')->__('Submit Review'); ?></span></span>
+                        </button>
+                    </div>
+                </form>
+
+                <script type="text/javascript">
+                    var reviewForm = new VarienForm('review-form');
+                    var scrollToReviews = function () {
+                        $('reviews').scrollTo();
+                    };
+                    var scrollToReviewForm = function () {
+                        $('review-form').scrollTo();
+                    };
+                </script>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($this->getDisplayBackUrl()) : ?>
+            <div class="buttons-set">
+                <p class="back-link">
+                    <a href="<?php echo $this->escapeUrl($this->getBackUrl()); ?>">
+                        <small>&laquo; </small><?php echo $this->__('Back to album %s', $this->getBackTitle()); ?>
+                    </a>
+                </p>
+            </div>
+        <?php endif; ?>
+    </div>
+
+<?php if ($this->isJqueryEnable()) : ?>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $('#option-f').barrating({ showSelectedRating: false });
+
+            $('#photo-image-<?php echo $_photo->getUrlKey(); ?>').bind('click', function (event) {
+                event.preventDefault();
+
+                <?php if($this->isSlidePhotos()) : ?>
+                var imageUrls = <?php echo $this->getImagesJson(); ?>;
+                var position = 0;
+                var imgKey = this.id.replace('photo-image-', '');
+                for (var i = 0; i < imageUrls.length; i++) {
+                    if (imageUrls[i]['id'] == imgKey) {
+                        position = ++i;
+                        break;
+                    }
+                }
+
+                Lightview.show(imageUrls, {
+                    controls: {
+                        slider: {
+                            items: <?php echo $this->getCategoryPhotosLimit() < $this->getCategoryPhotosCount() ? $this->getCategoryPhotosLimit() : $this->getCategoryPhotosCount(); ?>
+                        }
+                    },
+                    slideshow: <?php echo $this->slideshowDelay(); ?>,
+                    onShow: function () {
+                        <?php if($this->isSlideshowAutostart()): ?>
+                        setTimeout(function () {
+                            Lightview.play();
+                        }, <?php echo $this->slideshowDelay(); ?>);
+                        <?php endif; ?>
+                    }
+                }, position);
+                <?php else: ?>
+                Lightview.show({
+                    url: this.src,
+                    title: this.title
+                });
+                <?php endif; ?>
+            });
+
+            $('#photo-image-<?php echo $_photo->getUrlKey(); ?>').css({"cursor": "pointer"});
+        });
+    </script>
+<?php endif; ?>
+
+<?php echo $this->getChildHtml('bottom'); ?>

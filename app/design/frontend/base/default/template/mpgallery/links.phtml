@@ -1,0 +1,29 @@
+<?php
+/**
+ * MagePlace Gallery Extension
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2014 Mageplace. (http://www.mageplace.com)
+ * @license     http://www.mageplace.com/disclaimer.html
+ */
+
+/**
+ * @var Mageplace_Gallery_Block_Links $this
+ */
+
+$_links = $this->getLinks();
+?>
+<script type="text/javascript">
+
+    <?php echo $this->getChildHtml('top'); ?>
+
+    <?php foreach($_links as $path => $_url) : ?>
+    $$('a[href*="' + '<?php echo $path; ?>' + '"]').each(function (el) {
+        el.href = '<?php echo $_url; ?>';
+    });
+    <?php endforeach; ?>
+
+    <?php echo $this->getChildHtml('bottom'); ?>
+
+</script>

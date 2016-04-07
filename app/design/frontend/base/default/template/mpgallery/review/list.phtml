@@ -1,0 +1,82 @@
+<?php
+/**
+ * MagePlace Gallery Extension
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2014 Mageplace. (http://www.mageplace.com)
+ * @license     http://www.mageplace.com/disclaimer.html
+ */
+
+/**
+ * @var Mageplace_Gallery_Block_Review_List $this
+ */
+
+$_reviews = $this->getReviews();
+?>
+
+<?php echo $this->getChildHtml('top'); ?>
+
+<?php if (null !== $_reviews && $_reviews->getSize() > 0): ?>
+    <?php if ($this->displayWrapper()): ?>
+    <dl class="reviews-list" id="photo-review-list">
+        <?php endif; ?>
+        <?php foreach ($_reviews as $_review): ?>
+            <?php echo $this->getReviewHtml($_review); ?>
+        <?php endforeach; ?>
+        <?php if ($this->displayWrapper()): ?>
+    </dl>
+<?php endif; ?>
+
+    <?php if ($this->displayShowMoreButton() && $this->getReviewCount() > $this->getLimit()): ?>
+        <div class="actions">
+            <a href="<?php echo $this->getShowReviewUrl(); ?>"
+               title="<?php echo $this->__('Show more'); ?>"
+               class="link-show-more"
+               onclick="return showMoreReviews(this);"><?php echo $this->__('Show more'); ?></a>
+        </div>
+        <div id="show-more-load-icon" class="ajax-loader" style="display: none;">
+            <img src="<?php echo $this->getSkinUrl('/images/opc-ajax-loader.gif'); ?>" height="16px" width="16px"/>
+        </div>
+
+        <script type="text/javascript">
+            var curPage = <?php echo $this->getCurrentPage(); ?>;
+            var curLimit = <?php echo $this->getLimit(); ?>;
+            var lastPage = <?php echo $_reviews->getLastPageNumber(); ?>;
+
+            var showMoreReviews = function (elem) {
+                var url = elem.href.replace(/limit\=\d/, 'limit=' + curLimit).replace(/page\=\d/, 'page=' + ++curPage);
+                new Ajax.Request(url, {
+                        loaderArea: false,
+
+                        onCreate: function () {
+                            elem.hide();
+                            $('show-more-load-icon').show();
+                        }.bind(this),
+
+                        onComplete: function (transport) {
+                            if(curPage < lastPage) {
+                                elem.show();
+                            }
+                            $('show-more-load-icon').hide();
+                            $('photo-review-list').insert({bottom:transport.responseText});
+                        }.bind(this),
+
+                        onException: function (obj, exception) {
+                            console.log(exception);
+                            $('show-more-load-icon').hide();
+                        }.bind(this)
+                    }
+                );
+
+                return false;
+            }
+        </script>
+    <?php endif; ?>
+<?php else: ?>
+    <?php if ($this->displayEmptyMessage()): ?>
+        <p class="note-msg"><?php echo $this->__('There are no reviews to display.') ?></p>
+    <?php endif; ?>
+<?php endif; ?>
+
+<?php echo $this->getChildHtml('bottom'); ?>

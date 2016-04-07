@@ -1,0 +1,86 @@
+<?php
+/**
+ * MagePlace Gallery Extension
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2014 Mageplace. (http://www.mageplace.com)
+ * @license     http://www.mageplace.com/disclaimer.html
+ */
+
+/**
+ * @var Mageplace_Gallery_Block_Album_View $this
+ */
+
+$_album = $this->getCurrentAlbum();
+if ($this->getDisplayImage() && ($_imgSrc = $this->getImageSrc())) {
+    $_imgHtml = '<p class="album-image"><img src="' . $_imgSrc . '" alt="' . $this->escapeHtml($_album->getName()) . '" title="' . $this->escapeHtml($_album->getName()) . '" id="album_view_image"/></p>';
+}
+?>
+
+    <div class="gallery-album-messages"><?php echo $this->getMessagesBlock()->getGroupedHtml(); ?></div>
+
+<?php echo $this->getChildHtml('top'); ?>
+
+    <div class="gallery-album-view">
+        <?php if ($this->getDisplayName()): ?>
+            <div class="page-title album-title title-buttons">
+                <h1><?php echo $_album->getName(); ?></h1>
+
+                <?php if($this->isUploadButtonVisible()) : ?>
+                <div class="album-actions">
+                    <button type="button" title="<?php echo $this->__('Upload Photo'); ?>" class="button"
+                            onclick="window.location='<?php echo $this->getPhotoUploadUrl(); ?>'">
+                        <span><span><?php echo $this->__('Upload Photo'); ?></span></span>
+                    </button>
+                </div>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($this->getDisplayUpdateDate()) : ?>
+            <div class="update-date">
+                <?php echo $this->__('Updated: %s', $this->formatDate($_album->getUpdateDate(), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM)); ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if (!empty($_imgHtml)): ?>
+            <?php echo $_imgHtml; ?>
+        <?php endif; ?>
+
+        <?php if ($this->getDisplayShortDescription() && ($_shortDescription = $_album->getShortDescription())): ?>
+            <div class="short-description std">
+                <?php echo $_shortDescription; ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($this->getDisplayDescription() && ($_description = $_album->getDescription())): ?>
+            <div class="description std">
+                <?php echo $_description; ?>
+            </div>
+        <?php endif; ?>
+
+        <?php foreach ($this->getBlocksByOrder() as $block): ?>
+            <?php echo $this->getBlockHtmlByType($block); ?>
+            <div class="album-block-delimiter">&nbsp;</div>
+        <?php endforeach; ?>
+    </div>
+
+<?php if ($this->isJqueryEnable() && !empty($_imgHtml)) : ?>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $('#album_view_image').bind('click', function (event) {
+                event.preventDefault();
+
+                Lightview.show({
+                    url: this.src,
+                    title: this.title
+                });
+            });
+
+            $('#album_view_image').css({"cursor": "pointer"});
+        });
+    </script>
+<?php endif; ?>
+
+<?php echo $this->getChildHtml('bottom'); ?>

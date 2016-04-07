@@ -1,0 +1,206 @@
+<?php
+/**
+ * MagePlace Gallery Extension
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2014 Mageplace. (http://www.mageplace.com)
+ * @license     http://www.mageplace.com/disclaimer.html
+ */
+
+/**
+ * @var Mageplace_Gallery_Block_Album_List $this
+ */
+
+$_curAlbum = $this->getCurrentAlbum();
+$_albumCollection = $this->getAlbums();
+$_albumCount = $_albumCollection->count();
+$_helper = $this->helper('mpgallery');
+$_urlHelper = $this->helper('mpgallery/url');
+$_mode = $this->getMode();
+?>
+<?php echo $this->getChildHtml('top'); ?>
+<?php if (!$_albumCount): ?>
+    <?php if ($this->canDisplayEmptyMessage()) : ?>
+        <p class="note-msg"><?php echo $this->__('There are no albums matching the selection.') ?></p>
+    <?php endif; ?>
+<?php else: ?>
+    <div class="gallery-albums">
+        <?php if ($this->canDisplayTopToolbar()) : ?>
+            <?php echo $this->getToolbarHtml(); ?>
+        <?php endif; ?>
+
+        <?php if ($_mode == 'list'): ?>
+            <?php $_iterator = 0; ?>
+            <ol class="albums-list" id="albums-list">
+                <?php /** @var Mageplace_Gallery_Model_Album $_album */ ?>
+                <?php foreach ($_albumCollection as $_album): ?>
+                    <?php $_albumNameStripped = $this->stripTags($_album->getName(), null, true); ?>
+                    <li class="item<?php if (++$_iterator == $_albumCount): ?> last<?php endif; ?>">
+                        <a href="<?php echo $_urlHelper->getAlbumUrl($_album); ?>" title="<?php echo $_albumNameStripped; ?>"
+                           class="album-image"><img
+                                src="<?php echo $this->getImage($_album, 'small_image', $this->getAlbumSizes()->getAlbumListThumbSize()); ?>"
+                                alt="<?php echo $_albumNameStripped; ?>"/></a>
+
+                        <div class="album-info">
+                            <div class="f-fix">
+                                <?php if ($this->getDisplayName()) : ?>
+                                    <h2 class="album-name">
+                                        <a href="<?php echo $_urlHelper->getAlbumUrl($_album); ?>"
+                                           title="<?php echo $_albumNameStripped; ?>">
+                                            <?php echo $_album->getName(); ?>
+                                        </a>
+                                    </h2>
+                                <?php endif; ?>
+
+                                <?php if ($this->getDisplayUpdateDate()) : ?>
+                                    <div class="update-date">
+                                        <?php echo $this->formatDate($_album->getUpdateDate(), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM); ?>
+                                    </div>
+                                <?php endif; ?>
+
+                                <?php if ($this->getDisplayShortDescription()) : ?>
+                                    <div class="desc std">
+                                        <?php echo $_album->getShortDescription(); ?>
+                                    </div>
+                                <?php endif; ?>
+
+                                <?php if ($this->getDisplayShowLink()) : ?>
+                                    <div class="actions">
+                                        <a href="<?php echo $_urlHelper->getAlbumUrl($_album); ?>"
+                                           title="<?php echo $_albumNameStripped; ?>"
+                                           class="link-learn"><?php echo $this->__('Show'); ?></a>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+            </ol>
+
+            <script type="text/javascript">
+                decorateList('albums-list', 'none-recursive')
+            </script>
+
+        <?php elseif ($_mode == 'simple'): ?>
+
+        <?php $_columnCount = $this->getColumnCount(); ?>
+
+        <?php $i = 0; ?>
+        <?php /** @var Mageplace_Gallery_Model_Album $_album */ ?>
+        <?php foreach ($_albumCollection as $_album): ?>
+        <?php $_albumNameStripped = $this->stripTags($_album->getName(), null, true); ?>
+
+        <?php if ($i++ % $_columnCount == 0): ?>
+            <ul class="albums-simple">
+        <?php endif ?>
+            <li class="item<?php if (($i - 1) % $_columnCount == 0): ?> first<?php elseif ($i % $_columnCount == 0): ?> last<?php endif; ?>">
+                <a href="<?php echo $_urlHelper->getAlbumUrl($_album); ?>" title="<?php echo $_albumNameStripped; ?>"
+                   class="album-image"><img
+                        src="<?php echo $this->getImage($_album, 'small_image', $this->getAlbumSizes()->getAlbumSimpleThumbSize()); ?>"
+                        alt="<?php echo $_albumNameStripped; ?>"/></a>
+
+                <?php if ($this->getDisplayName()) : ?>
+                    <h2 class="album-name">
+                        <a href="<?php echo $_urlHelper->getAlbumUrl($_album); ?>"
+                           title="<?php echo $_albumNameStripped; ?>">
+                            <?php echo $_album->getName(); ?>
+                        </a>
+                    </h2>
+                <?php endif; ?>
+
+                <?php if ($this->getDisplayUpdateDate()) : ?>
+                    <div class="update-date">
+                        <?php echo $this->formatDate($_album->getUpdateDate(), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM); ?>
+                    </div>
+                <?php endif; ?>
+
+                <?php if ($this->getDisplayShortDescription()) : ?>
+                    <div class="desc std">
+                        <?php echo $_album->getShortDescription(); ?>
+                    </div>
+                <?php endif; ?>
+
+                <?php if ($this->getDisplayShowLink()) : ?>
+                    <div class="actions">
+                        <a href="<?php echo $_urlHelper->getAlbumUrl($_album); ?>"
+                           title="<?php echo $_albumNameStripped; ?>"
+                           class="link-learn"><?php echo $this->__('Show'); ?></a>
+                    </div>
+                <?php endif; ?>
+            </li>
+            <?php if ($i % $_columnCount == 0 || $i == $_albumCount): ?>
+            </ul>
+        <?php endif ?>
+        <?php endforeach ?>
+
+            <script type="text/javascript">
+                decorateGeneric($$('ul.albums-simple'), ['odd', 'even', 'first', 'last'])
+            </script>
+
+        <?php else: ?>
+
+        <?php $_columnCount = $this->getColumnCount(); ?>
+
+        <?php $i = 0; ?>
+        <?php /** @var Mageplace_Gallery_Model_Album $_album */ ?>
+        <?php foreach ($_albumCollection as $_album): ?>
+        <?php $_albumNameStripped = $this->stripTags($_album->getName(), null, true); ?>
+
+        <?php if ($i++ % $_columnCount == 0): ?>
+            <ul class="albums-grid">
+        <?php endif ?>
+            <li class="item<?php if (($i - 1) % $_columnCount == 0): ?> first<?php elseif ($i % $_columnCount == 0): ?> last<?php endif; ?>">
+                <a href="<?php echo $_urlHelper->getAlbumUrl($_album); ?>" title="<?php echo $_albumNameStripped; ?>"
+                   class="album-image"><img
+                        src="<?php echo $this->getImage($_album, 'small_image', $this->getAlbumSizes()->getAlbumGridThumbSize()); ?>"
+                        alt="<?php echo $_albumNameStripped; ?>"/></a>
+
+                <?php if ($this->getDisplayName()) : ?>
+                    <h2 class="album-name">
+                        <a href="<?php echo $_urlHelper->getAlbumUrl($_album); ?>"
+                           title="<?php echo $_albumNameStripped; ?>">
+                            <?php echo $_album->getName(); ?>
+                        </a>
+                    </h2>
+                <?php endif; ?>
+
+                <?php if ($this->getDisplayUpdateDate()) : ?>
+                    <div class="update-date">
+                        <?php echo $this->formatDate($_album->getUpdateDate(), Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM); ?>
+                    </div>
+                <?php endif; ?>
+
+                <?php if ($this->getDisplayShortDescription()) : ?>
+                    <div class="desc std">
+                        <?php echo $_album->getShortDescription(); ?>
+                    </div>
+                <?php endif; ?>
+
+                <?php if ($this->getDisplayShowLink()) : ?>
+                    <div class="actions">
+                        <a href="<?php echo $_urlHelper->getAlbumUrl($_album); ?>"
+                           title="<?php echo $_albumNameStripped; ?>"
+                           class="link-learn"><?php echo $this->__('Show'); ?></a>
+                    </div>
+                <?php endif; ?>
+            </li>
+            <?php if ($i % $_columnCount == 0 || $i == $_albumCount): ?>
+            </ul>
+        <?php endif ?>
+        <?php endforeach ?>
+
+            <script type="text/javascript">
+                decorateGeneric($$('ul.albums-grid'), ['odd', 'even', 'first', 'last'])
+            </script>
+        <?php endif; ?>
+
+        <?php if ($this->canDisplayBottomToolbar()): ?>
+            <div class="toolbar-bottom">
+                <?php echo $this->getToolbarHtml(); ?>
+            </div>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>
+
+<?php echo $this->getChildHtml('bottom'); ?>
