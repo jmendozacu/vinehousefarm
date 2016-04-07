@@ -17,9 +17,9 @@ class Newedge_OrderSource_Model_Observer
 		return $this;
 	}
 
-	public function extendOrderViewGrid(){
+	public function extendOrderViewGrid($observer){
 		$collection = $observer->getOrderGridCollection();
 		$select = $collection->getSelect();
-		$select->joinLeft(array('payment'=>$collection->getTable('sales/order_payment')), 'payment.parent_id=main_table.entity_id',array('payment_method'=>'method'));
+		$select->joinLeft(array('order'=>$collection->getTable('sales/order')), 'order.entity_id=main_table.entity_id',array('order_source'=>'order_moto_source'));
 	}
 }

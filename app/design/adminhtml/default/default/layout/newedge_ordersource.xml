@@ -26,8 +26,8 @@
                 <columnId>order_source</columnId>
                 <arguments>
                     <header>Order Source</header>
-                    <index>order_moto_source</index>
-                    <filter_index>order_moto_source</filter_index>
+                    <index>order_source</index>
+                    <filter_index>order.order_moto_source</filter_index>
                     <type>text</type>
                 </arguments>
                 <after>shipping_name</after>

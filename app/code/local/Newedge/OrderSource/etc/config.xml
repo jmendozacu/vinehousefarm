@@ -24,6 +24,14 @@
                     </newedge_ordersource>
                 </observers>
             </checkout_submit_all_after>
+            <sales_order_grid_collection_load_before>
+                <observers>
+                    <newedge_extendgrid>
+                        <model>Newedge_OrderSource_Model_Observer</model>
+                        <method>extendOrderViewGrid</method>
+                    </newedge_extendgrid>
+                </observers>
+            </sales_order_grid_collection_load_before>
         </events>
     </adminhtml>
     <global>
