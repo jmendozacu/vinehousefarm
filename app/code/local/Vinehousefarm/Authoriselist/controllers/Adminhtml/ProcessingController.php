@@ -310,12 +310,12 @@ class Vinehousefarm_Authoriselist_Adminhtml_ProcessingController extends Mage_Ad
             foreach ($orders as $order) {
 
                 if (!$order->getShippingLabels()) {
-                    Mage::getSingleton('adminhtml/session')->addError($this->__('It does not indicate the number of labels by order : %s', $order->getIncrementId()));
+                    Mage::getSingleton('adminhtml/session')->addError($this->__('Order does not specify number of labels : %s', $order->getIncrementId()));
                     continue;
                 }
 
                 if (!Mage::helper('vinehousefarm_common')->useWarehouse($order)) {
-                    Mage::getSingleton('adminhtml/session')->addError($this->__('Not used warehous by order : %s', $order->getIncrementId()));
+                    Mage::getSingleton('adminhtml/session')->addError($this->__('Order does not use a warehouse: %s', $order->getIncrementId()));
                     continue;
                 }
 

@@ -31,7 +31,7 @@ class Vinehousefarm_Authoriselist_Block_Adminhtml_Processing_Grid extends Mage_A
     {
         $collection = Mage::getResourceModel($this->_getCollectionClass())
             ->addFieldToFilter('entity_id', array('in', $this->getOrderIds()))
-            ->addAttributeToFilter('status', array('nin' => array(Vinehousefarm_Authoriselist_Helper_Data::STATUS_ORDER_PICKING, Vinehousefarm_Deliverydate_Helper_Data::STATUS_ORDER_DELIVERY_DATE, Vinehousefarm_Authoriselist_Helper_Data::STATUS_ORDER_AUTHORISE)));
+            ->addAttributeToFilter('order.status', array('nin' => array(Vinehousefarm_Authoriselist_Helper_Data::STATUS_ORDER_PICKING, Vinehousefarm_Deliverydate_Helper_Data::STATUS_ORDER_DELIVERY_DATE, Vinehousefarm_Authoriselist_Helper_Data::STATUS_ORDER_AUTHORISE)));
 
         $this->setCollection($collection);
         return parent::_prepareCollection();
@@ -61,7 +61,7 @@ class Vinehousefarm_Authoriselist_Block_Adminhtml_Processing_Grid extends Mage_A
             ));
         }
 
-        $this->addColumn('created_at', array(
+        $this->addColumn('order.created_at', array(
             'header' => Mage::helper('sales')->__('Purchased On'),
             'index' => 'created_at',
             'type' => 'datetime',

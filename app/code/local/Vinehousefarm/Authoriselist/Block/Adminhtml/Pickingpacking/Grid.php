@@ -31,7 +31,7 @@ class Vinehousefarm_Authoriselist_Block_Adminhtml_Pickingpacking_Grid extends Ma
     {
         $collection = Mage::getResourceModel($this->_getCollectionClass())
             ->addFieldToFilter('entity_id', array('in', $this->getOrderIds()))
-            ->addAttributeToFilter('status', array('in' => array(Vinehousefarm_Authoriselist_Helper_Data::STATUS_ORDER_PICKING)));
+            ->addAttributeToFilter('order.status', array('in' => array(Vinehousefarm_Authoriselist_Helper_Data::STATUS_ORDER_PICKING)));
 
         $this->setCollection($collection);
         return parent::_prepareCollection();
@@ -61,7 +61,7 @@ class Vinehousefarm_Authoriselist_Block_Adminhtml_Pickingpacking_Grid extends Ma
             ));
         }
 
-        $this->addColumn('created_at', array(
+        $this->addColumn('order.created_at', array(
             'header' => Mage::helper('sales')->__('Purchased On'),
             'index' => 'created_at',
             'type' => 'datetime',

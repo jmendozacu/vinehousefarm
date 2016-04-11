@@ -54,7 +54,7 @@ class Vinehousefarm_Authoriselist_Block_Adminhtml_Ordersearch_Grid extends Mage_
             ));
         }
 
-        $this->addColumn('created_at', array(
+        $this->addColumn('order.created_at', array(
             'header' => Mage::helper('sales')->__('Purchased On'),
             'index' => 'created_at',
             'type' => 'datetime',

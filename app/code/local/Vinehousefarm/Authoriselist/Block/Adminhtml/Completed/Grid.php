@@ -31,7 +31,7 @@ class Vinehousefarm_Authoriselist_Block_Adminhtml_Completed_Grid extends Mage_Ad
     {
         $collection = Mage::getResourceModel($this->_getCollectionClass())
             //->addFieldToFilter('entity_id', array('nin', $this->getOrderIds()))
-            ->addAttributeToFilter('status', array('in' => array(Mage_Sales_Model_Order::STATE_COMPLETE)));
+            ->addAttributeToFilter('order.status', array('in' => array(Mage_Sales_Model_Order::STATE_COMPLETE)));
 
         $this->setCollection($collection);
         return parent::_prepareCollection();
@@ -62,7 +62,7 @@ class Vinehousefarm_Authoriselist_Block_Adminhtml_Completed_Grid extends Mage_Ad
             ));
         }
 
-        $this->addColumn('created_at', array(
+        $this->addColumn('order.created_at', array(
             'header' => Mage::helper('sales')->__('Purchased On'),
             'index' => 'created_at',
             'type' => 'datetime',

@@ -18,6 +18,12 @@
         <type>sales</type>
         <sort_order>10</sort_order>
     </bestsellers>
+    <county module="advancedreports" translate="title">
+        <title>by County</title>
+        <action>advancedreports_admin/county</action>
+        <type>sales</type>
+        <sort_order>46</sort_order>
+    </county>
     <country module="advancedreports" translate="title">
         <title>by Country</title>
         <action>advancedreports_admin/country</action>

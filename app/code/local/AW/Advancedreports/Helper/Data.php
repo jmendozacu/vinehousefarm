@@ -37,6 +37,7 @@ class AW_Advancedreports_Helper_Data extends AW_Advancedreports_Helper_Abstract
     const ROUTE_SALES_SALESOVERVIEW = 'advanced_salesoverview';
     const ROUTE_ADVANCED_BESTSELLERS = 'advanced_bestsellers';
     const ROUTE_ADVANCED_COUNTRY = 'advanced_country';
+    const ROUTE_ADVANCED_COUNTY = 'advanced_county';
     const ROUTE_ADVANCED_HOURS = 'advanced_hours';
     const ROUTE_ADVANCED_DAYOFWEEK = 'advanced_dayofweek';
     const ROUTE_ADVANCED_PRODUCTS = 'advanced_product';
@@ -593,6 +594,10 @@ class AW_Advancedreports_Helper_Data extends AW_Advancedreports_Helper_Abstract
             array('value' => 'percent_data', 'label' => 'Percent'),
         );
 
+        $params[self::ROUTE_ADVANCED_COUNTY] = array(
+            array('value' => 'percent_data', 'label' => 'Percent'),
+        );
+
         $params[self::ROUTE_ADVANCED_HOURS] = array(
             array('value' => 'data_for_chart', 'label' => 'Data for Chart'),
         );
@@ -655,6 +660,7 @@ class AW_Advancedreports_Helper_Data extends AW_Advancedreports_Helper_Abstract
         $params[self::ROUTE_SALES_SALESOVERVIEW] = false;
         $params[self::ROUTE_ADVANCED_BESTSELLERS] = true;
         $params[self::ROUTE_ADVANCED_COUNTRY] = true;
+        $params[self::ROUTE_ADVANCED_COUNTY] = true;
         $params[self::ROUTE_ADVANCED_HOURS] = true;
         $params[self::ROUTE_ADVANCED_DAYOFWEEK] = true;
         $params[self::ROUTE_ADVANCED_PRODUCTS] = true;
@@ -674,6 +680,7 @@ class AW_Advancedreports_Helper_Data extends AW_Advancedreports_Helper_Abstract
         $params[self::ROUTE_SALES_SALESOVERVIEW] = true;
         $params[self::ROUTE_ADVANCED_BESTSELLERS] = true;
         $params[self::ROUTE_ADVANCED_COUNTRY] = true;
+        $params[self::ROUTE_ADVANCED_COUNTY] = true;
         $params[self::ROUTE_ADVANCED_HOURS] = true;
         $params[self::ROUTE_ADVANCED_DAYOFWEEK] = true;
         $params[self::ROUTE_ADVANCED_PRODUCTS] = true;
