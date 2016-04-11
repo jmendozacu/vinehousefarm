@@ -94,12 +94,12 @@
                             <input type="text" name="billing[telephone]" value="<?php echo $this->escapeHtml($this->getAddress()->getTelephone()) ?>" title="<?php echo $this->__('Telephone') ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('telephone') ?>" id="billing:telephone" />
                         
                     </div>
-                    <div class="input-box">
-                        <label for="billing:fax"><?php echo $this->__('Fax') ?></label>
-                       
-                            <input type="text" name="billing[fax]" value="<?php echo $this->escapeHtml($this->getAddress()->getFax()) ?>" title="<?php echo $this->__('Fax') ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('fax') ?>" id="billing:fax" />
-                        
-                    </div>
+<!--                    <div class="input-box">-->
+<!--                        <label for="billing:fax">--><?php //echo $this->__('Fax') ?><!--</label>-->
+<!--                       -->
+<!--                            <input type="text" name="billing[fax]" value="--><?php //echo $this->escapeHtml($this->getAddress()->getFax()) ?><!--" title="--><?php //echo $this->__('Fax') ?><!--" class="input-text --><?php //echo $this->helper('customer/address')->getAttributeValidationClass('fax') ?><!--" id="billing:fax" />-->
+<!--                        -->
+<!--                    </div>-->
                 </li>
                 <?php if (Mage::helper('heardaboutus')->isLicenseValid()) { ?>
                     <li class="fields">
