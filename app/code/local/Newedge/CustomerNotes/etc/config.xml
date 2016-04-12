@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+
+<config>
+    <modules>
+        <Newedge_CustomerNotes>
+            <version>1.0.0</version>
+        </Newedge_CustomerNotes>
+    </modules>
+
+    <global>
+        <helpers>
+            <newedge_customernotes>
+                <class>Newedge_OrderSource_Helper</class>
+            </newedge_customernotes>
+        </helpers>
+        <models>
+            <newedge_customernotes>
+                <class>Newedge_OrderSource_Model</class>
+                <resourceModel>newedge_ordersource_resource</resourceModel>
+            </newedge_customernotes>
+            <newedge_customernotes_resource>
+                <class>Newedge_OrderSource_Model_Resource</class>
+                <entities>
+                    <source>
+                        <table>order_moto_source</table>
+                    </source>
+                </entities>
+            </newedge_customernotes_resource>
+        </models>
+        <resources>
+            <newedge_customernotes_setup>
+                <setup>
+                    <module>Newedge_CustomerNotes</module>
+                </setup>
+            </newedge_customernotes_setup>
+        </resources>
+    </global>
+    <adminhtml>
+        <events>
+            <checkout_submit_all_after>
+                <observers>
+                    <newedge_customernotes_savenotes>
+                        <type>model</type>
+                        <class>Newedge_CustomerNotes_Model_Observer</class>
+                        <method>adminhtmlSalesOrderCreateProcessData</method>
+                    </newedge_customernotes_savenotes>
+                </observers>
+            </checkout_submit_all_after>
+        </events>
+    </adminhtml>
+</config>
