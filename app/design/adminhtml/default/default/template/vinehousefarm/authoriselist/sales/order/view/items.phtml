@@ -81,7 +81,7 @@
     var approveForm = new varienForm('authoriselist');
 
         approveForm.submitAction = function () {
-            debugger;
+//            debugger;
             if (this.validator && this.validator.validate()) {
                 this.submit('<?php echo $this->getUrl('*/*/approve') ?>');
             };

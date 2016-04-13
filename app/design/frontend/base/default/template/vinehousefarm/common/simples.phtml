@@ -41,7 +41,7 @@
         jQuery('.whf-package-pricing-product-input .whf-checkbox-box').on('click', function() {
             var checkbox = jQuery(this).closest('.whf-package-pricing-product-input').find('.whf-checkbox');
             checkbox.prop("checked", !checkbox.prop("checked"));
-            debugger;
+//            debugger;
             if (checkbox.prop("checked")) {
                 jQuery(this).closest('.whf-package-pricing-product-input').parent().parent().find('#product-id').prop('name','product-id[]');
                 jQuery(this).closest('.whf-package-pricing-product-input').parent().parent().find('#product-qty').prop('name','product-qty[]');
