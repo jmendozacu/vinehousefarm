@@ -314,9 +314,12 @@
           <reference name="root">
             <action method="setTemplate"><template>page/2columns-right-dashboard.phtml</template></action>
           </reference>
-                
-                <reference name="left">           
-
+            <reference name="customer_account_navigation">
+                <remove name="sagepaycards" />
+                <action method="removeLink"><name>billing_agreements</name></action>
+            </reference>
+                <reference name="left">
+                        <remove name="account"/>
                         <remove name="catalog.compare.sidebar"/>
                         <remove name="tags_popular"/>
                         <remove name="right.reports.product.viewed"/>

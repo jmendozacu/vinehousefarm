@@ -11,6 +11,20 @@
             
             <?php $_links = $this->getLinks(); ?>
             <?php $_index = 1; ?>
+            <?php
+//            $_count = count($_links); /* Add or Remove Account Left Navigation Links Here -*/
+                unset($_links['sagepaycards']); /* Sagepay Saved Cards */
+                unset($_links['recurring_profiles']); /* Recurring Profiles */
+                unset($_links['reviews']);  /* Reviews */
+                unset($_links['tags']); /* My Tags */
+                unset($_links['wishlist']); /* Wishlist */
+                unset($_links['downloadable_products']); /* My Downloadable Products */
+                unset($_links['OAuth Customer Tokens']); /* My Applications */
+                unset($_links['billing_agreements']); /* Billing Agreements */
+                unset($_links['aitloyalty']); /* Available Specials */
+                unset($_links['raf']); /* Referred Friends */
+                unset($_links['ProductReturn']); /* Product Returns */
+            ?>
             <?php $_count = count($_links); ?>
             <?php foreach ($_links as $_link): ?>
                 <?php $_last = ($_index++ >= $_count); ?>
