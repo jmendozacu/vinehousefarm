@@ -25,4 +25,17 @@ class Vinehousefarm_Authoriselist_Adminhtml_OrdersearchController extends Mage_A
     {
         return Mage::getSingleton('admin/session')->isAllowed('sales/authoriselist/ordersearch');
     }
+
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/grid', array('_current'=> true));
+    }
+
+    public function gridAction()
+    {
+        $this->loadLayout();
+        $this->getResponse()->setBody(
+            $this->getLayout()->createBlock('authoriselist/adminhtml_ordersearch_grid')->toHtml()
+        );
+    }
 }

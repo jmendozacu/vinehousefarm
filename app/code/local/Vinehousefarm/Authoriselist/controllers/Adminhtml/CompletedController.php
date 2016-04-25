@@ -25,4 +25,17 @@ class Vinehousefarm_Authoriselist_Adminhtml_CompletedController extends Mage_Adm
     {
         return Mage::getSingleton('admin/session')->isAllowed('sales/authoriselist/completed');
     }
+
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/grid', array('_current'=> true));
+    }
+
+    public function gridAction()
+    {
+        $this->loadLayout();
+        $this->getResponse()->setBody(
+            $this->getLayout()->createBlock('authoriselist/adminhtml_completed_grid')->toHtml()
+        );
+    }
 }

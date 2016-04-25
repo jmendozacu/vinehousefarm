@@ -94,6 +94,6 @@ class Vinehousefarm_Authoriselist_Adminhtml_AuthoriselistController extends Mage
 
     protected function _isAllowed()
     {
-        return Mage::getSingleton('admin/session')->isAllowed('sales/authorisation/moto');
+        return Mage::getSingleton('admin/session')->isAllowed('sales/authoriselist/authorisation/moto');
     }
 }

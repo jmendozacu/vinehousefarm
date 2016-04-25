@@ -13,7 +13,7 @@ class Vinehousefarm_Authoriselist_Block_Adminhtml_Pickingpacking extends Mage_Ad
         $this->_blockGroup = 'authoriselist';
         $this->_controller = 'adminhtml_pickingpacking';
 
-        $this->_headerText = Mage::helper('sales')->__('Picking / Packing');
+        $this->_headerText = Mage::helper('sales')->__('Picking/Packing');
 
         parent::__construct();
 

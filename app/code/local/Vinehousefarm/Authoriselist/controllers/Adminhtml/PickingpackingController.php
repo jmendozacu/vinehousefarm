@@ -21,6 +21,19 @@ class Vinehousefarm_Authoriselist_Adminhtml_PickingpackingController extends Mag
             ->renderLayout();
     }
 
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/grid', array('_current'=> true));
+    }
+
+    public function gridAction()
+    {
+        $this->loadLayout();
+        $this->getResponse()->setBody(
+            $this->getLayout()->createBlock('authoriselist/adminhtml_pickingpacking_grid')->toHtml()
+        );
+    }
+
     public function reasonAction()
     {
         $orderId = $this->getRequest()->getParam('order_id');
